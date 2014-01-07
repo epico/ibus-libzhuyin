@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Tue Jan  7 13:34:55 2014 -->
+<interface>
+  <!-- interface-requires gtk+ 3.10 -->
+  <object class="GtkWindow" id="window1">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkNotebook" id="notebook1">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <child>
+          <object class="GtkGrid" id="grid1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">10</property>
+            <property name="margin_right">10</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="row_spacing">10</property>
+            <property name="column_spacing">10</property>
+            <property name="row_homogeneous">True</property>
+            <child>
+              <object class="GtkCheckButton" id="autoshiftcursor">
+                <property name="label" translatable="yes">Auto Shift Cursor</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="addphraseforward">
+                <property name="label" translatable="yes">Add Phrase Forward</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="easysymbolinput">
+                <property name="label" translatable="yes">Easy Symbol Input</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="cleanallbuffer">
+                <property name="label" translatable="yes">Esc key to Clean all Buffer</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">3</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="alwaysinputnum">
+                <property name="label" translatable="yes">Always Input Numbers by Input Pad</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="rearwardchoice">
+                <property name="label" translatable="yes">Rearward Phrase Choice</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">5</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="spaceasselection">
+                <property name="label" translatable="yes">Space as Selection Key</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">6</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="label1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Inputting</property>
+          </object>
+          <packing>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">10</property>
+            <property name="margin_right">10</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="border_width">10</property>
+            <property name="row_spacing">10</property>
+            <property name="column_spacing">10</property>
+            <property name="row_homogeneous">True</property>
+            <child>
+              <object class="GtkLabel" id="label4">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="label" translatable="yes">Keyboard Layout</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label5">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="label" translatable="yes">Candidate Choose Keys</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="keyboardlayout">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="candidatekeys">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="has_entry">True</property>
+                <child internal-child="entry">
+                  <object class="GtkEntry" id="combobox-entry">
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="label" translatable="yes">Candidates per Page</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="candidatenum">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="label2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Keyboard</property>
+          </object>
+          <packing>
+            <property name="position">1</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
