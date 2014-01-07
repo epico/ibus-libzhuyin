@@ -1,7 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Tue Jan  7 13:34:55 2014 -->
+<!-- Generated with glade 3.16.0 on Tue Jan  7 14:01:02 2014 -->
 <interface>
   <!-- interface-requires gtk+ 3.10 -->
+  <object class="GtkListStore" id="liststoreKeyboardMapping">
+    <columns>
+      <!-- column-name mapping -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Standard</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">HSU</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">IBM</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">GinYieh</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Eten</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Eten26</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Standard Dvorak</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">HSU Dvorak</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">DaChen CP26</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="liststoreSelectionKeys">
+    <columns>
+      <!-- column-name keys -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">1234567890</col>
+      </row>
+      <row>
+        <col id="0">asdfghjkl;</col>
+      </row>
+      <row>
+        <col id="0">asdfzxcv89</col>
+      </row>
+      <row>
+        <col id="0">asdfjkl789</col>
+      </row>
+      <row>
+        <col id="0">aoeu;qjkix</col>
+      </row>
+      <row>
+        <col id="0">aoeuhtnsid</col>
+      </row>
+      <row>
+        <col id="0">aoeuidhtns</col>
+      </row>
+      <row>
+        <col id="0">1234qweras</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <child>
@@ -216,6 +283,7 @@
                 <property name="can_focus">False</property>
                 <property name="valign">center</property>
                 <property name="margin_left">10</property>
+                <property name="model">liststoreKeyboardMapping</property>
                 <child>
                   <object class="GtkCellRendererText" id="cellrenderertext1"/>
                 </child>
@@ -233,7 +301,9 @@
                 <property name="can_focus">False</property>
                 <property name="valign">center</property>
                 <property name="margin_left">10</property>
+                <property name="model">liststoreSelectionKeys</property>
                 <property name="has_entry">True</property>
+                <property name="entry_text_column">0</property>
                 <child internal-child="entry">
                   <object class="GtkEntry" id="combobox-entry">
                     <property name="can_focus">False</property>
