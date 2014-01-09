@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Thu Jan  9 12:37:58 2014 -->
+<!-- Generated with glade 3.16.0 on Thu Jan  9 15:31:55 2014 -->
 <interface>
   <!-- interface-requires gtk+ 3.10 -->
+  <object class="GtkAdjustment" id="adjustmentCandidate">
+    <property name="lower">1</property>
+    <property name="upper">10</property>
+    <property name="value">5</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkListStore" id="liststoreKeyboardMapping">
     <columns>
       <!-- column-name mapping -->
@@ -88,8 +95,8 @@
             <property name="column_spacing">10</property>
             <property name="row_homogeneous">True</property>
             <child>
-              <object class="GtkCheckButton" id="autoshiftcursor">
-                <property name="label" translatable="yes">Auto Shift Cursor</property>
+              <object class="GtkCheckButton" id="fullhalfshape">
+                <property name="label" translatable="yes">Use Full Width Glyphs When Start-up</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -107,8 +114,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="addphraseforward">
-                <property name="label" translatable="yes">Add Phrase Forward</property>
+              <object class="GtkCheckButton" id="autoshiftcursor">
+                <property name="label" translatable="yes">Auto Shift Cursor</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -126,8 +133,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="easysymbolinput">
-                <property name="label" translatable="yes">Easy Symbol Input</property>
+              <object class="GtkCheckButton" id="addphraseforward">
+                <property name="label" translatable="yes">Add Phrase Forward</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -342,6 +349,9 @@
                 <property name="halign">start</property>
                 <property name="valign">center</property>
                 <property name="margin_left">10</property>
+                <property name="input_purpose">number</property>
+                <property name="adjustment">adjustmentCandidate</property>
+                <property name="numeric">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -506,30 +516,24 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkCheckButton" id="FuzzyPinyin_AN_ANG">
+                <property name="label" translatable="yes">an &lt;=&gt; ang</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
             </child>
-          </object>
-          <packing>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child type="tab">
-          <object class="GtkLabel" id="label3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Fuzzy Consonants</property>
-          </object>
-          <packing>
-            <property name="position">2</property>
-            <property name="tab_fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkGrid" id="grid4">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="row_homogeneous">True</property>
-            <property name="column_homogeneous">True</property>
             <child>
               <object class="GtkCheckButton" id="FuzzyPinyin_EN_ENG">
                 <property name="label" translatable="yes">en &lt;=&gt; eng</property>
@@ -543,8 +547,8 @@
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
+                <property name="left_attach">1</property>
+                <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
@@ -563,58 +567,30 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
+                <property name="top_attach">5</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_AN_ANG">
-                <property name="label" translatable="yes">an &lt;=&gt; ang</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="valign">center</property>
-                <property name="margin_left">10</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
+              <placeholder/>
             </child>
             <child>
-              <object class="GtkEventBox" id="eventbox3">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
+              <placeholder/>
             </child>
           </object>
           <packing>
-            <property name="position">3</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child type="tab">
-          <object class="GtkLabel" id="label7">
+          <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Fuzzy Rhymes</property>
+            <property name="label" translatable="yes">Fuzzy Zhuyin</property>
           </object>
           <packing>
-            <property name="position">3</property>
+            <property name="position">2</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -828,7 +804,7 @@
             </child>
           </object>
           <packing>
-            <property name="position">4</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child type="tab">
@@ -838,7 +814,7 @@
             <property name="label" translatable="yes">User Phrases</property>
           </object>
           <packing>
-            <property name="position">4</property>
+            <property name="position">3</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -949,7 +925,7 @@ Peng Huang
             </child>
           </object>
           <packing>
-            <property name="position">5</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child type="tab">
@@ -959,7 +935,7 @@ Peng Huang
             <property name="label" translatable="yes">About</property>
           </object>
           <packing>
-            <property name="position">5</property>
+            <property name="position">4</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
