@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Sat Jan 11 09:43:43 2014 -->
+<!-- Generated with glade 3.16.0 on Wed Jan 15 11:06:04 2014 -->
 <interface>
   <!-- interface-requires gtk+ 3.10 -->
   <object class="GtkAdjustment" id="adjustmentCandidate">
@@ -383,14 +383,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkGrid" id="grid3">
+          <object class="GtkGrid" id="grid1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="row_homogeneous">True</property>
             <property name="column_homogeneous">True</property>
             <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_C_CH">
-                <property name="label" translatable="yes">c &lt;=&gt; ch</property>
+              <object class="GtkCheckButton" id="fuzzyzhuyin">
+                <property name="label" translatable="yes">Enable Fuzzy Zhuyin</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -401,52 +401,14 @@
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_Z_ZH">
-                <property name="label" translatable="yes">z &lt;=&gt; zh</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="valign">center</property>
-                <property name="margin_left">10</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_S_SH">
-                <property name="label" translatable="yes">s &lt;=&gt; sh</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="valign">center</property>
-                <property name="margin_left">10</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_L_N">
+              <object class="GtkCheckButton" id="fuzzyzhuyin_l_n">
                 <property name="label" translatable="yes">l &lt;=&gt; n</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -459,33 +421,14 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_F_H">
-                <property name="label" translatable="yes">f &lt;=&gt; h</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="valign">center</property>
-                <property name="margin_left">10</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_L_R">
-                <property name="label" translatable="yes">l &lt;=&gt; r</property>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_f_h">
+                <property name="label" translatable="yes">f &lt;=&gt; h</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -503,8 +446,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_G_K">
-                <property name="label" translatable="yes">g &lt;=&gt; k</property>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_l_r">
+                <property name="label" translatable="yes">l &lt;=&gt; r</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -522,8 +465,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_AN_ANG">
-                <property name="label" translatable="yes">an &lt;=&gt; ang</property>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_g_k">
+                <property name="label" translatable="yes">g &lt;=&gt; k</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -541,8 +484,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_EN_ENG">
-                <property name="label" translatable="yes">en &lt;=&gt; eng</property>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_c_ch">
+                <property name="label" translatable="yes">c &lt;=&gt; ch</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -554,14 +497,52 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">4</property>
+                <property name="top_attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="FuzzyPinyin_IN_ING">
-                <property name="label" translatable="yes">in &lt;=&gt; ing</property>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_z_zh">
+                <property name="label" translatable="yes">z &lt;=&gt; zh</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_s_sh">
+                <property name="label" translatable="yes">s &lt;=&gt; sh</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_an_ang">
+                <property name="label" translatable="yes">an &lt;=&gt; ang</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -577,6 +558,47 @@
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_in_ing">
+                <property name="label" translatable="yes">in &lt;=&gt; ing</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">6</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="fuzzyzhuyin_en_eng">
+                <property name="label" translatable="yes">en &lt;=&gt; eng</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin_left">10</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">5</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
@@ -614,7 +636,7 @@
                 <property name="can_focus">False</property>
                 <property name="margin_left">10</property>
                 <child>
-                  <object class="GtkCheckButton" id="EnableUserSymbol">
+                  <object class="GtkCheckButton" id="usersymbol">
                     <property name="label" translatable="yes">User Symbols</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -629,7 +651,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="EditUserSymbol">
+                  <object class="GtkButton" id="editusersymbol">
                     <property name="label" translatable="yes">Edit</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -656,7 +678,7 @@
                 <property name="can_focus">False</property>
                 <property name="margin_left">10</property>
                 <child>
-                  <object class="GtkCheckButton" id="EnableEasySymbol">
+                  <object class="GtkCheckButton" id="easysymbol">
                     <property name="label" translatable="yes">Easy Symbols</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -671,7 +693,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="EditEasySymbol">
+                  <object class="GtkButton" id="editeasysymbol">
                     <property name="label" translatable="yes">Edit</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -711,7 +733,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="ClearUserData">
+                  <object class="GtkButton" id="clearuserdata">
                     <property name="label" translatable="yes">Clear</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -726,7 +748,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="ImportDictionary">
+                  <object class="GtkButton" id="importdictionary">
                     <property name="label" translatable="yes">Import</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -754,7 +776,7 @@
                   <placeholder/>
                 </child>
                 <child>
-                  <object class="GtkButton" id="ClearAllData">
+                  <object class="GtkButton" id="clearalldata">
                     <property name="label" translatable="yes">Clear All Data</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -853,7 +875,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="NameVersion">
+                  <object class="GtkLabel" id="nameversion">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;IBus Zhuyin %s&lt;/b&gt;&lt;/big&gt;</property>
