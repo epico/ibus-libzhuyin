@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Wed Jan 15 11:06:04 2014 -->
+<!-- Generated with glade 3.16.0 on Thu Jan 16 14:16:06 2014 -->
 <interface>
   <!-- interface-requires gtk+ 3.10 -->
   <object class="GtkAdjustment" id="adjustmentCandidate">
@@ -76,15 +76,15 @@
       </row>
     </data>
   </object>
-  <object class="GtkWindow" id="window1">
+  <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkNotebook" id="notebook1">
+      <object class="GtkNotebook" id="pages">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="tab_pos">left</property>
         <child>
-          <object class="GtkBox" id="box6">
+          <object class="GtkBox" id="pageInputting">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
@@ -246,7 +246,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkGrid" id="grid2">
+          <object class="GtkGrid" id="pageKeyboard">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">10</property>
@@ -383,7 +383,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkGrid" id="grid1">
+          <object class="GtkGrid" id="pageFuzzyZhuyin">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="row_homogeneous">True</property>
@@ -623,7 +623,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="box1">
+          <object class="GtkBox" id="pageUserPhrases">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_top">10</property>
@@ -847,7 +847,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkAlignment" id="alignment1">
+          <object class="GtkAlignment" id="pageAbout">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="valign">center</property>
