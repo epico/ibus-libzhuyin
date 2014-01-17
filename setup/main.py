@@ -44,6 +44,8 @@ class PreferencesWindow:
         self.__init_pages()
 
         if engine == "zhuyin":
+            self.__config_namespace = "engine/zhuyin"
+            self.__values = dict(self.__config.get_values(self.__config_namespace))
             self.__init_inputting()
             self.__init_keyboard()
             self.__init_fuzzy_zhuyin()
@@ -109,6 +111,33 @@ class PreferencesWindow:
 
         for name, label in options:
             self.__builder.get_object(name).set_label(label)
+
+
+    def __toggled_cb(self, widget, name):
+        self.__set_value(name, widget.get_active ())
+
+    def __get_value(self, name, defval):
+        if name in self.__values:
+            var = self.__values[name]
+            if isinstance(defval, type(var)):
+                return var
+        self.__set_value(name, defval)
+        return defval
+
+    def __set_value(self, name, val):
+        var = None
+        if isinstance(val, bool):
+            var = GLib.Variant.new_boolean(val)
+        elif isinstance(val, int):
+            var = GLib.Variant.new_int32(val)
+        elif isinstance(val, str):
+            var = GLib.Variant.new_string(val)
+        else:
+            print >> sys.stderr, "val(%s) is not in support type." % repr(val)
+            return
+
+        self.__values[name] = val
+        self.__config.set_value(self.__config_namespace, name, var)
 
 
     def show(self):
