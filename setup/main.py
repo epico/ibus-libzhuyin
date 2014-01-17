@@ -76,7 +76,38 @@ class PreferencesWindow:
 
 
     def __init_inputting(self):
-        pass
+        # page Inputting
+        self.__page_inputting.show()
+
+        # init state
+        self.__chinese_mode = self.__builder.get_object("chinesemode")
+        self.__full_half_shape = self.__builder.get_object("fullhalfshape")
+        self.__auto_shift_cursor = self.__builder.get_object("autoshiftcursor")
+        self.__add_phrase_forward = self.__builder.get_object("addphraseforward")
+        self.__clean_all_buffer = self.__builder.get_object("cleanallbuffer")
+        self.__always_input_num = self.__builder.get_object("alwaysinputnum")
+        self.__rearward_choice = self.__builder.get_object("rearwardchoice")
+        self.__space_as_selection = self.__builder.get_object("spaceasselection")
+
+        # read values
+        self.__chinese_mode.set_active(self.__get_value("chinesemode", True))
+        self.__full_half_shape.set_active(self.__get_value("fullhalfshape", False))
+        self.__auto_shift_cursor.set_active(self.__get_value("autoshiftcursor", True))
+        self.__add_phrase_forward.set_active(self.__get_value("addphraseforward", True))
+        self.__clean_all_buffer.set_active(self.__get_value("cleanallbuffer", False))
+        self.__always_input_num.set_active(self.__get_value("alwaysinputnum", True))
+        self.__rearward_choice.set_active(self.__get_value("rearwardchoice", True))
+        self.__space_as_selection.set_active(self.__get_value("spaceasselection", False))
+
+        # connect signals
+        self.__chinese_mode.connect("toggled", self.__toggled_cb, "chinesemode")
+        self.__full_half_shape.connect("toggled", self.__toggled_cb, "fullhalfshape")
+        self.__auto_shift_cursor.connect("toggled", self.__toggled_cb, "autoshiftcursor")
+        self.__add_phrase_forward.connect("toggled", self.__toggled_cb, "addphraseforward")
+        self.__clean_all_buffer.connect("toggled", self.__toggled_cb, "cleanallbuffer")
+        self.__always_input_num.connect("toggled", self.__toggled_cb, "alwaysinputnum")
+        self.__rearward_choice.connect("toggled", self.__toggled_cb, "rearwardchoice")
+        self.__space_as_selection.connect("toggled", self.__toggled_cb, "spaceasselection")
 
 
     def __init_keyboard(self):
