@@ -115,7 +115,40 @@ class PreferencesWindow:
 
 
     def __init_fuzzy_zhuyin(self):
-        pass
+        # page Fuzzy Zhuyin
+        self.__page_fuzzy_zhuyin.show()
+
+        # fuzzy zhuyin
+        self.__fuzzy_zhuyin = self.__builder.get_object("fuzzyzhuyin")
+        self.__fuzzy_zhuyin_widgets = [
+            ("fuzzyzhuyin_c_ch", True),
+            ("fuzzyzhuyin_z_zh", True),
+            ("fuzzyzhuyin_s_sh", True),
+            ("fuzzyzhuyin_l_n", True),
+            ("fuzzyzhuyin_f_h", True),
+            ("fuzzyzhuyin_l_r", False),
+            ("fuzzyzhuyin_g_k", False),
+            ("fuzzyzhuyin_an_ang", True),
+            ("fuzzyzhuyin_en_eng", True),
+            ("fuzzyzhuyin_in_ing", True),
+        ]
+
+        def __fuzzy_zhuyin_toggled_cb(widget):
+            val = widget.get_active()
+            map(lambda w: self.__builder.get_object(w[0]).set_sensitive(val),
+                self.__fuzzy_zhuyin_widgets)
+        self.__fuzzy_zhuyin.connect("toggled", __fuzzy_zhuyin_toggled_cb)
+
+        # init value
+        self.__fuzzy_zhuyin.set_active(self.__get_value("fuzzyzhuyin", False))
+        for name, defval in self.__fuzzy_zhuyin_widgets:
+            widget = self.__builder.get_object(name)
+            widget.set_active(self.__get_value(name, defval))
+
+        self.__fuzzy_zhuyin.connect("toggled", self.__toggled_cb, "fuzzyzhuyin")
+        for name, defval in self.__fuzzy_zhuyin_widgets:
+            widget = self.__builder.get_object(name)
+            widget.connect("toggled", self.__toggled_cb, name)
 
 
     def __init_user_phrases(self):
