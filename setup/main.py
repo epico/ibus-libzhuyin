@@ -113,7 +113,36 @@ class PreferencesWindow:
 
 
     def __init_keyboard(self):
-        pass
+        # page Keyboard
+        self.__page_keyboard.show()
+
+        # init state
+        self.__keyboard_layout = self.__builder.get_object("keyboardlayout")
+        self.__candidate_keys = self.__builder.get_object("candidatekeys")
+        self.__candidate_keys_entry = self.__candidate_keys.get_child()
+        self.__candidate_num = self.__builder.get_object("candidatenum")
+
+        # read value
+        self.__keyboard_layout.set_active(self.__get_value("keyboardlayout", 0))
+        self.__candidate_keys_entry.set_text(self.__get_value("candidatekeys", "1234567890"))
+        self.__candidate_num.set_value(self.__get_value("candidatenum", 5))
+
+        # connect signals
+        self.__keyboard_layout.connect("changed", self.__keyboard_layout_cb, "keyboardlayout")
+        self.__candidate_keys_entry.connect("changed", self.__candidate_keys_entry_cb, "candidatekeys")
+        self.__candidate_num.connect("value-changed", self.__candidate_num_cb, "candidatenum")
+
+
+    def __keyboard_layout_cb(self, widget, name):
+        self.__set_value(name, widget.get_active())
+
+
+    def __candidate_keys_entry_cb(self, widget, name):
+        self.__set_value(name, widget.get_text())
+
+
+    def __candidate_num_cb(self, widget, name):
+        self.__set_value(name, int(widget.get_value()))
 
 
     def __init_fuzzy_zhuyin(self):
