@@ -28,6 +28,8 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import IBus
 
+import config
+
 locale.setlocale(locale.LC_ALL, "")
 localedir = os.getenv("IBUS_LOCALEDIR")
 pkgdatadir = os.getenv("IBUS_PKGDATADIR")
@@ -156,7 +158,11 @@ class PreferencesWindow:
 
 
     def __init_about(self):
-        pass
+        # page About
+        self.__page_about.show()
+
+        self.__name_version = self.__builder.get_object("nameversion")
+        self.__name_version.set_markup(_("<big><b>New Zhuyin %s</b></big>") % config.get_version())
 
 
     def __update_fuzzy_zhuyin(self):
