@@ -154,7 +154,80 @@ class PreferencesWindow:
 
 
     def __init_user_phrases(self):
-        pass
+        # page User Phrases
+        self.__page_user_phrases.show()
+
+        # init state
+        self.__box_user_symbol = self.__builder.get_object("boxUserSymbol")
+        self.__user_symbol = self.__builder.get_object("usersymbol")
+        self.__edit_user_symbol = self.__builder.get_object("editusersymbol")
+        self.__box_easy_symbol = self.__builder.get_object("boxEasySymbol")
+        self.__easy_symbol = self.__builder.get_object("easysymbol")
+        self.__edit_easy_symbol = self.__builder.get_object("editeasysymbol")
+        self.__import_dictionary = self.__builder.get_object("importdictionary")
+        self.__clear_user_data = self.__builder.get_object("clearuserdata")
+        self.__clear_all_data = self.__builder.get_object("clearalldata")
+
+        # check file
+        path = os.path.join(pkgdatadir, 'usersymbol.txt')
+        if not os.access(path, os.R_OK):
+            self.__box_user_symbol.hide()
+
+        path = os.path.join(pkgdatadir, 'easysymbol.txt')
+        if not os.access(path, os.R_OK):
+            self.__box_easy_symbol.hide()
+
+        # connect signals
+        self.__user_symbol.connect("toggled", self.__enable_symbol_cb, "usersymbol", self.__edit_user_symbol)
+        self.__edit_user_symbol.connect("clicked", self.__edit_symbol_cb, "usersymbol.txt")
+        self.__easy_symbol.connect("toggled", self.__enable_symbol_cb, "easysymbol", self.__edit_easy_symbol)
+        self.__edit_easy_symbol.connect("clicked", self.__edit_symbol_cb, "easysymbol.txt")
+        self.__import_dictionary.connect("clicked", self.__import_dictionary_cb)
+        self.__clear_user_data.connect("clicked", self.__clear_user_data_cb, "user")
+        self.__clear_all_data.connect("clicked", self.__clear_user_data_cb, "all")
+
+        # read value
+        self.__user_symbol.set_active(self.__get_value("usersymbol", True))
+        self.__easy_symbol.set_active(self.__get_value("easysymbol", True))
+
+
+    def __enable_symbol_cb(self, widget, name, editbutton):
+        editbutton.set_sensitive(widget.get_active ())
+        self.__set_value(name, widget.get_active ())
+
+
+    def __edit_symbol_cb(self, widget, filename):
+        import shutil
+        path = os.path.join(GLib.get_user_config_dir(), "ibus", "libzhuyin")
+        os.path.exists(path) or os.makedirs(path)
+        path = os.path.join(path, filename)
+        if not os.path.exists(path):
+            src = os.path.join(pkgdatadir, filename)
+            shutil.copyfile(src, path)
+        os.system("xdg-open %s" % path)
+
+
+    def __import_dictionary_cb(self, widget):
+        dialog = Gtk.FileChooserDialog \
+            (_("Please choose a file"), None,
+             Gtk.FileChooserAction.OPEN,
+             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+              Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+
+        filter_text = Gtk.FileFilter()
+        filter_text.set_name("Text files")
+        filter_text.add_mime_type("text/plain")
+        dialog.add_filter(filter_text)
+
+        response = dialog.run()
+        if response == Gtk.ResponseType.OK:
+            self.__set_value("importdictionary", dialog.get_filename())
+
+        dialog.destroy()
+
+
+    def __clear_user_data_cb(self, widget, name):
+        self.__set_value("ClearUserData", name)
 
 
     def __init_about(self):
