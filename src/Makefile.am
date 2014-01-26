@@ -10,15 +10,6 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = ibus_engine_libzhuyin
-
-ibus_engine_libzhuyin_SOURCES = \
-	main.vala config.vapi
-
-ibus_engine_libzhuyin_VALAFLAGS =  \
-	--pkg gtk+-3.0
-
-
 ibus_engine_libzhuyin_LDFLAGS = \
 	-Wl,--export-dynamic
 

@@ -78,8 +78,6 @@ LIBS="$save_LIBS"
 AC_PATH_PROG(ENV, env)
 AC_SUBST(ENV)
 
-# check vala
-AM_PROG_VALAC([0.10.0])
 # check python
 AM_PATH_PYTHON([2.5])
 
