@@ -1,4 +1,4 @@
-# vim:set et ts=4:
+# vim:set noet ts=4:
 #
 # ibus-libzhuyin - New Zhuyin engine based on libzhuyin for IBus
 #
@@ -34,9 +34,11 @@ EXTRA_DIST = \
         config.py.in \
         $(NULL)
 
+
 test-libzhuyin:
-        $(ENV) DBUS_DEBUG=true \
-                   IBUS_LOCALEDIR=@localedir@ \
-                   IBUS_PKGDATADIR=$(pkgdatadir) \
-                   PYTHONPATH=$(abs_top_srcdir):$(pyexecdir) \
-                   $(PYTHON) $(srcdir)/main.py
+	$(ENV) DBUS_DEBUG=true \
+		IBUS_LOCALEDIR=@localedir@ \
+		IBUS_PKGDATADIR=$(pkgdatadir) \
+		PYTHONPATH=$(abs_top_srcdir):$(pyexecdir) \
+		$(PYTHON) $(srcdir)/main.py
+
