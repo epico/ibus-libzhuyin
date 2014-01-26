@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 ## Created by Anjuta
 
-SUBDIRS = src 
+SUBDIRS = po src setup
 
 dist_doc_DATA = \
 	README \
@@ -16,3 +16,5 @@ dist_doc_DATA = \
 # Remove doc directory on uninstall
 uninstall-local:
 	-rm -r $(docdir)
+
+EXTRA_DIST = config.rpath

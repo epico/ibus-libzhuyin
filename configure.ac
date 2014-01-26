@@ -109,6 +109,7 @@ AM_GLIB_GNU_GETTEXT([external])
 AC_CONFIG_FILES([ po/Makefile.in
 Makefile
 src/Makefile
+setup/Makefile
 setup/config.py
 ])
 
