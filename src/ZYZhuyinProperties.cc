@@ -33,7 +33,7 @@ ZhuyinProperties::ZhuyinProperties (Config & config)
       m_mode_chinese (m_config.initChinese ()),
       m_mode_full (m_config.initFull ()),
       m_mode_full_punct (m_config.initFullPunct ()),
-      m_mode_simp (m_config.initSimpChinese ()),
+      m_mode_trad (m_config.initTradChinese ()),
       m_prop_chinese ("InputMode",
                 PROP_TYPE_NORMAL,
                 StaticText (m_mode_chinese ?
@@ -67,17 +67,17 @@ ZhuyinProperties::ZhuyinProperties (Config & config)
                 StaticText (m_mode_full_punct ?
                             _("Switch to Half Width Punctuation Mode"):
                             _("Switch to Full Width Punctuation Mode"))),
-      m_prop_simp ( "mode.simp",
+      m_prop_trad ( "mode.trad",
                 PROP_TYPE_NORMAL,
-                StaticText (m_mode_simp ?
-                            _("Simplified Chinese") :
-                            _("Traditional Chinese")),
-                m_mode_simp ?
-                    PKGDATADIR"/icons/simp-chinese.svg" :
-                    PKGDATADIR"/icons/trad-chinese.svg",
-                StaticText (m_mode_simp ?
-                            _("Switch to Traditional Chinese Mode"):
-                            _("Switch to Simplfied Chinese Mode"))),
+                StaticText (m_mode_trad ?
+                            _("Traditional Chinese") :
+                            _("Simplified Chinese")),
+                m_mode_trad ?
+                    PKGDATADIR"/icons/trad-chinese.svg" :
+                    PKGDATADIR"/icons/simp-chinese.svg",
+                StaticText (m_mode_trad ?
+                            _("Switch to Simplfied Chinese Mode"):
+                            _("Switch to Traditional Chinese Mode"))),
       m_prop_setup ("setup",
                 PROP_TYPE_NORMAL,
                 StaticText (_("Preferences")),
@@ -92,7 +92,7 @@ ZhuyinProperties::ZhuyinProperties (Config & config)
     m_props.append (m_prop_chinese);
     m_props.append (m_prop_full);
     m_props.append (m_prop_full_punct);
-    m_props.append (m_prop_simp);
+    m_props.append (m_prop_trad);
     m_props.append (m_prop_setup);
 
 }
@@ -155,19 +155,19 @@ ZhuyinProperties::toggleModeFullPunct (void)
 }
 
 void
-ZhuyinProperties::toggleModeSimp (void)
+ZhuyinProperties::toggleModeTrad (void)
 {
-    m_mode_simp = ! m_mode_simp;
-    m_prop_simp.setLabel (m_mode_simp ?
-                          _("Simplified Chinese") :
-                          _("Traditional Chinese"));
-    m_prop_simp.setIcon (m_mode_simp ?
-                            PKGDATADIR"/icons/simp-chinese.svg" :
-                            PKGDATADIR"/icons/trad-chinese.svg");
-    m_prop_simp.setTooltip(m_mode_simp ?
-                           _("Switch to Traditional Chinese Mode"):
-                           _("Switch to Simplfied Chinese Mode"));
-    updateProperty (m_prop_simp);
+    m_mode_trad = ! m_mode_trad;
+    m_prop_trad.setLabel (m_mode_trad ?
+                          _("Traditional Chinese") :
+                          _("Simplified Chinese"));
+    m_prop_trad.setIcon (m_mode_trad ?
+                            PKGDATADIR"/icons/trad-chinese.svg" :
+                            PKGDATADIR"/icons/simp-chinese.svg");
+    m_prop_trad.setTooltip(m_mode_trad ?
+                           _("Switch to Simplfied Chinese Mode"):
+                           _("Switch to Traditional Chinese Mode"));
+    updateProperty (m_prop_trad);
 }
 
 void
@@ -182,8 +182,8 @@ ZhuyinProperties::reset (void)
     if (modeFullPunct () != m_config.initFullPunct ()) {
         toggleModeFullPunct ();
     }
-    if (modeSimp () != m_config.initSimpChinese ()) {
-        toggleModeSimp ();
+    if (modeTrad () != m_config.initTradChinese ()) {
+        toggleModeTrad ();
     }
 }
 
@@ -192,7 +192,7 @@ ZhuyinProperties::propertyActivate (const gchar *prop_name, guint prop_state) {
     const static std::string mode_chinese ("InputMode");
     const static std::string mode_full ("mode.full");
     const static std::string mode_full_punct ("mode.full_punct");
-    const static std::string mode_simp ("mode.simp");
+    const static std::string mode_trad ("mode.trad");
 
     if (mode_chinese == prop_name) {
         toggleModeChinese ();
@@ -206,8 +206,8 @@ ZhuyinProperties::propertyActivate (const gchar *prop_name, guint prop_state) {
         toggleModeFullPunct ();
         return TRUE;
     }
-    else if (mode_simp == prop_name) {
-        toggleModeSimp ();
+    else if (mode_trad == prop_name) {
+        toggleModeTrad ();
         return TRUE;
     }
     return FALSE;
