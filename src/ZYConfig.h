@@ -45,6 +45,7 @@ public:
     gint zhuyinSchema (void) const              { return m_zhuyin_schema; }
     gboolean initChinese (void) const           { return m_init_chinese; }
     gboolean initFull (void) const              { return m_init_full; }
+    gboolean initFullPunct (void) const         { return m_init_full_punct; }
     gboolean initTradChinese (void) const       { return m_init_trad_chinese; }
     std::string selectKeys (void) const         { return m_select_keys; }
 
@@ -76,6 +77,7 @@ protected:
 
     gboolean m_init_chinese;
     gboolean m_init_full;
+    gboolean m_init_full_punct;
     gboolean m_init_trad_chinese;
 
     std::string m_select_keys;
