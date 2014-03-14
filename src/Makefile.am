@@ -18,17 +18,62 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-AM_CPPFLAGS = \
-	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
-	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
-	-DPACKAGE_DATA_DIR=\""$(pkgdatadir)"\" \
-	$(IBUS_LIBZHUYIN_CFLAGS)
+libexec_PROGRAMS = ibus-engine-libzhuyin
 
-AM_CFLAGS =\
-	 -Wall\
-	 -g
+#ibus_engine_libzhuyin_built_c_sources = \
+#	$(NULL)
+#ibus_engine_libzhuyin_built_h_sources = \
+#	ZYPunctTable.h \
+#	ZYSimpTradConverterTable.h \
+#	$(NULL)
 
-ibus_engine_libzhuyin_LDFLAGS = \
-	-Wl,--export-dynamic
+ibus_engine_libzhuyin_c_sources = \
+	ZYConfig.cc \
+	ZYEditor.cc \
+	ZYZhuyinProperties.cc \
+	ZYMain.cc \
+	$(NULL)
 
-ibus_engine_libzhuyin_LDADD = $(IBUS_LIBZHUYIN_LIBS)
+ibus_engine_libzhuyin_h_sources = \
+	ZYBus.h \
+	ZYConfig.h \
+	ZYEditor.h \
+	ZYLookupTable.h \
+	ZYObject.h \
+	ZYPinyinProperties.h \
+	ZYPointer.h \
+	ZYProperty.h \
+	ZYRawEditor.h \
+	ZYSignal.h \
+	ZYString.h \
+	ZYText.h \
+	ZYTypes.h \
+	ZYUtil.h \
+	$(NULL)
+
+#ibus_engine_libzhuyin_c_sources += \
+#	ZYZConfig.cc \
+#	ZYZPhoneticEditor.cc \
+#	ZYZFullPinyinEditor.cc \
+#	ZYZZhuyinEditor.cc \
+#	ZYZPinyinEngine.cc \
+#	ZYZZhuyinEngine.cc \
+#	$(NULL)
+
+ibus_engine_libzhuyin_SOURCES = \
+        $(ibus_engine_libzhuyin_c_sources) \
+        $(ibus_engine_libzhuyin_h_sources) \
+        $(NULL)
+
+ibus_engine_libzhuyin_CXXFLAGS = \
+        @IBUS_CFLAGS@ \
+        @LIBZHUYIN_CFLAGS@ \
+        -DGETTEXT_PACKAGE=\"@GETTEXT_PACKAGE@\" \
+        -DPKGDATADIR=\"$(pkgdatadir)\" \
+        -DLIBEXECDIR=\"$(libexecdir)\" \
+        $(NULL)
+
+ibus_engine_libzhuyin_LDADD = \
+        @IBUS_LIBS@ \
+        @LIBZHUYIN_LIBS@ \
+        $(NULL)
