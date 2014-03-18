@@ -31,6 +31,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYConfig.cc \
 	ZYEditor.cc \
 	ZYZhuyinProperties.cc \
+	ZYEnhancedText.cc \
 	ZYMain.cc \
 	$(NULL)
 
@@ -40,7 +41,8 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYEditor.h \
 	ZYLookupTable.h \
 	ZYObject.h \
-	ZYPinyinProperties.h \
+	ZYZhuyinProperties.h \
+	ZYEnhancedText.h \
 	ZYPointer.h \
 	ZYProperty.h \
 	ZYRawEditor.h \
@@ -72,6 +74,16 @@ ibus_engine_libzhuyin_CXXFLAGS = \
         -DPKGDATADIR=\"$(pkgdatadir)\" \
         -DLIBEXECDIR=\"$(libexecdir)\" \
         $(NULL)
+
+if HAVE_BOOST
+ibus_engine_libzhuyin_CXXFLAGS += \
+        @BOOST_CPPFLAGS@ \
+        $(NULL)
+else
+ibus_engine_libzhuyin_CXXFLAGS += \
+        -std=c++0x \
+        $(NULL)
+endif
 
 ibus_engine_libzhuyin_LDADD = \
         @IBUS_LIBS@ \
