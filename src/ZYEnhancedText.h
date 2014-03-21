@@ -61,6 +61,9 @@ insert_symbol(String & enhanced_text, size_t offset,
               const String & type, const String & lookup,
               const String & choice);
 
+bool
+erase_input_sequence(String & enhanced_text, size_t offset, size_t length);
+
 };
 
 #endif

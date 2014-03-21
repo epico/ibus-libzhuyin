@@ -272,5 +272,36 @@ insert_symbol(String & enhanced_text, size_t offset,
     return insert_section(enhanced_text, offset, section);
 }
 
+bool
+erase_input_sequence(String & enhanced_text, size_t offset, size_t length)
+{
+    size_t pos = 0, start_pos = 0, end_pos = 0;
+    section_t section_type = probe_section(enhanced_text, offset, pos);
+    start_pos = pos; end_pos = pos;
+    for (size_t i = 0; i < length; ++i) {
+        switch (section_type) {
+        case PHONETIC_SECTION:
+            ++ end_pos;
+            break;
+        case SYMBOL_SECTION:
+            {
+                String type, lookup, choice;
+                assert (get_symbol_section (enhanced_text, pos, end_pos,
+                                            type, lookup, choice));
+            }
+            break;
+        }
+        pos = end_pos;
+
+        /* reach the end of the enhanced text. */
+        if (enhanced_text.length () == pos)
+            break;
+
+        section_type = probe_section_quick (enhanced_text, pos);
+    }
+
+    enhanced_text.erase (start_pos, end_pos - start_pos);
+    return true;
+}
 
 };
