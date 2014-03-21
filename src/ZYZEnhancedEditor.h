@@ -41,9 +41,7 @@ rs);
     virtual void update (void);
     virtual void reset (void);
 
-protected:
-    void erase (guint cursor);
-
+    virtual gboolean isPhonetic (const char key) = 0;
 };
 
 };
