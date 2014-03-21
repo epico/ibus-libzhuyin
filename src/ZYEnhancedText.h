@@ -31,8 +31,6 @@ typedef enum {
     SYMBOL_SECTION
 } section_t;
 
-typedef String::const_iterator iterator_t;
-
 /* all enhanced text should loop from the start to get the correct position. */
 size_t
 get_enhanced_text_length (const String & enhanced_text);
@@ -41,6 +39,9 @@ get_enhanced_text_length (const String & enhanced_text);
    pos is for the actual position in enhanced text. */
 section_t
 probe_section (const String & enhanced_text, size_t offset, size_t & pos);
+
+section_t
+probe_section_quick (const String & enhanced_text, size_t pos);
 
 bool
 get_phonetic_section (const String & enhanced_text,

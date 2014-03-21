@@ -21,13 +21,14 @@
 
 #include "ZYEnhancedText.h"
 #include <assert.h>
-#include <string>
 
 
 namespace ZY{
 
 const char symbol_lead_char = '`';
 const int symbol_parts_num = 3;
+
+typedef String::const_iterator iterator_t;
 
 #if 0
 /* template method, to be moved to PhoneticEditor class. */
@@ -167,6 +168,17 @@ probe_section (const String & enhanced_text, size_t offset, size_t & pos)
     }
 
     pos = iter - enhanced_text.begin ();
+
+    if (symbol_lead_char == *iter)
+        return SYMBOL_SECTION;
+    else
+        return PHONETIC_SECTION;
+}
+
+section_t
+probe_section_quick (const String & enhanced_text, size_t pos)
+{
+    iterator_t iter = enhanced_text.begin () + pos;
 
     if (symbol_lead_char == *iter)
         return SYMBOL_SECTION;
