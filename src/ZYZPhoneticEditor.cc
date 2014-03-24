@@ -19,30 +19,8 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __ZY_LIB_ZHUYIN_ENHANCED_EDITOR_H_
-#define __ZY_LIB_ZHUYIN_ENHANCED_EDITOR_H_
+#include "ZYZPhoneticEditor.h"
+#include "ZYConfig.h"
+#include "ZYZhuyinProperties.h"
 
-#include <zhuyin.h>
-#include "ZYLookupTable.h"
-#include "ZYEditor.h"
-
-namespace ZY {
-
-class EnhancedEditor : public Editor {
-/**
- * enhance the editor logicics to support enhanced text format.
- */
-public:
-    EnhancedEditor (ZhuyinProperties & prop, Config & config);
-    virtual ~EnhancedEditor (void);
-
-    virtual gboolean processKeyEvent (guint keyval, guint keycode, guint modifiers);
-    virtual void update (void);
-    virtual void reset (void);
-
-    virtual gboolean isPhonetic (const char key) = 0;
-};
-
-};
-
-#endif
+using namespace ZY;

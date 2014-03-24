@@ -32,6 +32,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYEditor.cc \
 	ZYZhuyinProperties.cc \
 	ZYEnhancedText.cc \
+	ZYZPhoneticEditor.cc \
 	ZYMain.cc \
 	$(NULL)
 
@@ -43,6 +44,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYObject.h \
 	ZYZhuyinProperties.h \
 	ZYEnhancedText.h \
+	ZYZPhoneticEditor.h \
 	ZYPointer.h \
 	ZYProperty.h \
 	ZYRawEditor.h \
