@@ -31,6 +31,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYConfig.cc \
 	ZYEditor.cc \
 	ZYZhuyinProperties.cc \
+	ZYTradSimpConverter.cc \
 	ZYEnhancedText.cc \
 	ZYZPhoneticEditor.cc \
 	ZYMain.cc \
@@ -43,6 +44,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYLookupTable.h \
 	ZYObject.h \
 	ZYZhuyinProperties.h \
+	ZYTradSimpConverter.h \
 	ZYEnhancedText.h \
 	ZYZPhoneticEditor.h \
 	ZYPointer.h \
@@ -72,6 +74,7 @@ ibus_engine_libzhuyin_SOURCES = \
 ibus_engine_libzhuyin_CXXFLAGS = \
         @IBUS_CFLAGS@ \
         @LIBZHUYIN_CFLAGS@ \
+	@OPENCC_CFLAGS@ \
         -DGETTEXT_PACKAGE=\"@GETTEXT_PACKAGE@\" \
         -DPKGDATADIR=\"$(pkgdatadir)\" \
         -DLIBEXECDIR=\"$(libexecdir)\" \
@@ -90,4 +93,5 @@ endif
 ibus_engine_libzhuyin_LDADD = \
         @IBUS_LIBS@ \
         @LIBZHUYIN_LIBS@ \
+	@OPENCC_LIBS@ \
         $(NULL)
