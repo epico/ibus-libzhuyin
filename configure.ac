@@ -57,6 +57,7 @@ PKG_CHECK_MODULES(IBUS, [
     ibus-1.0 >= 1.4.0
 ])
 
+# check libzhuyin
 PKG_CHECK_MODULES(LIBZHUYIN, [
     libzhuyin >= 0.9.93
 ], [enable_libzhuyin=yes])
@@ -64,6 +65,9 @@ PKG_CHECK_MODULES(LIBZHUYIN, [
 LIBZHUYIN_DATADIR=`$PKG_CONFIG --variable=pkgdatadir libzhuyin`
 
 AC_SUBST(LIBZHUYIN_DATADIR)
+
+# check opencc
+PKG_CHECK_MODULES(OPENCC, [opencc], [enable_opencc=yes])
 
 # check if ibus_config_get_values, which is available in ibus-1.3.99+ (git master)
 save_CFLAGS="$CFLAGS"
@@ -118,5 +122,6 @@ Build options:
     Version                     $VERSION
     Install prefix              $prefix
     Use boost                   $enable_boost
+    Use opencc                  $enable_opencc
     Use libzhuyin               $enable_libzhuyin
 ])
