@@ -23,6 +23,7 @@
 #define __ZY_SYMBOLS_H_
 
 #include "ZYString.h"
+#include <glib.h>
 
 namespace ZY {
 
