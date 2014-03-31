@@ -28,7 +28,11 @@
 
 namespace ZY {
 
+class SymbolSection;
+
 class PhoneticEditor : public EnhancedEditor {
+    friend class SymbolSection;
+
 public:
     PhoneticEditor (ZhuyinProperties & props, Config & config);
     virtual ~PhoneticEditor ();
