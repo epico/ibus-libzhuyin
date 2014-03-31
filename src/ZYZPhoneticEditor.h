@@ -72,6 +72,15 @@ protected:
 
     /* use libzhuyin here. */
     zhuyin_instance_t           *m_instance;
+
+    enum {
+        STATE_INPUT = 0,               // input state
+        STATE_CANDIDATE_SHOWN,         // candidates shown state
+        STATE_USER_SYMBOL_LIST_ALL,    // user symbol input state
+        STATE_USER_SYMBOL_SHOWN,       // user symbol shown state
+        STATE_BUILTIN_SYMBOL_SHOWN,    // built-in symbol shown state
+        STATE_LAST,
+    } m_input_state;
 };
 
 };
