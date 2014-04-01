@@ -22,7 +22,7 @@
 #include "ZYSymbols.h"
 #include <assert.h>
 
-using namespace ZY;
+namespace ZY {
 
 /* The following tables are copied from libchewing code. */
 
@@ -238,6 +238,13 @@ get_choice_list (const char key, gchar ** & choices)
 }
 
 bool
+is_half_punct (const char key)
+{
+    String punct;
+    return half_punct_to_full_punct (key, punct);
+}
+
+bool
 half_punct_to_full_punct (const char key, String & punct)
 {
     punct = "";
@@ -279,6 +286,12 @@ half_punct_to_full_punct (const char key, String & punct)
     return false;
 }
 
+bool
+is_half_english (const char key)
+{
+    String english;
+    return half_english_to_full_english (key, english);
+}
 
 bool
 half_english_to_full_english (const char key, String & english)
@@ -347,3 +360,5 @@ half_english_to_full_english (const char key, String & english)
 
     return false;
 }
+
+};

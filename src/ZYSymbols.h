@@ -37,7 +37,13 @@ int
 get_choice_list (const char key, gchar ** & choices);
 
 bool
+is_half_punct (const char key);
+
+bool
 half_punct_to_full_punct (const char key, String & punct);
+
+bool
+is_half_english (const char key);
 
 bool
 half_english_to_full_english (const char key, String & english);
