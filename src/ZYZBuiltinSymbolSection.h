@@ -19,39 +19,23 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __ZY_LIB_ZHUYIN_SYMBOL_SECTION_H_
-#define __ZY_LIB_ZHUYIN_SYMBOL_SECTION_H_
+#ifndef __ZY_LIB_ZHUYIN_BUILTIN_SYMBOL_SECTION_H_
+#define __ZY_LIB_ZHUYIN_BUILTIN_SYMBOL_SECTION_H_
 
-#include "ZYString.h"
-#include "ZYZPhoneticEditor.h"
+#include "ZYZSymbolSection.h"
 
 namespace ZY {
 
-class SymbolSection {
+class BuiltinSymbolSection : public SymbolSection {
 public:
-    SymbolSection (PhoneticEditor & editor) : m_editor (editor) {}
-    virtual ~SymbolSection () {}
-
-public:
-    virtual bool initCandidates (const String & hint) = 0;
-    virtual bool populateCandidates () = 0;
-    virtual bool selectCandidate (guint index) = 0;
+    BuiltinSymbolSection (PhoneticEditor & editor);
+    virtual ~BuiltinSymbolSection ();
 
 public:
-    String getType () {return m_type; }
-    String getLookup () {return m_lookup; }
-    String getChoice () {return m_choice; }
+    virtual bool initCandidates (const String & lookup);
+    virtual bool populateCandidates ();
+    virtual bool selectCandidate (guint index);
 
-protected:
-    LookupTable & getLookupTable () { return m_editor.m_lookup_table; }
-
-protected:
-    PhoneticEditor & m_editor;
-
-    /* other variables. */
-    String m_type;
-    String m_lookup;
-    String m_choice;
 };
 
 };
