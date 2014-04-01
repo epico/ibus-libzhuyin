@@ -37,11 +37,21 @@ public:
     virtual bool populateCandidates () = 0;
     virtual bool selectCandidate (guint index) = 0;
 
+public:
+    String getType () {return m_type; }
+    String getLookup () {return m_lookup; }
+    String getChoice () {return m_choice; }
+
 protected:
     LookupTable & getLookupTable () { return m_editor.m_lookup_table; }
 
 protected:
     PhoneticEditor & m_editor;
+
+    /* other variables. */
+    String m_type;
+    String m_lookup;
+    String m_choice;
 };
 
 };
