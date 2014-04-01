@@ -23,10 +23,13 @@
 #define __ZY_LIB_ZHUYIN_BUILTIN_SYMBOL_SECTION_H_
 
 #include "ZYZSymbolSection.h"
+#include <vector>
 
 namespace ZY {
 
 class BuiltinSymbolSection : public SymbolSection {
+    typedef std::vector<String>::iterator iterator_t;
+
 public:
     BuiltinSymbolSection (PhoneticEditor & editor);
     virtual ~BuiltinSymbolSection ();
@@ -36,6 +39,9 @@ public:
     virtual bool populateCandidates ();
     virtual bool selectCandidate (guint index);
 
+protected:
+    String m_lookup;
+    std::vector<String> m_candidates;
 };
 
 };
