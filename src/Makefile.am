@@ -36,6 +36,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYZPhoneticEditor.cc \
 	ZYSymbols.cc \
 	ZYZBuiltinSymbolSection.cc \
+	ZYZPhoneticSection.cc \
 	ZYMain.cc \
 	$(NULL)
 
@@ -52,6 +53,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYSymbols.h \
 	ZYZSymbolSection.h \
 	ZYZBuiltinSymbolSection.h \
+	ZYZPhoneticSection.h \
 	ZYPointer.h \
 	ZYProperty.h \
 	ZYRawEditor.h \
