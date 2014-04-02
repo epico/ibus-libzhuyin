@@ -35,7 +35,7 @@ public:
 public:
     virtual bool initCandidates (const String & hint) = 0;
     virtual bool populateCandidates () = 0;
-    virtual bool selectCandidate (guint index) = 0;
+    virtual int selectCandidate (guint index) = 0;
 
 public:
     String getType () {return m_type; }

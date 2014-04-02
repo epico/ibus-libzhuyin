@@ -67,11 +67,11 @@ BuiltinSymbolSection::populateCandidates ()
     return true;
 }
 
-bool
+int
 BuiltinSymbolSection::selectCandidate (guint index)
 {
     m_choice = m_candidates[index];
-    return true;
+    return 1;
 }
 
 };
