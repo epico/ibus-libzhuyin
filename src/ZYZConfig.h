@@ -40,7 +40,7 @@ public:
     static ZhuyinConfig & instance (void) { return *m_instance; }
 
 protected:
-    ZhuyinConfig (Bus & bus, const std::string & name);
+    ZhuyinConfig (Bus & bus);
     virtual ~ZhuyinConfig (void);
 
 public:
