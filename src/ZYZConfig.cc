@@ -39,16 +39,16 @@ static const struct {
     guint option;
 } options [] = {
     /* fuzzy pinyin */
-    { "FuzzyZhuyin_C_CH",       PINYIN_AMB_C_CH      },
-    { "FuzzyZhuyin_Z_ZH",       PINYIN_AMB_Z_ZH      },
-    { "FuzzyZhuyin_S_SH",       PINYIN_AMB_S_SH      },
-    { "FuzzyZhuyin_L_N",        PINYIN_AMB_L_N       },
-    { "FuzzyZhuyin_F_H",        PINYIN_AMB_F_H       },
-    { "FuzzyZhuyin_L_R",        PINYIN_AMB_L_R       },
-    { "FuzzyZhuyin_G_K",        PINYIN_AMB_G_K       },
-    { "FuzzyZhuyin_AN_ANG",     PINYIN_AMB_AN_ANG    },
-    { "FuzzyZhuyin_EN_ENG",     PINYIN_AMB_EN_ENG    },
-    { "FuzzyZhuyin_IN_ING",     PINYIN_AMB_IN_ING    },
+    { "FuzzyZhuyin_C_CH",       ZHUYIN_AMB_C_CH      },
+    { "FuzzyZhuyin_Z_ZH",       ZHUYIN_AMB_Z_ZH      },
+    { "FuzzyZhuyin_S_SH",       ZHUYIN_AMB_S_SH      },
+    { "FuzzyZhuyin_L_N",        ZHUYIN_AMB_L_N       },
+    { "FuzzyZhuyin_F_H",        ZHUYIN_AMB_F_H       },
+    { "FuzzyZhuyin_L_R",        ZHUYIN_AMB_L_R       },
+    { "FuzzyZhuyin_G_K",        ZHUYIN_AMB_G_K       },
+    { "FuzzyZhuyin_AN_ANG",     ZHUYIN_AMB_AN_ANG    },
+    { "FuzzyZhuyin_EN_ENG",     ZHUYIN_AMB_EN_ENG    },
+    { "FuzzyZhuyin_IN_ING",     ZHUYIN_AMB_IN_ING    },
 };
 
 ZhuyinConfig::ZhuyinConfig (Bus & bus)
