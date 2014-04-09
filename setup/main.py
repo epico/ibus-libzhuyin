@@ -166,8 +166,10 @@ class PreferencesWindow:
 
         def __fuzzy_zhuyin_toggled_cb(widget):
             val = widget.get_active()
-            map(lambda w: self.__builder.get_object(w[0]).set_sensitive(val),
-                self.__fuzzy_zhuyin_widgets)
+            for name, defval in self.__fuzzy_zhuyin_widgets:
+                widget = self.__builder.get_object(name)
+                widget.set_sensitive(val)
+
         self.__fuzzy_zhuyin.connect("toggled", __fuzzy_zhuyin_toggled_cb)
 
         # init value
