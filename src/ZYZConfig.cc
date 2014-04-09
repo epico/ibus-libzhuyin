@@ -23,16 +23,16 @@
 
 namespace ZY {
 
-const gchar * const CONFIG_FUZZY_ZHUYIN              = "FuzzyZhuyin";
+const gchar * const CONFIG_FUZZY_ZHUYIN              = "fuzzyzhuyin";
 const gchar * const CONFIG_ORIENTATION               = "LookupTableOrientation";
-const gchar * const CONFIG_PAGE_SIZE                 = "LookupTablePageSize";
+const gchar * const CONFIG_PAGE_SIZE                 = "candidatenum";
 
-const gchar * const CONFIG_KEYBOARD_LAYOUT           = "KeyboardLayout";
-const gchar * const CONFIG_INIT_CHINESE              = "InitChinese";
-const gchar * const CONFIG_INIT_FULL                 = "InitFull";
-const gchar * const CONFIG_INIT_FULL_PUNCT           = "InitFullPunct";
-const gchar * const CONFIG_INIT_TRAD_CHINESE         = "InitTraditionalChinese";
-const gchar * const CONFIG_CANDIDATE_KEYS            = "CandidateKeys";
+const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboardlayout";
+const gchar * const CONFIG_INIT_CHINESE              = "chinesemode";
+const gchar * const CONFIG_INIT_FULL_ENGLISH         = "fullhalfenglish";
+const gchar * const CONFIG_INIT_FULL_PUNCT           = "fullhalfpunct";
+const gchar * const CONFIG_INIT_TRAD_CHINESE         = "TraditionalChinese";
+const gchar * const CONFIG_CANDIDATE_KEYS            = "candidatekeys";
 
 static const struct {
     const gchar * const name;
