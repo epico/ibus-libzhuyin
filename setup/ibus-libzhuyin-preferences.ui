@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Wed Jan 22 13:02:09 2014 -->
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.10 -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustmentCandidate">
     <property name="lower">1</property>
     <property name="upper">10</property>
@@ -108,8 +108,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="fullhalfshape">
-                <property name="label" translatable="yes">Use Full Width Glyphs When Start-up</property>
+              <object class="GtkCheckButton" id="fullhalfenglish">
+                <property name="label" translatable="yes">Use Full Width English When Start-up</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -126,8 +126,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="autoshiftcursor">
-                <property name="label" translatable="yes">Auto Shift Cursor</property>
+              <object class="GtkCheckButton" id="fullhalfpunct">
+                <property name="label" translatable="yes">Use Full Width Punctuation When Start-up</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -144,8 +144,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="addphraseforward">
-                <property name="label" translatable="yes">Add Phrase Forward</property>
+              <object class="GtkCheckButton" id="autoshiftcursor">
+                <property name="label" translatable="yes">Auto Shift Cursor</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -198,24 +198,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="rearwardchoice">
-                <property name="label" translatable="yes">Rearward Phrase Choice</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="valign">center</property>
-                <property name="margin_left">10</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">6</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkCheckButton" id="spaceasselection">
                 <property name="label" translatable="yes">Space as Selection Key</property>
                 <property name="visible">True</property>
@@ -230,7 +212,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">7</property>
+                <property name="position">6</property>
               </packing>
             </child>
           </object>

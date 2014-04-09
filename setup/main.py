@@ -83,32 +83,29 @@ class PreferencesWindow:
 
         # init state
         self.__chinese_mode = self.__builder.get_object("chinesemode")
-        self.__full_half_shape = self.__builder.get_object("fullhalfshape")
+        self.__full_half_english = self.__builder.get_object("fullhalfenglish")
+        self.__full_half_punct = self.__builder.get_object("fullhalfpunct")
         self.__auto_shift_cursor = self.__builder.get_object("autoshiftcursor")
-        self.__add_phrase_forward = self.__builder.get_object("addphraseforward")
         self.__clean_all_buffer = self.__builder.get_object("cleanallbuffer")
         self.__always_input_num = self.__builder.get_object("alwaysinputnum")
-        self.__rearward_choice = self.__builder.get_object("rearwardchoice")
         self.__space_as_selection = self.__builder.get_object("spaceasselection")
 
         # read values
         self.__chinese_mode.set_active(self.__get_value("chinesemode", True))
-        self.__full_half_shape.set_active(self.__get_value("fullhalfshape", False))
+        self.__full_half_english.set_active(self.__get_value("fullhalfenglish", False))
+        self.__full_half_punct.set_active(self.__get_value("fullhalfpunct", True))
         self.__auto_shift_cursor.set_active(self.__get_value("autoshiftcursor", True))
-        self.__add_phrase_forward.set_active(self.__get_value("addphraseforward", True))
         self.__clean_all_buffer.set_active(self.__get_value("cleanallbuffer", False))
         self.__always_input_num.set_active(self.__get_value("alwaysinputnum", True))
-        self.__rearward_choice.set_active(self.__get_value("rearwardchoice", True))
         self.__space_as_selection.set_active(self.__get_value("spaceasselection", False))
 
         # connect signals
         self.__chinese_mode.connect("toggled", self.__toggled_cb, "chinesemode")
-        self.__full_half_shape.connect("toggled", self.__toggled_cb, "fullhalfshape")
+        self.__full_half_english.connect("toggled", self.__toggled_cb, "fullhalfenglish")
+        self.__full_half_punct.connect("toggled", self.__toggled_cb, "fullhalfpunct")
         self.__auto_shift_cursor.connect("toggled", self.__toggled_cb, "autoshiftcursor")
-        self.__add_phrase_forward.connect("toggled", self.__toggled_cb, "addphraseforward")
         self.__clean_all_buffer.connect("toggled", self.__toggled_cb, "cleanallbuffer")
         self.__always_input_num.connect("toggled", self.__toggled_cb, "alwaysinputnum")
-        self.__rearward_choice.connect("toggled", self.__toggled_cb, "rearwardchoice")
         self.__space_as_selection.connect("toggled", self.__toggled_cb, "spaceasselection")
 
 
