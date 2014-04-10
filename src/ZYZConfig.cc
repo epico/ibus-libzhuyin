@@ -20,6 +20,7 @@
  */
 
 #include "ZYZConfig.h"
+#include <zhuyin.h>
 
 namespace ZY {
 
@@ -33,6 +34,48 @@ const gchar * const CONFIG_INIT_FULL_ENGLISH         = "fullhalfenglish";
 const gchar * const CONFIG_INIT_FULL_PUNCT           = "fullhalfpunct";
 const gchar * const CONFIG_INIT_TRAD_CHINESE         = "TraditionalChinese";
 const gchar * const CONFIG_CANDIDATE_KEYS            = "candidatekeys";
+
+const zhuyin_option_t ZHUYIN_DEFAULT_OPTION =
+    USE_TONE           |
+    FORCE_TONE         |
+    ZHUYIN_CORRECT_ALL |
+    0;
+
+std::unique_ptr<ZhuyinConfig> ZhuyinConfig::m_instance;
+
+ZhuyinConfig::ZhuyinConfig (Bus & bus)
+    : Config (bus, "zhuyin")
+{
+    initDefaultValues ();
+    g_signal_connect (get<IBusConfig> (),
+                      "value-changed",
+                      G_CALLBACK (valueChangedCallback),
+                      this);
+
+}
+
+ZhuyinConfig::~ZhuyinConfig (void)
+{
+}
+
+void
+ZhuyinConfig::initDefaultValues (void)
+{
+    m_option = ZHUYIN_DEFAULT_OPTION;
+    m_option_mask = USE_TONE | FORCE_TONE | ZHUYIN_CORRECT_ALL;
+
+    m_orientation = IBUS_ORIENTATION_VERTICAL;
+    m_page_size = 10;
+
+    m_zhuyin_schema = 0;
+
+    m_init_chinese = TRUE;
+    m_init_full_english = FALSE;
+    m_init_full_punct = TRUE;
+    m_init_trad_chinese = TRUE;
+
+    m_candidate_keys = "1234567890";
+}
 
 static const struct {
     const gchar * const name;
@@ -51,9 +94,5 @@ static const struct {
     { "fuzzyzhuyin_in_ing",     ZHUYIN_AMB_IN_ING    },
 };
 
-ZhuyinConfig::ZhuyinConfig (Bus & bus)
-    : Config (bus, "zhuyin")
-{
-}
 
 };

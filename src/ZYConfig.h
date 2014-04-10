@@ -40,14 +40,15 @@ protected:
     virtual ~Config (void);
 
 public:
-    guint option (void) const                   { return m_option & m_option_mask; }
+    zhuyin_option_t option (void) const         { return m_option & m_option_mask; }
+    guint orientation (void) const              { return m_orientation; }
     guint pageSize (void) const                 { return m_page_size; }
     gint zhuyinSchema (void) const              { return m_zhuyin_schema; }
     gboolean initChinese (void) const           { return m_init_chinese; }
-    gboolean initFull (void) const              { return m_init_full; }
+    gboolean initFullEnglish (void) const       { return m_init_full_english; }
     gboolean initFullPunct (void) const         { return m_init_full_punct; }
     gboolean initTradChinese (void) const       { return m_init_trad_chinese; }
-    std::string selectKeys (void) const         { return m_select_keys; }
+    std::string candidateKeys (void) const      { return m_candidate_keys; }
 
 protected:
     bool read (const gchar * name, bool defval);
@@ -68,19 +69,20 @@ private:
 
 protected:
     std::string m_section;
-    guint m_option;
-    guint m_option_mask;
+    zhuyin_option_t m_option;
+    zhuyin_option_t m_option_mask;
 
+    gint m_orientation;
     guint m_page_size;
 
     gint m_zhuyin_schema;
 
     gboolean m_init_chinese;
-    gboolean m_init_full;
+    gboolean m_init_full_english;
     gboolean m_init_full_punct;
     gboolean m_init_trad_chinese;
 
-    std::string m_select_keys;
+    std::string m_candidate_keys;
 };
 
 };

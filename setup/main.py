@@ -122,7 +122,7 @@ class PreferencesWindow:
         # read value
         self.__keyboard_layout.set_active(self.__get_value("keyboardlayout", 0))
         self.__candidate_keys_entry.set_text(self.__get_value("candidatekeys", "1234567890"))
-        self.__candidate_num.set_value(self.__get_value("candidatenum", 5))
+        self.__candidate_num.set_value(self.__get_value("candidatenum", 10))
 
         # connect signals
         self.__keyboard_layout.connect("changed", self.__keyboard_layout_cb, "keyboardlayout")
