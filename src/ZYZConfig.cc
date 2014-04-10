@@ -59,6 +59,15 @@ ZhuyinConfig::~ZhuyinConfig (void)
 }
 
 void
+ZhuyinConfig::init (Bus & bus)
+{
+    if (m_instance.get () == NULL) {
+        m_instance.reset (new ZhuyinConfig (bus));
+        m_instance->readDefaultValues ();
+    }
+}
+
+void
 ZhuyinConfig::initDefaultValues (void)
 {
     m_option = ZHUYIN_DEFAULT_OPTION;
@@ -67,7 +76,7 @@ ZhuyinConfig::initDefaultValues (void)
     m_orientation = IBUS_ORIENTATION_VERTICAL;
     m_page_size = 10;
 
-    m_zhuyin_schema = 0;
+    m_keyboard_layout = 0;
 
     m_init_chinese = TRUE;
     m_init_full_english = FALSE;
@@ -94,5 +103,130 @@ static const struct {
     { "fuzzyzhuyin_in_ing",     ZHUYIN_AMB_IN_ING    },
 };
 
+void
+ZhuyinConfig::readDefaultValues (void)
+{
+#if defined(HAVE_IBUS_CONFIG_GET_VALUES)
+    /* read all values together */
+    initDefaultValues ();
+    GVariant *values =
+            ibus_config_get_values (get<IBusConfig> (), m_section.c_str ());
+    g_return_if_fail (values != NULL);
+
+    GVariantIter iter;
+    gchar *name;
+    GVariant *value;
+    g_variant_iter_init (&iter, values);
+    while (g_variant_iter_next (&iter, "{sv}", &name, &value)) {
+        valueChanged (m_section, name, value);
+        g_free (name);
+        g_variant_unref (value);
+    }
+    g_variant_unref (values);
+#else
+    /* others */
+    m_orientation = read (CONFIG_ORIENTATION, IBUS_ORIENTATION_VERTICAL);
+    if (m_orientation != IBUS_ORIENTATION_VERTICAL &&
+        m_orientation != IBUS_ORIENTATION_HORIZONTAL) {
+        m_orientation = IBUS_ORIENTATION_VERTICAL;
+        g_warn_if_reached ();
+    }
+    m_page_size = read (CONFIG_PAGE_SIZE, 10);
+    if (m_page_size > 10) {
+        m_page_size = 10;
+        g_warn_if_reached ();
+    }
+
+    m_keyboard_layout = read (CONFIG_KEYBOARD_LAYOUT, 0);
+
+    /* init states */
+    m_init_chinese = read (CONFIG_INIT_CHINESE, true);
+    m_init_full_english = read (CONFIG_INIT_FULL_ENGLISH, false);
+    m_init_full_punct = read (CONFIG_INIT_FULL_PUNCT, true);
+    m_init_trad_chinese = read (CONFIG_INIT_TRAD_CHINESE, true);
+
+    m_candidate_keys = read (CONFIG_CANDIDATE_KEYS, "1234567890");
+
+    /* fuzzy zhuyin */
+    if (read (CONFIG_FUZZY_ZHUYIN, false))
+        m_option_mask |= ZHUYIN_AMB_ALL;
+    else
+        m_option_mask &= ~ZHUYIN_AMB_ALL;
+
+    /* read values */
+    for (guint i = 0; i < G_N_ELEMENTS (options); i++) {
+        if (read (options[i].name,
+                  (options[i].option & PINYIN_DEFAULT_OPTION) != 0)) {
+            m_option |= options[i].option;
+        }
+        else {
+            m_option &= ~options[i].option;
+        }
+    }
+#endif
+}
+
+gboolean
+ZhuyinConfig::valueChanged (const std::string &section,
+                            const std::string &name,
+                            GVariant          *value)
+{
+    if (m_section != section)
+        return FALSE;
+
+    if (Config::valueChanged (section, name, value))
+        return TRUE;
+
+    /* init states */
+    if (CONFIG_INIT_CHINESE == name)
+        m_init_chinese = normalizeGVariant (value, true);
+    else if (CONFIG_INIT_FULL_ENGLISH == name)
+        m_init_full_english = normalizeGVariant (value, true);
+    else if (CONFIG_INIT_FULL_PUNCT == name)
+        m_init_full_punct = normalizeGVariant (value, true);
+    else if (CONFIG_INIT_TRAD_CHINESE == name)
+        m_init_trad_chinese = normalizeGVariant (value, false);
+    else if (CONFIG_KEYBOARD_LAYOUT == name)
+        m_keyboard_layout = normalizeGVariant (value, 0);
+    else if (CONFIG_CANDIDATE_KEYS == name) {
+        m_candidate_keys = normalizeGVariant (value, "1234567890");
+    } /* lookup table page size */
+    else if (CONFIG_ORIENTATION == name) {
+        m_orientation = normalizeGVariant (value, IBUS_ORIENTATION_VERTICAL);
+        if (m_orientation != IBUS_ORIENTATION_VERTICAL &&
+            m_orientation != IBUS_ORIENTATION_HORIZONTAL) {
+            m_orientation = IBUS_ORIENTATION_VERTICAL;
+            g_warn_if_reached ();
+        }
+    }
+    else if (CONFIG_PAGE_SIZE == name) {
+        m_page_size = normalizeGVariant (value, 10);
+        if (m_page_size > 10) {
+            m_page_size = 10;
+            g_warn_if_reached ();
+        }
+    } /* fuzzy zhuyin */
+    else if (CONFIG_FUZZY_ZHUYIN == name) {
+        if (normalizeGVariant (value, false))
+            m_option_mask |= ZHUYIN_AMB_ALL;
+        else
+            m_option_mask &= ~ZHUYIN_AMB_ALL;
+    }
+    else {
+        for (guint i = 0; i < G_N_ELEMENTS (options); i++) {
+            if (G_LIKELY (options[i].name != name))
+                continue;
+            if (normalizeGVariant (value,
+                    (options[i].option & ZHUYIN_DEFAULT_OPTION) != 0))
+                m_option |= options[i].option;
+            else
+                m_option &= ~options[i].option;
+            return TRUE;
+        }
+        return FALSE;
+    }
+    return TRUE;
+
+}
 
 };
