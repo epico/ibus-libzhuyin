@@ -49,7 +49,7 @@ Config::initDefaultValues (void)
     m_zhuyin_schema = 0;
 
     m_init_chinese = TRUE;
-    m_init_full = FALSE;
+    m_init_full_english = FALSE;
     m_init_full_punct = TRUE;
     m_init_trad_chinese = TRUE;
 }

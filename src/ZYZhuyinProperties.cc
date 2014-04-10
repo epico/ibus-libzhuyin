@@ -31,7 +31,7 @@ namespace ZY {
 ZhuyinProperties::ZhuyinProperties (Config & config)
     : m_config (config),
       m_mode_chinese (m_config.initChinese ()),
-      m_mode_full (m_config.initFull ()),
+      m_mode_full (m_config.initFullEnglish ()),
       m_mode_full_punct (m_config.initFullPunct ()),
       m_mode_trad (m_config.initTradChinese ()),
       m_prop_chinese ("InputMode",
@@ -176,7 +176,7 @@ ZhuyinProperties::reset (void)
     if (modeChinese () != m_config.initChinese ()) {
         toggleModeChinese ();
     }
-    if (modeFull () != m_config.initFull ()) {
+    if (modeFull () != m_config.initFullEnglish ()) {
         toggleModeFull ();
     }
     if (modeFullPunct () != m_config.initFullPunct ()) {

@@ -27,6 +27,7 @@
 
 #include <string>
 #include <ibus.h>
+#include <zhuyin.h>
 #include "ZYUtil.h"
 #include "ZYObject.h"
 
