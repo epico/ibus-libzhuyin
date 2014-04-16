@@ -28,8 +28,11 @@
 
 namespace ZY {
 
-class SymbolSection;
 class PhoneticSection;
+typedef std::shared_ptr<PhoneticSection> PhoneticSectionPtr;
+
+class SymbolSection;
+typedef std::shared_ptr<SymbolSection> SymbolSectionPtr;
 
 class PhoneticEditor : public EnhancedEditor {
     friend class SymbolSection;
@@ -82,11 +85,16 @@ protected:
     enum {
         STATE_INPUT = 0,               // input state
         STATE_CANDIDATE_SHOWN,         // candidates shown state
+        STATE_BUILTIN_SYMBOL_SHOWN,    // built-in symbol shown state
+#if 0
         STATE_USER_SYMBOL_LIST_ALL,    // user symbol input state
         STATE_USER_SYMBOL_SHOWN,       // user symbol shown state
-        STATE_BUILTIN_SYMBOL_SHOWN,    // built-in symbol shown state
+#endif
         STATE_LAST,
     } m_input_state;
+
+    SymbolSectionPtr m_symbol_sections[STATE_LAST];
+    PhoneticSectionPtr m_phonetic_section;
 };
 
 };

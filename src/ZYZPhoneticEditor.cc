@@ -23,4 +23,5 @@
 #include "ZYConfig.h"
 #include "ZYZhuyinProperties.h"
 
-using namespace ZY;
+namespace ZY {
+};

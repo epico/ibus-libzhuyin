@@ -49,6 +49,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYZhuyinProperties.h \
 	ZYTradSimpConverter.h \
 	ZYEnhancedText.h \
+	ZYZEnhancedEditor.h \
 	ZYZPhoneticEditor.h \
 	ZYSymbols.h \
 	ZYZSymbolSection.h \
