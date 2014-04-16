@@ -31,7 +31,7 @@ namespace ZY {
 ZhuyinProperties::ZhuyinProperties (Config & config)
     : m_config (config),
       m_mode_chinese (m_config.initChinese ()),
-      m_mode_full (m_config.initFullEnglish ()),
+      m_mode_full_english (m_config.initFullEnglish ()),
       m_mode_full_punct (m_config.initFullPunct ()),
       m_mode_trad (m_config.initTradChinese ()),
       m_prop_chinese ("InputMode",
@@ -45,15 +45,15 @@ ZhuyinProperties::ZhuyinProperties (Config & config)
                 StaticText (m_mode_chinese ?
                             _("Switch to English Mode") :
                             _("Switch to Chinese Mode"))),
-      m_prop_full ("mode.full",
+      m_prop_full_english ("mode.full",
                 PROP_TYPE_NORMAL,
-                StaticText (m_mode_full ?
+                StaticText (m_mode_full_english ?
                             _("Full Width Letter") :
                             _("Half Width Letter")),
-                m_mode_full ?
+                m_mode_full_english ?
                     PKGDATADIR"/icons/full.svg" :
                     PKGDATADIR"/icons/half.svg",
-                StaticText (m_mode_full ?
+                StaticText (m_mode_full_english ?
                             _("Switch to Half Width Letter Mode"):
                             _("Switch to Full Width Letter Mode"))),
       m_prop_full_punct ("mode.full_punct",
@@ -90,7 +90,7 @@ ZhuyinProperties::ZhuyinProperties (Config & config)
         m_prop_chinese.setSymbol(N_("英"));
 
     m_props.append (m_prop_chinese);
-    m_props.append (m_prop_full);
+    m_props.append (m_prop_full_english);
     m_props.append (m_prop_full_punct);
     m_props.append (m_prop_trad);
     m_props.append (m_prop_setup);
@@ -123,19 +123,19 @@ ZhuyinProperties::toggleModeChinese (void)
 }
 
 void
-ZhuyinProperties::toggleModeFull (void)
+ZhuyinProperties::toggleModeFullEnglish (void)
 {
-    m_mode_full = !m_mode_full;
-    m_prop_full.setLabel (m_mode_full ?
-                          _("Full Width Letter") :
-                          _("Half Width Letter"));
-    m_prop_full.setIcon (m_mode_full ?
-                         PKGDATADIR"/icons/full.svg" :
-                         PKGDATADIR"/icons/half.svg");
-    m_prop_full.setTooltip (m_mode_full ?
-                            _("Switch to Half Width Letter Mode"):
-                            _("Switch to Full Width Letter Mode"));
-    updateProperty (m_prop_full);
+    m_mode_full_english = !m_mode_full_english;
+    m_prop_full_english.setLabel (m_mode_full_english ?
+                                  _("Full Width Letter") :
+                                  _("Half Width Letter"));
+    m_prop_full_english.setIcon (m_mode_full_english ?
+                                 PKGDATADIR"/icons/full.svg" :
+                                 PKGDATADIR"/icons/half.svg");
+    m_prop_full_english.setTooltip (m_mode_full_english ?
+                                 _("Switch to Half Width Letter Mode"):
+                                 _("Switch to Full Width Letter Mode"));
+    updateProperty (m_prop_full_english);
 }
 
 void
@@ -176,8 +176,8 @@ ZhuyinProperties::reset (void)
     if (modeChinese () != m_config.initChinese ()) {
         toggleModeChinese ();
     }
-    if (modeFull () != m_config.initFullEnglish ()) {
-        toggleModeFull ();
+    if (modeFullEnglish () != m_config.initFullEnglish ()) {
+        toggleModeFullEnglish ();
     }
     if (modeFullPunct () != m_config.initFullPunct ()) {
         toggleModeFullPunct ();
@@ -199,7 +199,7 @@ ZhuyinProperties::propertyActivate (const gchar *prop_name, guint prop_state) {
         return TRUE;
     }
     else if (mode_full == prop_name) {
-        toggleModeFull ();
+        toggleModeFullEnglish ();
         return TRUE;
     }
     else if (mode_full_punct == prop_name) {
