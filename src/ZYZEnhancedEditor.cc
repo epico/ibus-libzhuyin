@@ -36,7 +36,7 @@ EnhancedEditor::~EnhancedEditor (void)
 }
 
 gboolean
-EnhancedEditor::processEvent (guint keyval, guint keycode, guint modifiers)
+EnhancedEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 {
     modifiers &= (IBUS_CONTROL_MASK |
                   IBUS_MOD1_MASK |

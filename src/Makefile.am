@@ -33,6 +33,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYZhuyinProperties.cc \
 	ZYTradSimpConverter.cc \
 	ZYEnhancedText.cc \
+	ZYZEnhancedEditor.cc \
 	ZYZPhoneticEditor.cc \
 	ZYSymbols.cc \
 	ZYZBuiltinSymbolSection.cc \

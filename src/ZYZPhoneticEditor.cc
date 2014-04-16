@@ -20,8 +20,43 @@
  */
 
 #include "ZYZPhoneticEditor.h"
+#include <assert.h>
 #include "ZYConfig.h"
 #include "ZYZhuyinProperties.h"
+#include "ZYZPhoneticSection.h"
+#include "ZYZBuiltinSymbolSection.h"
 
 namespace ZY {
+
+/**
+ * Implementation Notes:
+ * 1. support input editing;
+ * 2. support phonetic candidates;
+ * 3. support built-in symbols candidates;
+ * 4. support list all user symbols;
+ * 5. support show user symbols;
+ * 6. support easy symbols input;
+ */
+
+/* init static members */
+PhoneticEditor::PhoneticEditor (ZhuyinProperties & props, Config & config)
+    : EnhancedEditor (props, config),
+      m_lookup_table (m_config.pageSize ())
+{
+    /* TODO: alloc one instance here. */
+    m_instance = NULL;
+    assert (NULL != m_instance);
+
+    /* init symbols sections here. */
+    m_symbol_sections[STATE_BUILTIN_SYMBOL_SHOWN].reset
+        (new BuiltinSymbolSection (*this));
+
+    m_phonetic_section.reset
+        (new PhoneticSection (*this));
+}
+
+PhoneticEditor::~PhoneticEditor (void)
+{
+}
+
 };

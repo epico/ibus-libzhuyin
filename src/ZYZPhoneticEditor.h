@@ -25,6 +25,7 @@
 #include <zhuyin.h>
 #include "ZYLookupTable.h"
 #include "ZYZEnhancedEditor.h"
+#include <vector>
 
 namespace ZY {
 
@@ -40,7 +41,7 @@ class PhoneticEditor : public EnhancedEditor {
 
 public:
     PhoneticEditor (ZhuyinProperties & props, Config & config);
-    virtual ~PhoneticEditor ();
+    virtual ~PhoneticEditor (void);
 
 public:
     /* virtual functions */
@@ -95,6 +96,8 @@ protected:
 
     SymbolSectionPtr m_symbol_sections[STATE_LAST];
     PhoneticSectionPtr m_phonetic_section;
+
+    std::vector<zhuyin_instance_t *> m_instances;
 };
 
 };
