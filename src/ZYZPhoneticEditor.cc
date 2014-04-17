@@ -59,4 +59,118 @@ PhoneticEditor::~PhoneticEditor (void)
 {
 }
 
+gboolean
+PhoneticEditor::processEnter (guint keyval, guint keycode,
+                              guint modifiers)
+{
+    if (!m_text)
+        return FALSE;
+    if (cmshm_filter (modifiers) != 0)
+        return TRUE;
+
+    commit ();
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::processFunctionKey (guint keyval, guint keycode,
+                                    guint modifiers)
+{
+    if (m_text.empty ())
+        return FALSE;
+
+    /* ignore numlock */
+    modifiers = cmshm_filter (modifiers);
+
+    if (modifiers != 0)
+        return TRUE;
+
+    /* process some cursor control keys */
+    if (modifiers == 0) { /* no modifiers. */
+        switch (keyval) {
+        case IBUS_BackSpace:
+            removeCharBefore ();
+            return TRUE;
+
+        case IBUS_Delete:
+        case IBUS_KP_Delete:
+            removeCharAfter ();
+            return TRUE;
+
+        case IBUS_Left:
+        case IBUS_KP_Left:
+            moveCursorLeft ();
+            return TRUE;
+
+        case IBUS_Right:
+        case IBUS_KP_Right:
+            moveCursorRight ();
+            return TRUE;
+
+        case IBUS_Home:
+        case IBUS_KP_Home:
+            moveCursorToBegin ();
+            return TRUE;
+
+        case IBUS_End:
+        case IBUS_KP_Enter:
+            moveCursorToEnd ();
+            return TRUE;
+
+        case IBUS_Escape:
+            reset ();
+            return TRUE;
+
+        default:
+            return TRUE;
+        }
+    }
+
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
+                                     guint modifiers)
+{
+    if (!m_lookup_table.size ())
+        return FALSE;
+
+    /* ignore numlock */
+    modifiers = cmshm_filter (modifiers);
+
+    if (modifiers != 0)
+        return TRUE;
+
+    /* process some cursor control keys */
+    if (modifiers == 0) { /* no modifiers. */
+        switch (keyval) {
+        case IBUS_Up:
+        case IBUS_KP_Up:
+            cursorUp ();
+            return TRUE;
+
+        case IBUS_Down:
+        case IBUS_KP_Down:
+            cursorDown ();
+            return TRUE;
+
+        case IBUS_Page_Up:
+        case IBUS_KP_Page_Up:
+            pageUp ();
+            return TRUE;
+
+        case IBUS_Page_Down:
+        case IBUS_KP_Page_Down:
+            pageDown ();
+            return TRUE;
+
+        default:
+            return TRUE;
+        }
+    }
+
+    return TRUE;
+}
+
 };
