@@ -98,4 +98,16 @@ EnhancedEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
     }
 }
 
+void
+EnhancedEditor::update (void)
+{
+    Editor::update ();
+}
+
+void
+EnhancedEditor::reset (void)
+{
+    Editor::reset ();
+}
+
 };

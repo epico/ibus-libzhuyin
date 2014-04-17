@@ -39,6 +39,9 @@ class PhoneticEditor : public EnhancedEditor {
     friend class SymbolSection;
     friend class PhoneticSection;
 
+protected:
+    typedef std::vector<zhuyin_instance_t *> zhuyin_instance_vec;
+
 public:
     PhoneticEditor (ZhuyinProperties & props, Config & config);
     virtual ~PhoneticEditor (void);
@@ -98,7 +101,7 @@ protected:
     SymbolSectionPtr m_symbol_sections[STATE_LAST];
     PhoneticSectionPtr m_phonetic_section;
 
-    std::vector<zhuyin_instance_t *> m_instances;
+    zhuyin_instance_vec m_instances;
 };
 
 };

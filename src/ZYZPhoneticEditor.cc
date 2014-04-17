@@ -173,4 +173,106 @@ PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
     return TRUE;
 }
 
+gboolean
+PhoneticEditor::processKeyEvent (guint keyval, guint keycode,
+                                 guint modifiers)
+{
+    return FALSE;
+}
+
+void
+PhoneticEditor::updateLookupTableFast (void)
+{
+    Editor::updateLookupTableFast (m_lookup_table, TRUE);
+}
+
+void
+PhoneticEditor::updateLookupTable (void)
+{
+    m_lookup_table.clear ();
+
+    fillLookupTableByPage ();
+    if (m_lookup_table.size ()) {
+        Editor::updateLookupTable (m_lookup_table, TRUE);
+    } else {
+        hideLookupTable ();
+    }
+}
+
+gboolean
+PhoneticEditor::fillLookupTableByPage (void)
+{
+    assert (FALSE);
+}
+
+void
+PhoneticEditor::pageUp (void)
+{
+    if (G_LIKELY (m_lookup_table.pageUp ())) {
+        updateLookupTableFast ();
+        updatePreeditText ();
+        updateAuxiliaryText ();
+    }
+}
+
+void
+PhoneticEditor::pageDown (void)
+{
+    if (G_LIKELY ((m_lookup_table.pageDown ()) ||
+                  (fillLookupTableByPage () && m_lookup_table.pageDown ()))) {
+        updateLookupTableFast ();
+        updatePreeditText ();
+        updateAuxiliaryText ();
+    }
+}
+
+void
+PhoneticEditor::cursorUp (void)
+{
+    if (G_LIKELY (m_lookup_table.cursorUp ())) {
+        updateLookupTableFast ();
+        updatePreeditText ();
+        updateAuxiliaryText ();
+    }
+}
+
+void
+PhoneticEditor::cursorDown (void)
+{
+    if (G_LIKELY ((m_lookup_table.cursorPos () == m_lookup_table.size() - 1) &&
+                  (fillLookupTableByPage () == FALSE))) {
+        return;
+    }
+
+    if (G_LIKELY (m_lookup_table.cursorDown ())) {
+        updateLookupTableFast ();
+        updatePreeditText ();
+        updateAuxiliaryText ();
+    }
+}
+
+void
+PhoneticEditor::candidateClicked (guint index, guint button,
+                                  guint state)
+{
+    selectCandidateInPage (index);
+}
+
+void
+PhoneticEditor::reset (void)
+{
+    m_lookup_table.clear ();
+    m_buffer = "";
+
+    zhuyin_reset (m_instance);
+
+    zhuyin_instance_vec::iterator iter;
+    for (; iter != m_instances.end (); ++iter) {
+        zhuyin_free_instance (*iter);
+    }
+    m_instances.clear ();
+
+    EnhancedEditor::reset ();
+}
+
 };
