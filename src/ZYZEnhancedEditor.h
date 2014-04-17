@@ -39,8 +39,6 @@ public:
     virtual gboolean processKeyEvent (guint keyval, guint keycode, guint modifiers);
     virtual void update (void);
     virtual void reset (void);
-
-    virtual gboolean isPhonetic (const char key) = 0;
 };
 
 };

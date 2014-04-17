@@ -47,6 +47,7 @@ EnhancedEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
     if (modifiers != 0)
         return TRUE;
 
+#if 0
     if (isPhonetic (keyval)) {
         /* zhuyin or pinyin key */
         assert (insert_phonetic (m_text, m_cursor++, keyval));
@@ -57,6 +58,7 @@ EnhancedEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         if (!m_text)
             return FALSE;
     }
+#endif
 
     switch (keyval) {
     case IBUS_BackSpace:
