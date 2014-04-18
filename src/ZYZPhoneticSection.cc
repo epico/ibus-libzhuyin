@@ -20,6 +20,8 @@
  */
 
 #include "ZYZPhoneticSection.h"
+#include "ZYZhuyinProperties.h"
+#include "ZYTradSimpConverter.h"
 
 namespace ZY {
 
@@ -48,24 +50,44 @@ PhoneticSection::initCandidates (zhuyin_instance_t * instance,
 bool
 PhoneticSection::fillLookupTableByPage ()
 {
-    /* clear lookup table. */
     LookupTable & lookup_table = getLookupTable ();
-    lookup_table.clear ();
 
-    guint num = 0;
-    zhuyin_get_n_candidate (m_instance, &num);
+    guint len = 0;
+    zhuyin_get_n_candidate (m_instance, &len);
 
-    for (size_t i = 0; i < num; ++i) {
+    guint filled_nr = lookup_table.size ();
+    guint page_size = lookup_table.pageSize ();
+
+    /* fill lookup table by libzhuyin get candidates. */
+    guint need_nr = MIN (page_size, len - filled_nr);
+    g_assert (need_nr >=0);
+    if (need_nr == 0)
+        return FALSE;
+
+    String word;
+    for (guint i = filled_nr; i < filled_nr + need_nr; i++) {
+        if (i >= len)  /* no more candidates */
+            break;
+
         lookup_candidate_t * candidate = NULL;
         zhuyin_get_candidate (m_instance, i, &candidate);
 
-        const gchar * str = NULL;
-        zhuyin_get_candidate_string (m_instance, candidate, &str);
+        const gchar * phrase_string = NULL;
+        zhuyin_get_candidate_string (m_instance, candidate, &phrase_string);
 
-        lookup_table.appendCandidate (Text (str));
+        /* show get candidates. */
+        if (G_LIKELY (m_props.modeTrad ())) {
+            word = phrase_string;
+        } else { /* Simplified Chinese */
+            word.truncate (0);
+            TradSimpConverter::tradToSimp (phrase_string, word);
+        }
+
+        Text text (word);
+        lookup_table.appendCandidate (text);
     }
 
-    return true;
+    return TRUE;
 }
 
 int
