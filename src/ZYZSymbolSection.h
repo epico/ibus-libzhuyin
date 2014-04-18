@@ -34,7 +34,7 @@ public:
 
 public:
     virtual bool initCandidates (const String & hint) = 0;
-    virtual bool populateCandidates () = 0;
+    virtual bool fillLookupTableByPage () = 0;
     virtual int selectCandidate (guint index) = 0;
 
 public:

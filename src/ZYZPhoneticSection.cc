@@ -45,7 +45,7 @@ PhoneticSection::initCandidates (zhuyin_instance_t * instance,
 }
 
 bool
-PhoneticSection::populateCandidates ()
+PhoneticSection::fillLookupTableByPage ()
 {
     /* clear lookup table. */
     LookupTable & lookup_table = getLookupTable ();

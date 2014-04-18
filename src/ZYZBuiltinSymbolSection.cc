@@ -53,7 +53,7 @@ BuiltinSymbolSection::initCandidates (const String & lookup)
 }
 
 bool
-BuiltinSymbolSection::populateCandidates ()
+BuiltinSymbolSection::fillLookupTableByPage ()
 {
     /* clear lookup table. */
     LookupTable & lookup_table = getLookupTable ();

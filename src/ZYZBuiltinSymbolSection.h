@@ -36,7 +36,7 @@ public:
 
 public:
     virtual bool initCandidates (const String & lookup);
-    virtual bool populateCandidates ();
+    virtual bool fillLookupTableByPage ();
     virtual int selectCandidate (guint index);
 
 protected:
