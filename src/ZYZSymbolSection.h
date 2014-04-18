@@ -27,9 +27,12 @@
 
 namespace ZY {
 
+class ZhuyinProperties;
+
 class SymbolSection {
 public:
-    SymbolSection (PhoneticEditor & editor) : m_editor (editor) {}
+    SymbolSection (PhoneticEditor & editor, ZhuyinProperties & props) :
+        m_editor (editor), m_props(props) {}
     virtual ~SymbolSection () {}
 
 public:
@@ -47,6 +50,7 @@ protected:
 
 protected:
     PhoneticEditor & m_editor;
+    ZhuyinProperties & m_props;
 
     /* other variables. */
     String m_type;

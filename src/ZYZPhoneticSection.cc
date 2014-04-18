@@ -23,8 +23,9 @@
 
 namespace ZY {
 
-PhoneticSection::PhoneticSection (PhoneticEditor & editor) :
-    m_editor (editor)
+PhoneticSection::PhoneticSection (PhoneticEditor & editor,
+                                  ZhuyinProperties & props) :
+    m_editor (editor), m_props (props)
 {
 }
 

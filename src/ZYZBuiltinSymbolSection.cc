@@ -25,8 +25,9 @@
 
 namespace ZY {
 
-BuiltinSymbolSection::BuiltinSymbolSection (PhoneticEditor & editor) :
-    SymbolSection (editor)
+BuiltinSymbolSection::BuiltinSymbolSection (PhoneticEditor & editor,
+                                            ZhuyinProperties & props) :
+    SymbolSection (editor, props)
 {
     m_type = "builtin";
 }

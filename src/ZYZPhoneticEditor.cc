@@ -49,10 +49,10 @@ PhoneticEditor::PhoneticEditor (ZhuyinProperties & props, Config & config)
 
     /* init symbols sections here. */
     m_symbol_sections[STATE_BUILTIN_SYMBOL_SHOWN].reset
-        (new BuiltinSymbolSection (*this));
+        (new BuiltinSymbolSection (*this, props));
 
     m_phonetic_section.reset
-        (new PhoneticSection (*this));
+        (new PhoneticSection (*this, props));
 }
 
 PhoneticEditor::~PhoneticEditor (void)

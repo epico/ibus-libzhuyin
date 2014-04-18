@@ -30,7 +30,7 @@ namespace ZY {
 
 class PhoneticSection {
 public:
-    PhoneticSection (PhoneticEditor & editor);
+    PhoneticSection (PhoneticEditor & editor, ZhuyinProperties & props);
     virtual ~PhoneticSection ();
 
 public:
@@ -44,6 +44,7 @@ protected:
 
 protected:
     PhoneticEditor & m_editor;
+    ZhuyinProperties & m_props;
 
     /* other variables. */
     zhuyin_instance_t * m_instance;

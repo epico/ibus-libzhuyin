@@ -27,11 +27,14 @@
 
 namespace ZY {
 
+class ZhuyinProperties;
+
 class BuiltinSymbolSection : public SymbolSection {
     typedef std::vector<String>::iterator iterator_t;
 
 public:
-    BuiltinSymbolSection (PhoneticEditor & editor);
+    BuiltinSymbolSection (PhoneticEditor & editor,
+                          ZhuyinProperties & props);
     virtual ~BuiltinSymbolSection ();
 
 public:
