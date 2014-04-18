@@ -56,16 +56,28 @@ BuiltinSymbolSection::initCandidates (const String & lookup)
 bool
 BuiltinSymbolSection::fillLookupTableByPage ()
 {
-    /* clear lookup table. */
     LookupTable & lookup_table = getLookupTable ();
-    lookup_table.clear ();
 
-    iterator_t iter = m_candidates.begin ();
-    for (; iter != m_candidates.end (); ++iter) {
-        lookup_table.appendCandidate (Text (*iter));
+    guint len = m_candidates.size ();
+
+    guint filled_nr = lookup_table.size ();
+    guint page_size = lookup_table.pageSize ();
+
+    /* fill lookup table by libzhuyin get candidates. */
+    guint need_nr = MIN (page_size, len - filled_nr);
+    g_assert (need_nr >=0);
+    if (need_nr == 0)
+        return FALSE;
+
+    for (guint i = filled_nr; i < filled_nr + need_nr; i++) {
+        if (i >= len)  /* no more candidates */
+            break;
+
+        Text text (m_candidates[i]);
+        lookup_table.appendCandidate (text);
     }
 
-    return true;
+    return TRUE;
 }
 
 int
