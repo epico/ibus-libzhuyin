@@ -67,6 +67,8 @@ protected:
     gboolean selectCandidate (guint i);
     gboolean selectCandidateInPage (guint i);
 
+    void commit (const gchar *str);
+
     /* pure virtual functions */
     virtual gboolean insert (gint ch) = 0;
     virtual gboolean removeCharBefore (void);

@@ -25,6 +25,7 @@
 #include "ZYZhuyinProperties.h"
 #include "ZYZPhoneticSection.h"
 #include "ZYZBuiltinSymbolSection.h"
+#include "ZYEnhancedText.h"
 
 namespace ZY {
 
@@ -202,7 +203,17 @@ PhoneticEditor::updateLookupTable (void)
 gboolean
 PhoneticEditor::fillLookupTableByPage (void)
 {
-    assert (FALSE);
+    if (STATE_CANDIDATE_SHOWN == m_input_state)
+        return m_phonetic_section->fillLookupTableByPage ();
+
+    if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state /* ||
+        STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
+        STATE_USER_SYMBOL_SHOWN == m_input_state */) {
+        return m_symbol_sections[m_input_state]->
+            fillLookupTableByPage ();
+    }
+
+    return FALSE;
 }
 
 void
@@ -273,6 +284,126 @@ PhoneticEditor::reset (void)
     m_instances.clear ();
 
     EnhancedEditor::reset ();
+}
+
+void
+PhoneticEditor::update (void)
+{
+    updateLookupTable ();
+    updatePreeditText ();
+    updateAuxiliaryText ();
+}
+
+void
+PhoneticEditor::commit (const gchar *str)
+{
+    StaticText text(str);
+    commitText (text);
+}
+
+gboolean
+PhoneticEditor::selectCandidate (guint index)
+{
+    if (STATE_CANDIDATE_SHOWN == m_input_state)
+        return m_phonetic_section->selectCandidate (index);
+
+    if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state /* ||
+        STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
+        STATE_USER_SYMBOL_SHOWN == m_input_state */) {
+        return m_symbol_sections[m_input_state]->
+            selectCandidate (index);
+    }
+
+    return FALSE;
+}
+
+gboolean
+PhoneticEditor::selectCandidateInPage (guint index)
+{
+    guint page_size = m_lookup_table.pageSize ();
+    guint cursor_pos = m_lookup_table.cursorPos ();
+
+    if (G_UNLIKELY (index >= page_size))
+        return FALSE;
+    index += (cursor_pos / page_size) * page_size;
+
+    return selectCandidate (index);
+}
+
+gboolean
+PhoneticEditor::removeCharBefore (void)
+{
+    if (G_UNLIKELY (m_cursor == 0))
+        return FALSE;
+
+    m_cursor --;
+    erase_input_sequence (m_text, m_cursor, 1);
+
+    updateZhuyin ();
+    update ();
+
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::removeCharAfter (void)
+{
+    if (G_UNLIKELY (m_cursor ==
+                    get_enhanced_text_length (m_text)))
+        return FALSE;
+
+    erase_input_sequence (m_text, m_cursor, 1);
+
+    updateZhuyin ();
+    update ();
+
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::moveCursorLeft (void)
+{
+    if (G_UNLIKELY (m_cursor == 0))
+        return FALSE;
+
+    m_cursor --;
+    update ();
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::moveCursorRight (void)
+{
+    if (G_UNLIKELY (m_cursor ==
+                    get_enhanced_text_length (m_text)))
+        return FALSE;
+
+    m_cursor ++;
+    update ();
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::moveCursorToBegin (void)
+{
+    if (G_UNLIKELY (m_cursor == 0))
+        return FALSE;
+
+    m_cursor = 0;
+    update ();
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::moveCursorToEnd (void)
+{
+    if (G_UNLIKELY (m_cursor ==
+                    get_enhanced_text_length (m_text)))
+        return FALSE;
+
+    m_cursor = get_enhanced_text_length (m_text);
+    update ();
+    return TRUE;
 }
 
 };
