@@ -82,6 +82,8 @@ protected:
     virtual void updatePreeditText (void) = 0;
     virtual void updateZhuyin (void) = 0;
 
+    void resizeInstances (void);
+
     /* varibles */
     LookupTable                 m_lookup_table;
     String                      m_buffer;

@@ -414,4 +414,29 @@ PhoneticEditor::moveCursorToEnd (void)
     return TRUE;
 }
 
+void
+PhoneticEditor::resizeInstances (void)
+{
+    size_t num = get_number_of_phonetic_sections (m_text);
+
+    /* re-allocate the zhuyin instances */
+    if (num > m_instances.size ()) { /* need more instances. */
+        for (size_t i = m_instances.size (); i < num; ++i) {
+            /* allocate one instance */
+            zhuyin_instance_t * instance = NULL;
+            assert (NULL != instance);
+            m_instances.push_back (instance);
+        }
+    }
+
+    if (num < m_instances.size ()) { /* free some instances. */
+        for (size_t i = num; i < m_instances.size (); ++i) {
+            zhuyin_free_instance (m_instances[i]);
+            m_instances[i] = NULL;
+        }
+        m_instances.resize (num);
+    }
+}
+
+
 };

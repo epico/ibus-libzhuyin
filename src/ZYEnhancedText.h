@@ -64,6 +64,9 @@ insert_symbol(String & enhanced_text, size_t offset,
 bool
 erase_input_sequence(String & enhanced_text, size_t offset, size_t length);
 
+size_t
+get_number_of_phonetic_sections (String & enhanced_text);
+
 };
 
 #endif

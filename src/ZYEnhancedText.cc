@@ -304,4 +304,29 @@ erase_input_sequence(String & enhanced_text, size_t offset, size_t length)
     return true;
 }
 
+size_t
+get_number_of_phonetic_sections (String & enhanced_text)
+{
+    size_t num = 0;
+    size_t start_pos = 0, end_pos = 0;
+
+    while (end_pos != enhanced_text.size ()) {
+        section_t type = probe_section_quick (enhanced_text, start_pos);
+
+        if (PHONETIC_SECTION == type) {
+            String section;
+            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+            ++num;
+        }
+
+        if (SYMBOL_SECTION == type) {
+            String type, lookup, choice;
+            get_symbol_section (enhanced_text, start_pos, end_pos,
+                                type, lookup, choice);
+        }
+    }
+
+    return num;
+}
+
 };
