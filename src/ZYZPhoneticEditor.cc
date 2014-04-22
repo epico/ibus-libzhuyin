@@ -167,8 +167,16 @@ PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
             return TRUE;
 
         default:
-            return TRUE;
+            break;
         }
+
+        /* process candidate keys */
+        std::string keys = m_config.candidateKeys ();
+        std::size_t found = keys.find (keyval);
+        if (found != std::string::npos) { /* found. */
+            selectCandidateInPage (found);
+        }
+        return TRUE;
     }
 
     return TRUE;
