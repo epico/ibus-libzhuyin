@@ -58,11 +58,9 @@ public:
     static void init (void);
     static void finalize (void);
 
-#if 0
 private:
     gboolean saveUserDB (void);
     static gboolean timeoutCallback (gpointer date);
-#endif
 
 private:
     /* libzhuyin context */
