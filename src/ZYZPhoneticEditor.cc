@@ -26,6 +26,7 @@
 #include "ZYZPhoneticSection.h"
 #include "ZYZBuiltinSymbolSection.h"
 #include "ZYEnhancedText.h"
+#include "ZYLibZhuyin.h"
 
 namespace ZY {
 
@@ -44,8 +45,8 @@ PhoneticEditor::PhoneticEditor (ZhuyinProperties & props, Config & config)
     : EnhancedEditor (props, config),
       m_lookup_table (m_config.pageSize ())
 {
-    /* TODO: alloc one instance here. */
-    m_instance = NULL;
+    /* alloc one instance. */
+    m_instance = LibZhuyinBackEnd::instance ().allocZhuyinInstance ();
     assert (NULL != m_instance);
 
     /* init symbols sections here. */
@@ -58,6 +59,13 @@ PhoneticEditor::PhoneticEditor (ZhuyinProperties & props, Config & config)
 
 PhoneticEditor::~PhoneticEditor (void)
 {
+    m_text = "";
+    m_cursor = 0;
+
+    /* free m_instances */
+    resizeInstances ();
+
+    LibZhuyinBackEnd::instance ().freeZhuyinInstance (m_instance);
 }
 
 gboolean
@@ -287,7 +295,7 @@ PhoneticEditor::reset (void)
 
     zhuyin_instance_vec::iterator iter;
     for (; iter != m_instances.end (); ++iter) {
-        zhuyin_free_instance (*iter);
+        LibZhuyinBackEnd::instance ().freeZhuyinInstance (*iter);
     }
     m_instances.clear ();
 
@@ -423,7 +431,8 @@ PhoneticEditor::resizeInstances (void)
     if (num > m_instances.size ()) { /* need more instances. */
         for (size_t i = m_instances.size (); i < num; ++i) {
             /* allocate one instance */
-            zhuyin_instance_t * instance = NULL;
+            zhuyin_instance_t * instance = LibZhuyinBackEnd::instance ().
+                allocZhuyinInstance ();
             assert (NULL != instance);
             m_instances.push_back (instance);
         }
@@ -431,7 +440,7 @@ PhoneticEditor::resizeInstances (void)
 
     if (num < m_instances.size ()) { /* free some instances. */
         for (size_t i = num; i < m_instances.size (); ++i) {
-            zhuyin_free_instance (m_instances[i]);
+            LibZhuyinBackEnd::instance ().freeZhuyinInstance (m_instances[i]);
             m_instances[i] = NULL;
         }
         m_instances.resize (num);

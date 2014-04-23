@@ -30,6 +30,8 @@ libexec_PROGRAMS = ibus-engine-libzhuyin
 ibus_engine_libzhuyin_c_sources = \
 	ZYConfig.cc \
 	ZYEditor.cc \
+	ZYLibZhuyin.cc \
+	ZYZConfig.cc \
 	ZYZhuyinProperties.cc \
 	ZYTradSimpConverter.cc \
 	ZYEnhancedText.cc \
@@ -47,6 +49,8 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYEditor.h \
 	ZYLookupTable.h \
 	ZYObject.h \
+	ZYLibZhuyin.h \
+	ZYZConfig.h \
 	ZYZhuyinProperties.h \
 	ZYTradSimpConverter.h \
 	ZYEnhancedText.h \
@@ -87,6 +91,7 @@ ibus_engine_libzhuyin_CXXFLAGS = \
         -DGETTEXT_PACKAGE=\"@GETTEXT_PACKAGE@\" \
         -DPKGDATADIR=\"$(pkgdatadir)\" \
         -DLIBEXECDIR=\"$(libexecdir)\" \
+        -DLIBZHUYIN_DATADIR=\"@LIBZHUYIN_DATADIR@\/data\" \
         $(NULL)
 
 if HAVE_BOOST

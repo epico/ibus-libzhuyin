@@ -41,9 +41,9 @@ public:
 
 protected:
     ZhuyinConfig (Bus & bus);
-    virtual ~ZhuyinConfig (void);
 
 public:
+    virtual ~ZhuyinConfig (void);
 
 protected:
     void initDefaultValues (void);
