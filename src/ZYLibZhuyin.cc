@@ -22,6 +22,7 @@
 #include "ZYLibZhuyin.h"
 
 #include <string.h>
+#include <assert.h>
 #include <zhuyin.h>
 #include "ZYZConfig.h"
 
@@ -71,6 +72,13 @@ LibZhuyinBackEnd::initZhuyinContext (Config *config)
     return context;
 }
 
+gboolean
+LibZhuyinBackEnd::setZhuyinOptions (Config *config)
+{
+    assert (FALSE);
+}
+
+
 zhuyin_instance_t *
 LibZhuyinBackEnd::allocZhuyinInstance ()
 {
@@ -99,4 +107,12 @@ LibZhuyinBackEnd::init (void) {
 void
 LibZhuyinBackEnd::finalize (void) {
     m_instance.reset ();
+}
+
+gboolean
+LibZhuyinBackEnd::saveUserDB (void)
+{
+    if (m_zhuyin_context)
+        zhuyin_save (m_zhuyin_context);
+    return TRUE;
 }
