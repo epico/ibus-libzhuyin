@@ -21,6 +21,7 @@
 
 #include "ZYZConfig.h"
 #include <zhuyin.h>
+#include "ZYLibZhuyin.h"
 
 namespace ZY {
 
@@ -227,6 +228,21 @@ ZhuyinConfig::valueChanged (const std::string &section,
     }
     return TRUE;
 
+}
+
+void
+ZhuyinConfig::valueChangedCallback (IBusConfig   *config,
+                                    const gchar  *section,
+                                    const gchar  *name,
+                                    GVariant     *value,
+                                    ZhuyinConfig *self)
+{
+    if (self->m_section != section)
+        return;
+
+    self->valueChanged (section, name, value);
+
+    LibZhuyinBackEnd::instance ().setZhuyinOptions (self);
 }
 
 };
