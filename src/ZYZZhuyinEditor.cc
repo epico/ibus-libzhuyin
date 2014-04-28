@@ -108,8 +108,63 @@ ZhuyinEditor::updatePreeditText (void)
     }
 
     String & enhanced_text = m_text;
+    m_preedit_text.clear ();
 
+    size_t index = 0;
+    size_t start_pos = 0, end_pos = 0;
+
+    while (end_pos != enhanced_text.size ()) {
+        section_t type = probe_section_quick (enhanced_text, start_pos);
+
+        if (PHONETIC_SECTION == type) {
+            String section;
+            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+            zhuyin_instance_t * instance = m_instances[index];
+
+            char * sentence = NULL;
+            zhuyin_get_sentence (instance, &sentence);
+            m_preedit_text += sentence;
+            g_free (sentence);
+
+            size_t len = zhuyin_get_parsed_input_length (instance);
+            for (size_t i = len; i < section.size (); ++i) {
+                char sym = section[i];
+                gchar ** symbols = NULL;
+                /* append bopomofo symbol except for DaChen26. */
+                assert (zhuyin_in_chewing_keyboard (m_instance, sym, symbols));
+                assert (NULL != symbols[0]);
+                m_preedit_text += symbols[0];
+                g_strfreev (symbols);
+            }
+
+            ++index;
+        }
+
+        if (SYMBOL_SECTION == type) {
+            String type, lookup, choice;
+            get_symbol_section (enhanced_text, start_pos, end_pos,
+                                type, lookup, choice);
+            m_preedit_text += choice;
+        }
+
+        start_pos = end_pos;
+    }
+
+    if (m_props.modeTrad ()) {
+        m_buffer = m_preedit_text;
+    } else {
+        TradSimpConverter::tradToSimp (m_preedit_text.c_str (), m_buffer);
+    }
+
+    StaticText preedit_text (m_buffer);
+    /* underline */
+    preedit_text.appendAttribute (IBUS_ATTR_TYPE_UNDERLINE, IBUS_ATTR_UNDERLINE_SINGLE, 0, -1);
+
+    /* TODO: calcuate the cursor position. */
+    size_t cursor = m_cursor;
     assert (FALSE);
+    Editor::updatePreeditText (preedit_text, cursor, TRUE);
+    return;
 }
 
 void
