@@ -324,6 +324,8 @@ get_number_of_phonetic_sections (String & enhanced_text)
             get_symbol_section (enhanced_text, start_pos, end_pos,
                                 type, lookup, choice);
         }
+
+        start_pos = end_pos;
     }
 
     return num;

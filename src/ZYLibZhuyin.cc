@@ -28,7 +28,7 @@
 
 #define LIBZHUYIN_SAVE_TIMEOUT   (5 * 60)
 
-using namespace ZY;
+namespace ZY {
 
 std::unique_ptr<LibZhuyinBackEnd> LibZhuyinBackEnd::m_instance;
 
@@ -155,3 +155,36 @@ LibZhuyinBackEnd::saveUserDB (void)
         zhuyin_save (m_zhuyin_context);
     return TRUE;
 }
+
+void
+LibZhuyinBackEnd::modified (void)
+{
+    /* Restart the timer */
+    g_timer_start (m_timer);
+
+    if (m_timeout_id != 0)
+        return;
+
+    m_timeout_id = g_timeout_add_seconds (LIBZHUYIN_SAVE_TIMEOUT,
+                                          LibZhuyinBackEnd::timeoutCallback,
+                                          static_cast<gpointer> (this));
+}
+
+gboolean
+LibZhuyinBackEnd::timeoutCallback (gpointer data)
+{
+    LibZhuyinBackEnd *self = static_cast<LibZhuyinBackEnd *>(data);
+
+    /* Get the elapsed time since last modification of database. */
+    guint elapsed = (guint)g_timer_elapsed (self->m_timer, NULL);
+
+    if (elapsed >= LIBZHUYIN_SAVE_TIMEOUT &&
+        self->saveUserDB ()) {
+        self->m_timeout_id = 0;
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+};

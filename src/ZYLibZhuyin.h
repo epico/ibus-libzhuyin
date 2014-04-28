@@ -60,7 +60,7 @@ public:
 
 private:
     gboolean saveUserDB (void);
-    static gboolean timeoutCallback (gpointer date);
+    static gboolean timeoutCallback (gpointer data);
 
 private:
     /* libzhuyin context */

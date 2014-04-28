@@ -47,6 +47,8 @@ protected:
 
     gboolean insert (gint ch);
 
+protected:
+    String m_preedit_text;
 };
 
 };
