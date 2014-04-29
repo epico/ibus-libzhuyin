@@ -77,7 +77,7 @@ ZhuyinConfig::initDefaultValues (void)
     m_orientation = IBUS_ORIENTATION_VERTICAL;
     m_page_size = 10;
 
-    m_keyboard_layout = 0;
+    m_keyboard_layout = CHEWING_DEFAULT;
 
     m_init_chinese = TRUE;
     m_init_full_english = FALSE;
@@ -87,10 +87,29 @@ ZhuyinConfig::initDefaultValues (void)
     m_candidate_keys = "1234567890";
 }
 
+/* Here are the zhuyin keyboard layout mapping table. */
+static const struct {
+    gint layout;
+    ZhuyinScheme scheme;
+} zhuyin_schemes [] = {
+    {0, CHEWING_STANDARD},
+    {1, CHEWING_HSU},
+    {2, CHEWING_IBM},
+    {3, CHEWING_GINYIEH},
+    {4, CHEWING_ETEN},
+    {5, CHEWING_ETEN26},
+    {6, CHEWING_STANDARD_DVORAK},
+    {7, CHEWING_HSU_DVORAK},
+    {8, CHEWING_DACHEN_CP26},
+    {9, FULL_PINYIN_HANYU},
+    {10, FULL_PINYIN_LUOMA},
+    {11, FULL_PINYIN_SECONDARY_BOPOMOFO},
+};
+
 static const struct {
     const gchar * const name;
     guint option;
-} options [] = {
+} fuzzy_zhuyin_options [] = {
     /* fuzzy pinyin */
     { "fuzzyzhuyin_c_ch",       ZHUYIN_AMB_C_CH      },
     { "fuzzyzhuyin_z_zh",       ZHUYIN_AMB_Z_ZH      },
@@ -138,7 +157,14 @@ ZhuyinConfig::readDefaultValues (void)
         g_warn_if_reached ();
     }
 
-    m_keyboard_layout = read (CONFIG_KEYBOARD_LAYOUT, 0);
+    gint layout = read (CONFIG_KEYBOARD_LAYOUT, 0);
+    m_keyboard_layout = CHEWING_DEFAULT;
+
+    for (guint i = 0; i < G_N_ELEMENTS (zhuyin_schemes); ++i) {
+        if (zhuyin_schemes[i].layout == layout) {
+            m_keyboard_layout = zhuyin_schemes[i].scheme;
+        }
+    }
 
     /* init states */
     m_init_chinese = read (CONFIG_INIT_CHINESE, true);
@@ -155,13 +181,13 @@ ZhuyinConfig::readDefaultValues (void)
         m_option_mask &= ~ZHUYIN_AMB_ALL;
 
     /* read values */
-    for (guint i = 0; i < G_N_ELEMENTS (options); i++) {
-        if (read (options[i].name,
-                  (options[i].option & PINYIN_DEFAULT_OPTION) != 0)) {
-            m_option |= options[i].option;
+    for (guint i = 0; i < G_N_ELEMENTS (fuzzy_zhuyin_options); i++) {
+        if (read (fuzzy_zhuyin_options[i].name,
+                  (fuzzy_zhuyin_options[i].option & PINYIN_DEFAULT_OPTION) != 0)) {
+            m_option |= fuzzy_zhuyin_options[i].option;
         }
         else {
-            m_option &= ~options[i].option;
+            m_option &= ~fuzzy_zhuyin_options[i].option;
         }
     }
 #endif
@@ -187,9 +213,16 @@ ZhuyinConfig::valueChanged (const std::string &section,
         m_init_full_punct = normalizeGVariant (value, true);
     else if (CONFIG_INIT_TRAD_CHINESE == name)
         m_init_trad_chinese = normalizeGVariant (value, false);
-    else if (CONFIG_KEYBOARD_LAYOUT == name)
-        m_keyboard_layout = normalizeGVariant (value, 0);
-    else if (CONFIG_CANDIDATE_KEYS == name) {
+    else if (CONFIG_KEYBOARD_LAYOUT == name) {
+        gint layout = normalizeGVariant (value, 0);
+        m_keyboard_layout = CHEWING_DEFAULT;
+
+        for (guint i = 0; i < G_N_ELEMENTS (zhuyin_schemes); ++i) {
+            if (zhuyin_schemes[i].layout == layout) {
+                m_keyboard_layout = zhuyin_schemes[i].scheme;
+            }
+        }
+    } else if (CONFIG_CANDIDATE_KEYS == name) {
         m_candidate_keys = normalizeGVariant (value, "1234567890");
     } /* lookup table page size */
     else if (CONFIG_ORIENTATION == name) {
@@ -214,14 +247,14 @@ ZhuyinConfig::valueChanged (const std::string &section,
             m_option_mask &= ~ZHUYIN_AMB_ALL;
     }
     else {
-        for (guint i = 0; i < G_N_ELEMENTS (options); i++) {
-            if (G_LIKELY (options[i].name != name))
+        for (guint i = 0; i < G_N_ELEMENTS (fuzzy_zhuyin_options); i++) {
+            if (G_LIKELY (fuzzy_zhuyin_options[i].name != name))
                 continue;
             if (normalizeGVariant (value,
-                    (options[i].option & ZHUYIN_DEFAULT_OPTION) != 0))
-                m_option |= options[i].option;
+                    (fuzzy_zhuyin_options[i].option & ZHUYIN_DEFAULT_OPTION) != 0))
+                m_option |= fuzzy_zhuyin_options[i].option;
             else
-                m_option &= ~options[i].option;
+                m_option &= ~fuzzy_zhuyin_options[i].option;
             return TRUE;
         }
         return FALSE;

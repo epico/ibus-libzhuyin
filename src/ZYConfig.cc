@@ -46,7 +46,7 @@ Config::initDefaultValues (void)
 {
     m_page_size = 5;
 
-    m_keyboard_layout = 0;
+    m_keyboard_layout = CHEWING_DEFAULT;
 
     m_init_chinese = TRUE;
     m_init_full_english = FALSE;

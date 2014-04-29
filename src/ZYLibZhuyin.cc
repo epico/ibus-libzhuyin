@@ -72,44 +72,20 @@ LibZhuyinBackEnd::initZhuyinContext (Config *config)
     return context;
 }
 
-/* Here are the zhuyin keyboard layout mapping table. */
-static const struct {
-    gint layout;
-    ZhuyinScheme scheme;
-} zhuyin_options [] = {
-    {0, CHEWING_STANDARD},
-    {1, CHEWING_HSU},
-    {2, CHEWING_IBM},
-    {3, CHEWING_GINYIEH},
-    {4, CHEWING_ETEN},
-    {5, CHEWING_ETEN26},
-    {6, CHEWING_STANDARD_DVORAK},
-    {7, CHEWING_HSU_DVORAK},
-    {8, CHEWING_DACHEN_CP26},
-    {9, FULL_PINYIN_HANYU},
-    {10, FULL_PINYIN_LUOMA},
-    {11, FULL_PINYIN_SECONDARY_BOPOMOFO},
-};
-
 gboolean
 LibZhuyinBackEnd::setZhuyinOptions (Config *config)
 {
     if (NULL == m_zhuyin_context)
         return FALSE;
 
-    gint layout = config->keyboardLayout ();
-    for (guint i = 0; i < G_N_ELEMENTS (zhuyin_options); ++i) {
-        if (zhuyin_options[i].layout == layout) {
-            ZhuyinScheme scheme = zhuyin_options[i].scheme;
-            switch (scheme) {
-            case CHEWING_STANDARD ... CHEWING_DACHEN_CP26:
-                zhuyin_set_chewing_scheme (m_zhuyin_context, scheme);
-                break;
-            case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
-                zhuyin_set_full_pinyin_scheme (m_zhuyin_context, scheme);
-                break;
-            }
-        }
+    ZhuyinScheme scheme = config->keyboardLayout ();
+    switch (scheme) {
+    case CHEWING_STANDARD ... CHEWING_DACHEN_CP26:
+        zhuyin_set_chewing_scheme (m_zhuyin_context, scheme);
+        break;
+    case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
+        zhuyin_set_full_pinyin_scheme (m_zhuyin_context, scheme);
+        break;
     }
 
     zhuyin_option_t options = config->option ();
