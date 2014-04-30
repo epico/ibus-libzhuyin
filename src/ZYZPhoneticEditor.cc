@@ -447,5 +447,88 @@ PhoneticEditor::resizeInstances (void)
     }
 }
 
+guint PhoneticEditor::getZhuyinCursor (void)
+{
+    /* decrement the cursor variable to calculate the zhuyin cursor. */
+    guint cursor = m_cursor;
+    guint zhuyin_cursor = 0;
+
+    const String & enhanced_text = m_text;
+
+    size_t index = 0;
+    size_t start_pos = 0, end_pos = 0;
+
+    while (end_pos != enhanced_text.size ()) {
+        if (0 == cursor)
+            break;
+
+        section_t type = probe_section_quick (enhanced_text, start_pos);
+
+        if (PHONETIC_SECTION == type) {
+            String section;
+            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+            size_t section_len = end_pos - start_pos;
+
+            zhuyin_instance_t * instance = m_instances[index];
+            size_t parsed_len = zhuyin_get_parsed_input_length (instance);
+
+            assert (parsed_len <= section_len);
+
+            if (cursor >= parsed_len) {
+                cursor -= parsed_len;
+                guint len = 0;
+                zhuyin_get_n_pinyin (instance, &len);
+                zhuyin_cursor += len;
+            } else {
+                guint len = 0;
+                zhuyin_get_n_pinyin (instance, &len);
+
+                guint inner_cursor = len;
+
+                guint16 prev_end = 0, cur_end;
+                for (size_t i = 0; i < len; ++i) {
+                    ChewingKeyRest *pos = NULL;
+                    zhuyin_get_pinyin_key_rest (instance, i, &pos);
+                    zhuyin_get_pinyin_key_rest_positions
+                        (instance, pos, NULL, &cur_end);
+
+                    if (prev_end < cursor && cursor < cur_end)
+                        inner_cursor = i;
+
+                    prev_end = cur_end;
+                }
+
+                assert (inner_cursor >= 0);
+                zhuyin_cursor += inner_cursor;
+                cursor = 0;
+            }
+
+            if (0 == cursor)
+                break;
+
+            if (cursor >= section_len - parsed_len) {
+                /* except for DaChen26 scheme here. */
+                cursor -= section_len - parsed_len;
+                zhuyin_cursor += section_len - parsed_len;
+            } else {
+                zhuyin_cursor += cursor;
+                cursor = 0;
+            }
+        }
+
+        if (SYMBOL_SECTION == type) {
+            String type, lookup, choice;
+            get_symbol_section (enhanced_text, start_pos, end_pos,
+                                type, lookup, choice);
+            --cursor;
+            zhuyin_cursor += g_utf8_strlen (choice, -1);
+        }
+
+        start_pos = end_pos;
+    }
+
+    return zhuyin_cursor;
+}
+
 
 };

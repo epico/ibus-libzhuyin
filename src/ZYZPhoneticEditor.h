@@ -82,6 +82,9 @@ protected:
     virtual void updatePreeditText (void) = 0;
     virtual void updateZhuyin (void) = 0;
 
+    /* for class DaChen26Editor to override this. */
+    virtual guint getZhuyinCursor (void);
+
     void resizeInstances (void);
 
     /* varibles */

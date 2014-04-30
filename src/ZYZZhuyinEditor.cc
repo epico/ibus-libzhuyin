@@ -61,7 +61,7 @@ ZhuyinEditor::reset (void)
 void
 ZhuyinEditor::updateZhuyin (void)
 {
-    String & enhanced_text = m_text;
+    const String & enhanced_text = m_text;
 
     resizeInstances ();
 
@@ -74,9 +74,11 @@ ZhuyinEditor::updateZhuyin (void)
         if (PHONETIC_SECTION == type) {
             String section;
             get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+
             zhuyin_instance_t * instance = m_instances[index];
             zhuyin_parse_more_chewings (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
+
             ++index;
         }
 
@@ -160,9 +162,8 @@ ZhuyinEditor::updatePreeditText (void)
     /* underline */
     preedit_text.appendAttribute (IBUS_ATTR_TYPE_UNDERLINE, IBUS_ATTR_UNDERLINE_SINGLE, 0, -1);
 
-    /* TODO: calcuate the cursor position. */
-    size_t cursor = m_cursor;
-    assert (FALSE);
+    /* calcuate the cursor position. */
+    size_t cursor = getZhuyinCursor ();
     Editor::updatePreeditText (preedit_text, cursor, TRUE);
     return;
 }
