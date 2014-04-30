@@ -477,19 +477,19 @@ guint PhoneticEditor::getZhuyinCursor (void)
             if (cursor >= parsed_len) {
                 cursor -= parsed_len;
                 guint len = 0;
-                zhuyin_get_n_pinyin (instance, &len);
+                zhuyin_get_n_zhuyin (instance, &len);
                 zhuyin_cursor += len;
             } else {
                 guint len = 0;
-                zhuyin_get_n_pinyin (instance, &len);
+                zhuyin_get_n_zhuyin (instance, &len);
 
                 guint inner_cursor = len;
 
                 guint16 prev_end = 0, cur_end;
                 for (size_t i = 0; i < len; ++i) {
                     ChewingKeyRest *pos = NULL;
-                    zhuyin_get_pinyin_key_rest (instance, i, &pos);
-                    zhuyin_get_pinyin_key_rest_positions
+                    zhuyin_get_zhuyin_key_rest (instance, i, &pos);
+                    zhuyin_get_zhuyin_key_rest_positions
                         (instance, pos, NULL, &cur_end);
 
                     if (prev_end < cursor && cursor < cur_end)
