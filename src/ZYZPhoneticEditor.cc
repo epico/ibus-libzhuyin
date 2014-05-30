@@ -74,6 +74,10 @@ PhoneticEditor::processEnter (guint keyval, guint keycode,
 {
     if (!m_text)
         return FALSE;
+
+    if (IBUS_Return != keyval && IBUS_KP_Enter != keyval)
+        return FALSE;
+
     if (cmshm_filter (modifiers) != 0)
         return TRUE;
 

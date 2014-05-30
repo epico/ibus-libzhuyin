@@ -94,7 +94,7 @@ protected:
     /* use libzhuyin here. */
     zhuyin_instance_t           *m_instance;
 
-    enum {
+    enum InputState {
         STATE_INPUT = 0,               // input state
         STATE_CANDIDATE_SHOWN,         // candidates shown state
         STATE_BUILTIN_SYMBOL_SHOWN,    // built-in symbol shown state

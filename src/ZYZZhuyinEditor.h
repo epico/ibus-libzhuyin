@@ -29,13 +29,13 @@ namespace ZY {
 class Config;
 
 class ZhuyinEditor : public PhoneticEditor {
+    using PhoneticEditor::InputState;
 
 public:
     ZhuyinEditor (ZhuyinProperties & props, Config & config);
     virtual ~ZhuyinEditor (void);
 
 protected:
-    gboolean processZhuyin (guint keyval, guint keycode, guint modifiers);
     gboolean processKeyEvent (guint keyval, guint keycode, guint modifiers);
 
     virtual void updatePreeditText ();

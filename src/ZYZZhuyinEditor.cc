@@ -171,3 +171,55 @@ ZhuyinEditor::updatePreeditText (void)
     Editor::updatePreeditText (preedit_text, cursor, TRUE);
     return;
 }
+
+gboolean
+ZhuyinEditor::insert (gint ch)
+{
+    gchar ** symbols = NULL;
+    if (zhuyin_in_chewing_keyboard (m_instance, ch, &symbols)) {
+        g_strfreev (symbols);
+
+        insert_phonetic (m_text, m_cursor++, ch);
+
+        updateZhuyin ();
+        update ();
+        return TRUE;
+    }
+
+    /* TODO:: handle symbols here. */
+
+    return FALSE;
+}
+
+gboolean
+ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
+{
+    modifiers &= (IBUS_SHIFT_MASK |
+                  IBUS_CONTROL_MASK |
+                  IBUS_MOD1_MASK |
+                  IBUS_SUPER_MASK |
+                  IBUS_HYPER_MASK |
+                  IBUS_META_MASK |
+                  IBUS_LOCK_MASK);
+
+    if (STATE_INPUT == m_input_state) {
+        if (insert (keyval))
+            return TRUE;
+
+        if (processEnter (keyval, keycode, modifiers))
+            return TRUE;
+
+        if (processFunctionKey (keyval, keycode, modifiers))
+            return TRUE;
+    }
+
+    if (STATE_CANDIDATE_SHOWN == m_input_state ||
+        STATE_BUILTIN_SYMBOL_SHOWN == m_input_state /* ||
+        STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
+        STATE_USER_SYMBOL_SHOWN == m_input_state */) {
+        if (processCandidateKey (keyval, keycode, modifiers))
+            return TRUE;
+    }
+
+    return FALSE;
+}
