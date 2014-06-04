@@ -25,56 +25,56 @@
 
 namespace ZY {
 /* code of engine class of GObject */
-#define IBUS_PINYIN_ENGINE(obj)             \
-    (G_TYPE_CHECK_INSTANCE_CAST ((obj), IBUS_TYPE_PINYIN_ENGINE, IBusPinyinEngine))
-#define IBUS_PINYIN_ENGINE_CLASS(klass)     \
-    (G_TYPE_CHECK_CLASS_CAST ((klass), IBUS_TYPE_PINYIN_ENGINE, IBusPinyinEngineClass))
-#define IBUS_IS_PINYIN_ENGINE(obj)          \
-    (G_TYPE_CHECK_INSTANCE_TYPE ((obj), IBUS_TYPE_PINYIN_ENGINE))
-#define IBUS_IS_PINYIN_ENGINE_CLASS(klass)  \
-    (G_TYPE_CHECK_CLASS_TYPE ((klass), IBUS_TYPE_PINYIN_ENGINE))
-#define IBUS_PINYIN_ENGINE_GET_CLASS(obj)   \
-    (G_TYPE_INSTANCE_GET_CLASS ((obj), IBUS_TYPE_PINYIN_ENGINE, IBusPinyinEngineClass))
+#define IBUS_ZHUYIN_ENGINE(obj)             \
+    (G_TYPE_CHECK_INSTANCE_CAST ((obj), IBUS_TYPE_ZHUYIN_ENGINE, IBusZhuyinEngine))
+#define IBUS_ZHUYIN_ENGINE_CLASS(klass)     \
+    (G_TYPE_CHECK_CLASS_CAST ((klass), IBUS_TYPE_ZHUYIN_ENGINE, IBusZhuyinEngineClass))
+#define IBUS_IS_ZHUYIN_ENGINE(obj)          \
+    (G_TYPE_CHECK_INSTANCE_TYPE ((obj), IBUS_TYPE_ZHUYIN_ENGINE))
+#define IBUS_IS_ZHUYIN_ENGINE_CLASS(klass)  \
+    (G_TYPE_CHECK_CLASS_TYPE ((klass), IBUS_TYPE_ZHUYIN_ENGINE))
+#define IBUS_ZHUYIN_ENGINE_GET_CLASS(obj)   \
+    (G_TYPE_INSTANCE_GET_CLASS ((obj), IBUS_TYPE_ZHUYIN_ENGINE, IBusZhuyinEngineClass))
 
 
-typedef struct _IBusPinyinEngine IBusPinyinEngine;
-typedef struct _IBusPinyinEngineClass IBusPinyinEngineClass;
+typedef struct _IBusZhuyinEngine IBusZhuyinEngine;
+typedef struct _IBusZhuyinEngineClass IBusZhuyinEngineClass;
 
-struct _IBusPinyinEngine {
+struct _IBusZhuyinEngine {
     IBusEngine parent;
 
     /* members */
     Engine *engine;
 };
 
-struct _IBusPinyinEngineClass {
+struct _IBusZhuyinEngineClass {
     IBusEngineClass parent;
 };
 
 /* functions prototype */
-static void     ibus_pinyin_engine_class_init   (IBusPinyinEngineClass  *klass);
-static void     ibus_pinyin_engine_init         (IBusPinyinEngine       *pinyin);
-static GObject* ibus_pinyin_engine_constructor  (GType                   type,
+static void     ibus_zhuyin_engine_class_init   (IBusZhuyinEngineClass  *klass);
+static void     ibus_zhuyin_engine_init         (IBusZhuyinEngine       *zhuyin);
+static GObject* ibus_zhuyin_engine_constructor  (GType                   type,
                                                  guint                   n_construct_params,
                                                  GObjectConstructParam  *construct_params);
 
-static void     ibus_pinyin_engine_destroy      (IBusPinyinEngine       *pinyin);
-static gboolean ibus_pinyin_engine_process_key_event
+static void     ibus_zhuyin_engine_destroy      (IBusZhuyinEngine       *zhuyin);
+static gboolean ibus_zhuyin_engine_process_key_event
                                                 (IBusEngine             *engine,
                                                  guint                   keyval,
                                                  guint                   keycode,
                                                  guint                   modifiers);
-static void     ibus_pinyin_engine_focus_in     (IBusEngine             *engine);
-static void     ibus_pinyin_engine_focus_out    (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_focus_in     (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_focus_out    (IBusEngine             *engine);
 #if IBUS_CHECK_VERSION (1, 5, 4)
-static void     ibus_pinyin_engine_set_content_type
+static void     ibus_zhuyin_engine_set_content_type
                                                 (IBusEngine     *engine,
                                                  guint           purpose,
                                                  guint           hints);
 #endif
-static void     ibus_pinyin_engine_reset        (IBusEngine             *engine);
-static void     ibus_pinyin_engine_enable       (IBusEngine             *engine);
-static void     ibus_pinyin_engine_disable      (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_reset        (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_enable       (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_disable      (IBusEngine             *engine);
 
 #if 0
 static void     ibus_engine_set_cursor_location (IBusEngine             *engine,
@@ -82,83 +82,83 @@ static void     ibus_engine_set_cursor_location (IBusEngine             *engine,
                                                  gint                    y,
                                                  gint                    w,
                                                  gint                    h);
-static void     ibus_pinyin_engine_set_capabilities
+static void     ibus_zhuyin_engine_set_capabilities
                                                 (IBusEngine             *engine,
                                                  guint                   caps);
 #endif
 
-static void     ibus_pinyin_engine_page_up      (IBusEngine             *engine);
-static void     ibus_pinyin_engine_page_down    (IBusEngine             *engine);
-static void     ibus_pinyin_engine_cursor_up    (IBusEngine             *engine);
-static void     ibus_pinyin_engine_cursor_down  (IBusEngine             *engine);
-static void     ibus_pinyin_engine_property_activate
+static void     ibus_zhuyin_engine_page_up      (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_page_down    (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_cursor_up    (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_cursor_down  (IBusEngine             *engine);
+static void     ibus_zhuyin_engine_property_activate
                                                 (IBusEngine             *engine,
                                                  const gchar            *prop_name,
                                                  guint                   prop_state);
-static void     ibus_pinyin_engine_candidate_clicked
+static void     ibus_zhuyin_engine_candidate_clicked
                                                 (IBusEngine             *engine,
                                                  guint                   index,
                                                  guint                   button,
                                                  guint                   state);
 #if 0
-static void ibus_pinyin_engine_property_show    (IBusEngine             *engine,
+static void ibus_zhuyin_engine_property_show    (IBusEngine             *engine,
                                                  const gchar            *prop_name);
-static void ibus_pinyin_engine_property_hide    (IBusEngine             *engine,
+static void ibus_zhuyin_engine_property_hide    (IBusEngine             *engine,
                                                  const gchar            *prop_name);
 #endif
 
-G_DEFINE_TYPE (IBusPinyinEngine, ibus_pinyin_engine, IBUS_TYPE_ENGINE)
+G_DEFINE_TYPE (IBusZhuyinEngine, ibus_zhuyin_engine, IBUS_TYPE_ENGINE)
 
 static void
-ibus_pinyin_engine_class_init (IBusPinyinEngineClass *klass)
+ibus_zhuyin_engine_class_init (IBusZhuyinEngineClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
     IBusObjectClass *ibus_object_class = IBUS_OBJECT_CLASS (klass);
     IBusEngineClass *engine_class = IBUS_ENGINE_CLASS (klass);
 
-    object_class->constructor = ibus_pinyin_engine_constructor;
-    ibus_object_class->destroy = (IBusObjectDestroyFunc) ibus_pinyin_engine_destroy;
+    object_class->constructor = ibus_zhuyin_engine_constructor;
+    ibus_object_class->destroy = (IBusObjectDestroyFunc) ibus_zhuyin_engine_destroy;
 
-    engine_class->process_key_event = ibus_pinyin_engine_process_key_event;
+    engine_class->process_key_event = ibus_zhuyin_engine_process_key_event;
 
-    engine_class->reset = ibus_pinyin_engine_reset;
-    engine_class->enable = ibus_pinyin_engine_enable;
-    engine_class->disable = ibus_pinyin_engine_disable;
+    engine_class->reset = ibus_zhuyin_engine_reset;
+    engine_class->enable = ibus_zhuyin_engine_enable;
+    engine_class->disable = ibus_zhuyin_engine_disable;
 
-    engine_class->focus_in = ibus_pinyin_engine_focus_in;
-    engine_class->focus_out = ibus_pinyin_engine_focus_out;
+    engine_class->focus_in = ibus_zhuyin_engine_focus_in;
+    engine_class->focus_out = ibus_zhuyin_engine_focus_out;
 
 #if IBUS_CHECK_VERSION (1, 5, 4)
-    engine_class->set_content_type = ibus_pinyin_engine_set_content_type;
+    engine_class->set_content_type = ibus_zhuyin_engine_set_content_type;
 #endif
 
-    engine_class->page_up = ibus_pinyin_engine_page_up;
-    engine_class->page_down = ibus_pinyin_engine_page_down;
+    engine_class->page_up = ibus_zhuyin_engine_page_up;
+    engine_class->page_down = ibus_zhuyin_engine_page_down;
 
-    engine_class->cursor_up = ibus_pinyin_engine_cursor_up;
-    engine_class->cursor_down = ibus_pinyin_engine_cursor_down;
+    engine_class->cursor_up = ibus_zhuyin_engine_cursor_up;
+    engine_class->cursor_down = ibus_zhuyin_engine_cursor_down;
 
-    engine_class->property_activate = ibus_pinyin_engine_property_activate;
+    engine_class->property_activate = ibus_zhuyin_engine_property_activate;
 
-    engine_class->candidate_clicked = ibus_pinyin_engine_candidate_clicked;
+    engine_class->candidate_clicked = ibus_zhuyin_engine_candidate_clicked;
 }
 
 static void
-ibus_pinyin_engine_init (IBusPinyinEngine *pinyin)
+ibus_zhuyin_engine_init (IBusZhuyinEngine *zhuyin)
 {
-    if (g_object_is_floating (pinyin))
-        g_object_ref_sink (pinyin);  // make engine sink
+    if (g_object_is_floating (zhuyin))
+        g_object_ref_sink (zhuyin);  // make engine sink
 }
 
 static GObject*
-ibus_pinyin_engine_constructor (GType                  type,
+ibus_zhuyin_engine_constructor (GType                  type,
                                 guint                  n_construct_params,
                                 GObjectConstructParam *construct_params)
 {
-    IBusPinyinEngine *engine;
+    IBusZhuyinEngine *engine;
     const gchar *name;
 
-    engine = (IBusPinyinEngine *) G_OBJECT_CLASS (ibus_pinyin_engine_parent_class)->constructor (
+    engine = (IBusZhuyinEngine *) G_OBJECT_CLASS (ibus_zhuyin_engine_parent_class)->constructor (
                                                            type,
                                                            n_construct_params,
                                                            construct_params);
@@ -176,58 +176,58 @@ ibus_pinyin_engine_constructor (GType                  type,
 }
 
 static void
-ibus_pinyin_engine_destroy (IBusPinyinEngine *pinyin)
+ibus_zhuyin_engine_destroy (IBusZhuyinEngine *zhuyin)
 {
-    delete pinyin->engine;
-    ((IBusObjectClass *) ibus_pinyin_engine_parent_class)->destroy ((IBusObject *)pinyin);
+    delete zhuyin->engine;
+    ((IBusObjectClass *) ibus_zhuyin_engine_parent_class)->destroy ((IBusObject *)zhuyin);
 }
 
 static gboolean
-ibus_pinyin_engine_process_key_event (IBusEngine     *engine,
+ibus_zhuyin_engine_process_key_event (IBusEngine     *engine,
                                       guint           keyval,
                                       guint           keycode,
                                       guint           modifiers)
 {
-    IBusPinyinEngine *pinyin = (IBusPinyinEngine *) engine;
-    return pinyin->engine->processKeyEvent (keyval, keycode, modifiers);
+    IBusZhuyinEngine *zhuyin = (IBusZhuyinEngine *) engine;
+    return zhuyin->engine->processKeyEvent (keyval, keycode, modifiers);
 }
 
 #if IBUS_CHECK_VERSION (1, 5, 4)
 static void
-ibus_pinyin_engine_set_content_type (IBusEngine     *engine,
+ibus_zhuyin_engine_set_content_type (IBusEngine     *engine,
                                      guint purpose,
                                      guint hints)
 {
-    IBusPinyinEngine *pinyin = (IBusPinyinEngine *) engine;
-    return pinyin->engine->setContentType (purpose, hints);
+    IBusZhuyinEngine *zhuyin = (IBusZhuyinEngine *) engine;
+    return zhuyin->engine->setContentType (purpose, hints);
 }
 #endif
 
 static void
-ibus_pinyin_engine_property_activate (IBusEngine    *engine,
+ibus_zhuyin_engine_property_activate (IBusEngine    *engine,
                                       const gchar   *prop_name,
                                       guint          prop_state)
 {
-    IBusPinyinEngine *pinyin = (IBusPinyinEngine *) engine;
-    pinyin->engine->propertyActivate (prop_name, prop_state);
+    IBusZhuyinEngine *zhuyin = (IBusZhuyinEngine *) engine;
+    zhuyin->engine->propertyActivate (prop_name, prop_state);
 }
 static void
-ibus_pinyin_engine_candidate_clicked (IBusEngine *engine,
+ibus_zhuyin_engine_candidate_clicked (IBusEngine *engine,
                                       guint       index,
                                       guint       button,
                                       guint       state)
 {
-    IBusPinyinEngine *pinyin = (IBusPinyinEngine *) engine;
-    pinyin->engine->candidateClicked (index, button, state);
+    IBusZhuyinEngine *zhuyin = (IBusZhuyinEngine *) engine;
+    zhuyin->engine->candidateClicked (index, button, state);
 }
 
 #define FUNCTION(name, Name)                                        \
     static void                                                     \
-    ibus_pinyin_engine_##name (IBusEngine *engine)                  \
+    ibus_zhuyin_engine_##name (IBusEngine *engine)                  \
     {                                                               \
-        IBusPinyinEngine *pinyin = (IBusPinyinEngine *) engine;     \
-        pinyin->engine->Name ();                                    \
-        ((IBusEngineClass *) ibus_pinyin_engine_parent_class)       \
+        IBusZhuyinEngine *zhuyin = (IBusZhuyinEngine *) engine;     \
+        zhuyin->engine->Name ();                                    \
+        ((IBusEngineClass *) ibus_zhuyin_engine_parent_class)       \
             ->name (engine);                                        \
     }
 FUNCTION(focus_in,    focusIn)
