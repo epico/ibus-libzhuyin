@@ -41,6 +41,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYSymbols.cc \
 	ZYZBuiltinSymbolSection.cc \
 	ZYZPhoneticSection.cc \
+	ZYEngine.cc \
 	ZYMain.cc \
 	$(NULL)
 
@@ -70,6 +71,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYText.h \
 	ZYTypes.h \
 	ZYUtil.h \
+	ZYEngine.h \
 	$(NULL)
 
 #ibus_engine_libzhuyin_c_sources += \
