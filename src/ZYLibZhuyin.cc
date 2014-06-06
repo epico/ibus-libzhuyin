@@ -86,6 +86,8 @@ LibZhuyinBackEnd::setZhuyinOptions (Config *config)
     case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
         zhuyin_set_full_pinyin_scheme (m_zhuyin_context, scheme);
         break;
+    default:
+        assert (FALSE);
     }
 
     zhuyin_option_t options = config->option ();
