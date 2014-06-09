@@ -113,6 +113,7 @@ Makefile
 src/Makefile
 setup/Makefile
 setup/config.py
+setup/ibus-setup-libzhuyin
 ])
 
 AC_OUTPUT
