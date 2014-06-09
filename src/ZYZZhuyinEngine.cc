@@ -20,6 +20,7 @@
  */
 
 #include "ZYZZhuyinEngine.h"
+#include <assert.h>
 #include <string>
 #include "ZYConfig.h"
 #include "ZYZConfig.h"
@@ -57,7 +58,7 @@ ZhuyinEngine::ZhuyinEngine (IBusEngine *engine)
     }
 
     m_editors[MODE_RAW].reset
-        (new RawEditor (m_props, PinyinConfig::instance ()));
+        (new RawEditor (m_props, ZhuyinConfig::instance ()));
 
     m_props.signalUpdateProperty ().connect
         (std::bind (&ZhuyinEngine::updateProperty, this, _1));
@@ -103,6 +104,8 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
             case MODE_RAW:
                 m_input_mode = MODE_INIT;
                 break;
+            default:
+                assert (FALSE);
             }
 
             return TRUE;
@@ -115,4 +118,149 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
     m_prev_pressed_key = retval ? IBUS_VoidSymbol : keyval;
 
     return retval;
+}
+
+void
+ZhuyinEngine::focusIn (void)
+{
+    /* TODO: check memory leak here.*/
+    const ZhuyinScheme scheme = ZhuyinConfig::instance ().keyboardLayout ();
+    if (scheme != m_zhuyin_scheme) {
+        switch (scheme) {
+        case CHEWING_STANDARD ... CHEWING_DACHEN_CP26:
+            m_editors[MODE_INIT].reset
+                (new ZhuyinEditor (m_props, ZhuyinConfig::instance ()));
+            connectEditorSignals (m_editors[MODE_INIT]);
+            break;
+        case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
+            assert (FALSE);
+#if 0
+            m_editors[MODE_INIT].reset
+                (new PinyinEditor (m_props, ZhuyinConfig::instance ()));
+            connectEditorSignals (m_editors[MODE_INIT]);
+#endif
+            break;
+        default:
+            assert (FALSE);
+        }
+        m_zhuyin_scheme = scheme;
+    }
+
+    registerProperties (m_props.properties ());
+}
+
+void
+ZhuyinEngine::focusOut (void)
+{
+    Engine::focusOut ();
+
+    reset ();
+}
+
+void
+ZhuyinEngine::reset (void)
+{
+    m_prev_pressed_key = IBUS_VoidSymbol;
+    m_input_mode = MODE_INIT;
+    for (gint i = 0; i < MODE_LAST; i++) {
+        m_editors[i]->reset ();
+    }
+}
+
+void
+ZhuyinEngine::enable (void)
+{
+    m_props.reset ();
+}
+
+void
+ZhuyinEngine::disable (void)
+{
+}
+
+void
+ZhuyinEngine::pageUp (void)
+{
+    m_editors[m_input_mode]->pageUp ();
+}
+
+void
+ZhuyinEngine::pageDown (void)
+{
+    m_editors[m_input_mode]->pageDown ();
+}
+
+void
+ZhuyinEngine::cursorUp (void)
+{
+    m_editors[m_input_mode]->cursorUp ();
+}
+
+void
+ZhuyinEngine::cursorDown (void)
+{
+    m_editors[m_input_mode]->cursorDown ();
+}
+
+inline void
+ZhuyinEngine::showSetupDialog (void)
+{
+    g_spawn_command_line_async
+        (LIBEXECDIR"/ibus-setup-libzhuyin zhuyin", NULL);
+}
+
+gboolean
+ZhuyinEngine::propertyActivate (const char *prop_name, guint prop_state)
+{
+    const static String setup ("setup");
+    if (m_props.propertyActivate (prop_name, prop_state)) {
+        return TRUE;
+    }
+    else if (setup == prop_name) {
+        showSetupDialog ();
+        return TRUE;
+    }
+    return FALSE;
+}
+
+void
+ZhuyinEngine::candidateClicked (guint index, guint button, guint state)
+{
+    m_editors[m_input_mode]->candidateClicked (index, button, state);
+}
+
+void
+ZhuyinEngine::commitText (Text & text)
+{
+    Engine::commitText (text);
+}
+
+void
+ZhuyinEngine::connectEditorSignals (EditorPtr editor)
+{
+    editor->signalCommitText ().connect (
+        std::bind (&ZhuyinEngine::commitText, this, _1));
+
+    editor->signalUpdatePreeditText ().connect (
+        std::bind (&ZhuyinEngine::updatePreeditText, this, _1, _2, _3));
+    editor->signalShowPreeditText ().connect (
+        std::bind (&ZhuyinEngine::showPreeditText, this));
+    editor->signalHidePreeditText ().connect (
+        std::bind (&ZhuyinEngine::hidePreeditText, this));
+
+    editor->signalUpdateAuxiliaryText ().connect (
+        std::bind (&ZhuyinEngine::updateAuxiliaryText, this, _1, _2));
+    editor->signalShowAuxiliaryText ().connect (
+        std::bind (&ZhuyinEngine::showAuxiliaryText, this));
+    editor->signalHideAuxiliaryText ().connect (
+        std::bind (&ZhuyinEngine::hideAuxiliaryText, this));
+
+    editor->signalUpdateLookupTable ().connect (
+        std::bind (&ZhuyinEngine::updateLookupTable, this, _1, _2));
+    editor->signalUpdateLookupTableFast ().connect (
+        std::bind (&ZhuyinEngine::updateLookupTableFast, this, _1, _2));
+    editor->signalShowLookupTable ().connect (
+        std::bind (&ZhuyinEngine::showLookupTable, this));
+    editor->signalHideLookupTable ().connect (
+        std::bind (&ZhuyinEngine::hideLookupTable, this));
 }
