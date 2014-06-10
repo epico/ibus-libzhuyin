@@ -26,6 +26,7 @@
 #include "ZYZConfig.h"
 #include "ZYRawEditor.h"
 #include "ZYZZhuyinEditor.h"
+#include "ZYZPinyinEditor.h"
 
 
 using namespace ZY;
@@ -47,11 +48,8 @@ ZhuyinEngine::ZhuyinEngine (IBusEngine *engine)
             (new ZhuyinEditor (m_props, ZhuyinConfig::instance ()));
         break;
     case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
-        assert (FALSE);
-#if 0
         m_editors[MODE_INIT].reset
             (new PinyinEditor (m_props, ZhuyinConfig::instance ()));
-#endif
         break;
     default:
         assert (FALSE);
@@ -133,12 +131,9 @@ ZhuyinEngine::focusIn (void)
             connectEditorSignals (m_editors[MODE_INIT]);
             break;
         case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
-            assert (FALSE);
-#if 0
             m_editors[MODE_INIT].reset
                 (new PinyinEditor (m_props, ZhuyinConfig::instance ()));
             connectEditorSignals (m_editors[MODE_INIT]);
-#endif
             break;
         default:
             assert (FALSE);
