@@ -19,7 +19,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "ZYZZhuyinEditor.h"
+#include "ZYZPinyinEditor.h"
 #include <assert.h>
 #include "ZYConfig.h"
 #include "ZYLibZhuyin.h"
@@ -30,20 +30,20 @@
 
 using namespace ZY;
 
-ZhuyinEditor::ZhuyinEditor (ZhuyinProperties & props, Config & config)
+PinyinEditor::PinyinEditor (ZhuyinProperties & props, Config & config)
     : PhoneticEditor (props, config)
 {
     m_instance = LibZhuyinBackEnd::instance ().allocZhuyinInstance ();
 }
 
-ZhuyinEditor::~ZhuyinEditor (void)
+PinyinEditor::~PinyinEditor (void)
 {
     LibZhuyinBackEnd::instance ().freeZhuyinInstance (m_instance);
     m_instance = NULL;
 }
 
 void
-ZhuyinEditor::commit (void)
+PinyinEditor::commit (void)
 {
     if (G_UNLIKELY (m_preedit_text.empty ()))
         return;
@@ -57,13 +57,13 @@ ZhuyinEditor::commit (void)
 }
 
 void
-ZhuyinEditor::reset (void)
+PinyinEditor::reset (void)
 {
     PhoneticEditor::reset ();
 }
 
 void
-ZhuyinEditor::updateZhuyin (void)
+PinyinEditor::updateZhuyin (void)
 {
     const String & enhanced_text = m_text;
 
@@ -80,7 +80,7 @@ ZhuyinEditor::updateZhuyin (void)
             get_phonetic_section (enhanced_text, start_pos, end_pos, section);
 
             zhuyin_instance_t * instance = m_instances[index];
-            zhuyin_parse_more_chewings (instance, section.c_str ());
+            zhuyin_parse_more_full_pinyins (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
 
             ++index;
@@ -90,6 +90,7 @@ ZhuyinEditor::updateZhuyin (void)
             String type, lookup, choice;
             get_symbol_section (enhanced_text, start_pos, end_pos,
                                 type, lookup, choice);
+
         }
 
         start_pos = end_pos;
@@ -99,14 +100,14 @@ ZhuyinEditor::updateZhuyin (void)
 }
 
 void
-ZhuyinEditor::updateAuxiliaryText (void)
+PinyinEditor::updateAuxiliaryText (void)
 {
     /* libchewing doesn't use the auxiliary text, always hide. */
     return;
 }
 
 void
-ZhuyinEditor::updatePreeditText (void)
+PinyinEditor::updatePreeditText (void)
 {
     if (G_UNLIKELY (m_text.empty ())) {
         hidePreeditText ();
@@ -133,15 +134,7 @@ ZhuyinEditor::updatePreeditText (void)
             g_free (sentence);
 
             size_t len = zhuyin_get_parsed_input_length (instance);
-            for (size_t i = len; i < section.size (); ++i) {
-                char sym = section[i];
-                gchar ** symbols = NULL;
-                /* append bopomofo symbol except for DaChen26. */
-                assert (zhuyin_in_chewing_keyboard (m_instance, sym, &symbols));
-                assert (NULL != symbols[0]);
-                m_preedit_text += symbols[0];
-                g_strfreev (symbols);
-            }
+            m_preedit_text += section.substr (len);
 
             ++index;
         }
@@ -173,12 +166,10 @@ ZhuyinEditor::updatePreeditText (void)
 }
 
 gboolean
-ZhuyinEditor::insert (gint ch)
+PinyinEditor::insert (gint ch)
 {
-    gchar ** symbols = NULL;
-    if (zhuyin_in_chewing_keyboard (m_instance, ch, &symbols)) {
-        g_strfreev (symbols);
-
+    if (('a' <= ch && ch <= 'z')||
+        ('1'<=ch && ch <= '5')) {
         insert_phonetic (m_text, m_cursor++, ch);
 
         updateZhuyin ();
@@ -192,7 +183,7 @@ ZhuyinEditor::insert (gint ch)
 }
 
 gboolean
-ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
+PinyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 {
     modifiers &= (IBUS_SHIFT_MASK |
                   IBUS_CONTROL_MASK |
