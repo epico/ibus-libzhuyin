@@ -38,6 +38,8 @@ PinyinEditor::PinyinEditor (ZhuyinProperties & props, Config & config)
 
 PinyinEditor::~PinyinEditor (void)
 {
+    reset ();
+
     LibZhuyinBackEnd::instance ().freeZhuyinInstance (m_instance);
     m_instance = NULL;
 }

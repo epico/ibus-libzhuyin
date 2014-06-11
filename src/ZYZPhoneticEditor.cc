@@ -297,11 +297,8 @@ PhoneticEditor::reset (void)
 
     zhuyin_reset (m_instance);
 
-    zhuyin_instance_vec::iterator iter;
-    for (; iter != m_instances.end (); ++iter) {
-        LibZhuyinBackEnd::instance ().freeZhuyinInstance (*iter);
-    }
-    m_instances.clear ();
+    m_text = "";
+    resizeInstances ();
 
     EnhancedEditor::reset ();
 }
