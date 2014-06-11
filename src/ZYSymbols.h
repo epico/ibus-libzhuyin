@@ -48,6 +48,8 @@ is_half_english (const char key);
 bool
 half_english_to_full_english (const char key, String & english);
 
+#define BUILTIN_SYMBOL_TYPE "builtin"
+
 };
 
 #endif

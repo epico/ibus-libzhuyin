@@ -188,7 +188,11 @@ ZhuyinEditor::insert (gint ch)
         return TRUE;
     }
 
-    /* TODO:: handle symbols here. */
+    if (insertPunct (ch))
+        return TRUE;
+
+    if (insertEnglish (ch))
+        return TRUE;
 
     return FALSE;
 }

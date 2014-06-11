@@ -30,6 +30,8 @@
 
 using namespace ZY;
 
+#define IS_PINYIN(ch) (('a' <= ch && ch <= 'z')||('1'<=ch && ch <= '5'))
+
 PinyinEditor::PinyinEditor (ZhuyinProperties & props, Config & config)
     : PhoneticEditor (props, config)
 {
@@ -170,8 +172,7 @@ PinyinEditor::updatePreeditText (void)
 gboolean
 PinyinEditor::insert (gint ch)
 {
-    if (('a' <= ch && ch <= 'z')||
-        ('1'<=ch && ch <= '5')) {
+    if (IS_PINYIN (ch)) {
         insert_phonetic (m_text, m_cursor++, ch);
 
         updateZhuyin ();
@@ -179,7 +180,11 @@ PinyinEditor::insert (gint ch)
         return TRUE;
     }
 
-    /* TODO:: handle symbols here. */
+    if (insertPunct (ch))
+        return TRUE;
+
+    if (insertEnglish (ch))
+        return TRUE;
 
     return FALSE;
 }

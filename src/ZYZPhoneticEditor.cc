@@ -27,6 +27,8 @@
 #include "ZYZBuiltinSymbolSection.h"
 #include "ZYEnhancedText.h"
 #include "ZYLibZhuyin.h"
+#include "ZYSymbols.h"
+
 
 namespace ZY {
 
@@ -531,5 +533,60 @@ guint PhoneticEditor::getZhuyinCursor (void)
     return zhuyin_cursor;
 }
 
+gboolean
+PhoneticEditor::insertPunct (gint ch)
+{
+    /* for punctuations. */
+    if (is_half_punct (ch)) {
+        if (m_props.modeFullPunct ()) {
+            String choice;
+            assert (half_punct_to_full_punct (ch, choice));
+
+            String lookup;
+            int ch = find_lookup_key (choice);
+            if (ch != 0)
+                lookup = ch;
+
+            insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
+                           lookup, choice);
+        } else {
+            String choice = ch;
+            insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
+                           "", choice);
+        }
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+gboolean
+PhoneticEditor::insertEnglish (gint ch)
+{
+    /* for English. */
+    if (is_half_english (ch)) {
+        if (m_props.modeFullEnglish ()) {
+            String choice;
+            assert (half_english_to_full_english (ch, choice));
+
+            String lookup;
+            int ch = find_lookup_key (choice);
+            if (ch != 0)
+                lookup = ch;
+
+            insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
+                           lookup, choice);
+        } else {
+            String choice = ch;
+            insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
+                           "", choice);
+        }
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
 
 };
