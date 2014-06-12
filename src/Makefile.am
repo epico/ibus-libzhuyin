@@ -78,14 +78,6 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYZZhuyinEngine.h \
 	$(NULL)
 
-#ibus_engine_libzhuyin_c_sources += \
-#	ZYZConfig.cc \
-#	ZYZPhoneticEditor.cc \
-#	ZYZFullPinyinEditor.cc \
-#	ZYZZhuyinEditor.cc \
-#	ZYZPinyinEngine.cc \
-#	ZYZZhuyinEngine.cc \
-#	$(NULL)
 
 ibus_engine_libzhuyin_SOURCES = \
         $(ibus_engine_libzhuyin_c_sources) \
@@ -117,3 +109,26 @@ ibus_engine_libzhuyin_LDADD = \
         @LIBZHUYIN_LIBS@ \
 	@OPENCC_LIBS@ \
         $(NULL)
+
+
+component_DATA = \
+        libzhuyin.xml \
+        $(NULL)
+componentdir = @datadir@/ibus/component
+
+EXTRA_DIST = \
+        libzhuyin.xml.in \
+        $(NULL)
+
+CLEANFILES = \
+        libzhuyin.xml \
+        $(NULL)
+
+libzhuyin.xml: libzhuyin.xml.in
+	$(AM_V_GEN) \
+	( \
+		libexecdir=${libexecdir}; \
+		pkgdatadir=${pkgdatadir}; \
+		s=`cat $<`; \
+		eval "echo \"$${s}\""; \
+	) > $@

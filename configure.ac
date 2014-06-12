@@ -111,6 +111,7 @@ AM_GLIB_GNU_GETTEXT([external])
 AC_CONFIG_FILES([ po/Makefile.in
 Makefile
 src/Makefile
+src/libzhuyin.xml.in
 setup/Makefile
 setup/config.py
 setup/ibus-setup-libzhuyin
