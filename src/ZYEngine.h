@@ -30,10 +30,10 @@
 
 namespace ZY {
 
-#define IBUS_TYPE_PINYIN_ENGINE	\
-	(ZY::ibus_pinyin_engine_get_type ())
+#define IBUS_TYPE_ZHUYIN_ENGINE	\
+	(ZY::ibus_zhuyin_engine_get_type ())
 
-GType   ibus_pinyin_engine_get_type    (void);
+GType   ibus_zhuyin_engine_get_type    (void);
 
 class Engine {
 public:
