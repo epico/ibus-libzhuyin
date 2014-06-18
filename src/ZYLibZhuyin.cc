@@ -111,7 +111,8 @@ LibZhuyinBackEnd::allocZhuyinInstance ()
 void
 LibZhuyinBackEnd::freeZhuyinInstance (zhuyin_instance_t *instance)
 {
-    zhuyin_free_instance (instance);
+    if (instance)
+        zhuyin_free_instance (instance);
 }
 
 void

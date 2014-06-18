@@ -131,7 +131,8 @@ ZhuyinEditor::updatePreeditText (void)
 
             char * sentence = NULL;
             zhuyin_get_sentence (instance, &sentence);
-            m_preedit_text += sentence;
+            if (sentence)
+                m_preedit_text += sentence;
             g_free (sentence);
 
             size_t len = zhuyin_get_parsed_input_length (instance);

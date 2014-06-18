@@ -108,6 +108,9 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 
             return TRUE;
         }
+    } else {
+        /* skip the key press event. */
+        return TRUE;
     }
 
     retval = m_editors[m_input_mode]->processKeyEvent (keyval, keycode, modifiers);
