@@ -36,6 +36,7 @@ uninstall-local:
 
 EXTRA_DIST = \
         autogen.sh \
+        ibus-libzhuyin.spec.in \
         $(NULL)
 
 noinst_DIST = \

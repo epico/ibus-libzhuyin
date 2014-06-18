@@ -115,6 +115,7 @@ src/libzhuyin.xml.in
 setup/Makefile
 setup/config.py
 setup/ibus-setup-libzhuyin
+ibus-libzhuyin.spec
 ])
 
 AC_OUTPUT

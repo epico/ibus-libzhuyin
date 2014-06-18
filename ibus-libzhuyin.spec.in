@@ -1,0 +1,61 @@
+Name:       @PACKAGE_NAME@
+Version:    @PACKAGE_VERSION@
+Release:    1%{?dist}
+Summary:    New Zhuyin engine based on libzhuyin for IBus
+License:    GPLv2+
+Group:      System Environment/Libraries
+URL:        https://github.com/libzhuyin/ibus-libzhuyin
+Source0:    http://downloads.sourceforge.net/libzhuyin/ibus-libzhuyin/%{name}-%{version}.tar.gz
+
+BuildRequires:  gettext-devel
+BuildRequires:  intltool
+BuildRequires:  libtool
+BuildRequires:  pkgconfig
+BuildRequires:  sqlite-devel
+BuildRequires:  opencc-devel
+BuildRequires:  ibus-devel >= 1.3
+BuildRequires:  libzhuyin-devel >= 0.9.93
+
+# Requires(post): sqlite
+
+Requires:   ibus >= 1.3.0
+Requires:   libzhuyin-data >= 0.9.93
+
+%description
+It includes a Chinese Zhuyin (Bopomofo) input method based on libzhuyin for IBus.
+
+%prep
+%setup -q
+
+%build
+%configure --disable-static \
+           --enable-opencc \
+           --disable-boost
+
+# make -C po update-gmo
+make %{?_smp_mflags}
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=${RPM_BUILD_ROOT} install
+
+%find_lang %{name}
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files -f %{name}.lang
+%defattr(-,root,root,-)
+%doc AUTHORS COPYING README
+%{_libexecdir}/ibus-engine-libzhuyin
+%{_libexecdir}/ibus-setup-libzhuyin
+%{_datadir}/@PACKAGE@/phrases.txt
+%{_datadir}/@PACKAGE@/icons
+%{_datadir}/@PACKAGE@/setup
+%dir %{_datadir}/@PACKAGE@
+%dir %{_datadir}/@PACKAGE@/db
+%{_datadir}/ibus/component/*
+
+%changelog
+* Fri Jun 01 2012  Peng Wu <pwu@redhat.com> - @VERSION@-1
+- The first version.
