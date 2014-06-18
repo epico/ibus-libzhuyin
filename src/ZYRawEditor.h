@@ -29,6 +29,11 @@ class RawEditor : public Editor {
 public:
     RawEditor (ZhuyinProperties &props, Config & config)
         : Editor (props, config) { }
+
+    virtual gboolean processKeyEvent (guint keyval,
+                                      guint keycode,
+                                      guint modifiers);
+
 };
 
 };

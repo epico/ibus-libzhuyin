@@ -42,6 +42,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYSymbols.cc \
 	ZYZBuiltinSymbolSection.cc \
 	ZYZPhoneticSection.cc \
+	ZYRawEditor.cc \
 	ZYEngine.cc \
 	ZYZZhuyinEngine.cc \
 	ZYMain.cc \
