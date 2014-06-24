@@ -68,6 +68,7 @@ private:
     }
 
     gboolean processPunct (guint keyval, guint keycode, guint modifiers);
+    gboolean processEnglish (guint keyval, guint keycode, guint modifiers);
 
 private:
     gboolean m_quote;

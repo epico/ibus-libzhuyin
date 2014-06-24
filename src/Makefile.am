@@ -42,6 +42,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYSymbols.cc \
 	ZYZBuiltinSymbolSection.cc \
 	ZYZPhoneticSection.cc \
+	ZYFallbackEditor.cc \
 	ZYEngine.cc \
 	ZYZZhuyinEngine.cc \
 	ZYMain.cc \
@@ -69,6 +70,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYPointer.h \
 	ZYProperty.h \
 	ZYRawEditor.h \
+	ZYFallbackEditor.h \
 	ZYSignal.h \
 	ZYString.h \
 	ZYText.h \
