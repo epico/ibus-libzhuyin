@@ -253,7 +253,9 @@ half_punct_to_full_punct (const char key, String & punct)
         '[', ']', '{', '}', '\'','<', ':', '\"', '>',
         '~', '!', '@', '#', '$', '%', '^', '&', '*',
         '(', ')', '_', '+', '=','\\', '|', '?',
-        ',', '.', ';'
+        ',', '.', ';',
+        ' ', '\"', '\'', '/', '<', '>', '`', '[',
+        ']', '{', '}', '+',  '-'
     };
 
     static const char * const chibuf[] = {
@@ -271,8 +273,16 @@ half_punct_to_full_punct (const char key, String & punct)
         /* "﹍", "＋", "＝", "＼" */
         "\xEF\xBD\x9C", "\xEF\xBC\x9F", "\xEF\xBC\x8C", "\xE3\x80\x82",
         /* "｜", "？", "，", "。" */
-        "\xEF\xBC\x9B"
+        "\xEF\xBC\x9B",
         /* "；" */
+        "\xE3\x80\x80","\xE2\x80\x9D",
+        /* "　","”" */
+        "\xE2\x80\x99","\xEF\xBC\x8F","\xEF\xBC\x9C","\xEF\xBC\x9E",
+        /* "’","／","＜","＞" */
+        "\xE2\x80\xB5","\xE3\x80\x94","\xE3\x80\x95","\xEF\xBD\x9B",
+        /* "‵","〔""〕","｛" */
+        "\xEF\xBD\x9D","\xEF\xBC\x8B","\xEF\xBC\x8D"
+        /* "｝","＋","－" */
     };
 
     assert(G_N_ELEMENTS (keybuf) == G_N_ELEMENTS (chibuf));
