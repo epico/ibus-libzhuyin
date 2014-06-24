@@ -25,6 +25,7 @@
 #include "ZYConfig.h"
 #include "ZYZConfig.h"
 #include "ZYRawEditor.h"
+#include "ZYFallbackEditor.h"
 #include "ZYZZhuyinEditor.h"
 #include "ZYZPinyinEditor.h"
 
@@ -36,7 +37,9 @@ ZhuyinEngine::ZhuyinEngine (IBusEngine *engine)
     : Engine (engine),
       m_props (ZhuyinConfig::instance ()),
       m_prev_pressed_key (IBUS_VoidSymbol),
-      m_input_mode (MODE_INIT)
+      m_input_mode (MODE_INIT),
+      m_fallback_editor (new FallbackEditor
+                         (m_props, ZhuyinConfig::instance ()))
 {
     gint i;
 
@@ -113,7 +116,13 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         return TRUE;
     }
 
-    retval = m_editors[m_input_mode]->processKeyEvent (keyval, keycode, modifiers);
+    if (m_props.modeChinese ()) {
+        retval = m_editors[m_input_mode]->processKeyEvent
+            (keyval, keycode, modifiers);
+    } else {
+        retval = m_fallback_editor->processKeyEvent
+            (keyval, keycode, modifiers);
+    }
 
     /* store ignored key event by editors */
     m_prev_pressed_key = retval ? IBUS_VoidSymbol : keyval;
