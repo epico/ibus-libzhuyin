@@ -67,6 +67,8 @@ ZhuyinEngine::ZhuyinEngine (IBusEngine *engine)
     for (i = MODE_INIT; i < MODE_LAST; i ++) {
         connectEditorSignals (m_editors[i]);
     }
+
+    connectEditorSignals (m_fallback_editor);
 }
 
 /* destructor */
