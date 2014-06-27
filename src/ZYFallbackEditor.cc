@@ -153,6 +153,15 @@ FallbackEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         case IBUS_space:
             retval = processEnglish (keyval, keycode, modifiers);
             break;
+        /* enter */
+        case IBUS_Return:
+        case IBUS_KP_Enter:
+            {
+                Text text ("\n");
+                commitText (text);
+                retval = TRUE;
+            }
+            break;
         /* others */
         default:
             break;

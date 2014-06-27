@@ -74,14 +74,17 @@ gboolean
 PhoneticEditor::processEnter (guint keyval, guint keycode,
                               guint modifiers)
 {
-    if (!m_text)
-        return FALSE;
-
     if (IBUS_Return != keyval && IBUS_KP_Enter != keyval)
         return FALSE;
 
     if (cmshm_filter (modifiers) != 0)
+        return FALSE;
+
+    if (!m_text) {
+        Text text ("\n");
+        commitText (text);
         return TRUE;
+    }
 
     commit ();
     return TRUE;
