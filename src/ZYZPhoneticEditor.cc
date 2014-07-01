@@ -25,6 +25,7 @@
 #include "ZYZhuyinProperties.h"
 #include "ZYZPhoneticSection.h"
 #include "ZYZBuiltinSymbolSection.h"
+#include "ZYZBopomofoSymbolSection.h"
 #include "ZYEnhancedText.h"
 #include "ZYLibZhuyin.h"
 #include "ZYSymbols.h"
@@ -54,6 +55,9 @@ PhoneticEditor::PhoneticEditor (ZhuyinProperties & props, Config & config)
     /* init symbols sections here. */
     m_symbol_sections[STATE_BUILTIN_SYMBOL_SHOWN].reset
         (new BuiltinSymbolSection (*this, props));
+
+    m_symbol_sections[STATE_BOPOMOFO_SYMBOL_SHOWN].reset
+        (new BopomofoSymbolSection (*this, props));
 
     m_phonetic_section.reset
         (new PhoneticSection (*this, props));
@@ -271,7 +275,8 @@ PhoneticEditor::fillLookupTableByPage (void)
     if (STATE_CANDIDATE_SHOWN == m_input_state)
         return m_phonetic_section->fillLookupTableByPage ();
 
-    if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state /* ||
+    if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
+        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state /* ||
         STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
         STATE_USER_SYMBOL_SHOWN == m_input_state */) {
         return m_symbol_sections[m_input_state]->
@@ -369,7 +374,8 @@ PhoneticEditor::selectCandidate (guint index)
     if (STATE_CANDIDATE_SHOWN == m_input_state)
         return m_phonetic_section->selectCandidate (index);
 
-    if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state /* ||
+    if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
+        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state /* ||
         STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
         STATE_USER_SYMBOL_SHOWN == m_input_state */) {
         return m_symbol_sections[m_input_state]->

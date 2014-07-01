@@ -102,6 +102,7 @@ protected:
         STATE_INPUT = 0,               // input state
         STATE_CANDIDATE_SHOWN,         // candidates shown state
         STATE_BUILTIN_SYMBOL_SHOWN,    // built-in symbol shown state
+        STATE_BOPOMOFO_SYMBOL_SHOWN,   // bopomofo symbol shown state
 #if 0
         STATE_USER_SYMBOL_LIST_ALL,    // user symbol input state
         STATE_USER_SYMBOL_SHOWN,       // user symbol shown state
