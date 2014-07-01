@@ -78,7 +78,7 @@ PhoneticEditor::processEnter (guint keyval, guint keycode,
         return FALSE;
 
     if (cmshm_filter (modifiers) != 0)
-        return FALSE;
+        return TRUE;
 
     if (!m_text) {
         Text text ("\n");
@@ -148,6 +148,44 @@ PhoneticEditor::processFunctionKey (guint keyval, guint keycode,
 }
 
 gboolean
+PhoneticEditor::processShowCandidateKey (guint keyval, guint keycode,
+                                         guint modifiers)
+{
+    if (m_text.empty ())
+        return FALSE;
+
+    /* ignore numlock */
+    modifiers = cmshm_filter (modifiers);
+
+    if (modifiers != 0)
+        return TRUE;
+
+    /* process some show candidate keys */
+    if (modifiers == 0) { /* no modifiers. */
+        switch (keyval) {
+        case IBUS_Down:
+        case IBUS_KP_Down:
+            assert (FALSE);
+            /* check phonetic or symbol section here */
+            m_input_state = STATE_CANDIDATE_SHOWN;
+            break;
+
+        case IBUS_Up:
+        case IBUS_KP_Up:
+            m_input_state = STATE_INPUT;
+            break;
+
+        default:
+            return TRUE;
+        }
+    }
+
+    update ();
+    return TRUE;
+}
+
+
+gboolean
 PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
                                      guint modifiers)
 {
@@ -192,6 +230,7 @@ PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
         std::size_t found = keys.find (keyval);
         if (found != std::string::npos) { /* found. */
             selectCandidateInPage (found);
+            m_input_state = STATE_INPUT;
         }
         return TRUE;
     }

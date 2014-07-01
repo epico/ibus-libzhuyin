@@ -218,6 +218,9 @@ ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 
         if (processFunctionKey (keyval, keycode, modifiers))
             return TRUE;
+
+        if (processShowCandidateKey (keyval, keycode, modifiers))
+            return TRUE;
     }
 
     if (STATE_CANDIDATE_SHOWN == m_input_state ||
