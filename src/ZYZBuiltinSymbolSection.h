@@ -38,7 +38,8 @@ public:
     virtual ~BuiltinSymbolSection ();
 
 public:
-    virtual bool initCandidates (const String & lookup);
+    virtual bool initCandidates (zhuyin_instance_t * instance,
+                                 const String & lookup);
     virtual bool fillLookupTableByPage ();
     virtual int selectCandidate (guint index);
 

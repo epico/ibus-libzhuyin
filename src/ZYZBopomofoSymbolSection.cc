@@ -37,7 +37,8 @@ BopomofoSymbolSection::~BopomofoSymbolSection ()
 }
 
 bool
-BopomofoSymbolSection::initCandidates (const String & lookup)
+BopomofoSymbolSection::initCandidates (zhuyin_instance_t * instance,
+                                       const String & lookup)
 {
     assert (1 == lookup.length ());
     m_lookup = lookup;

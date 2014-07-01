@@ -24,6 +24,7 @@
 
 #include "ZYString.h"
 #include "ZYZPhoneticEditor.h"
+#include <zhuyin.h>
 
 namespace ZY {
 
@@ -36,7 +37,8 @@ public:
     virtual ~SymbolSection () {}
 
 public:
-    virtual bool initCandidates (const String & hint) = 0;
+    virtual bool initCandidates (zhuyin_instance_t * instance,
+                                 const String & hint) = 0;
     virtual bool fillLookupTableByPage () = 0;
     virtual int selectCandidate (guint index) = 0;
 
