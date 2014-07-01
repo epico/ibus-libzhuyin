@@ -140,7 +140,7 @@ PhoneticEditor::processFunctionKey (guint keyval, guint keycode,
             return TRUE;
 
         default:
-            return TRUE;
+            return FALSE;
         }
     }
 
@@ -172,11 +172,12 @@ PhoneticEditor::processShowCandidateKey (guint keyval, guint keycode,
 
         case IBUS_Up:
         case IBUS_KP_Up:
+            m_lookup_table.clear ();
             m_input_state = STATE_INPUT;
             break;
 
         default:
-            return TRUE;
+            return FALSE;
         }
     }
 
@@ -231,11 +232,11 @@ PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
         if (found != std::string::npos) { /* found. */
             selectCandidateInPage (found);
             m_input_state = STATE_INPUT;
+            return TRUE;
         }
-        return TRUE;
     }
 
-    return TRUE;
+    return FALSE;
 }
 
 gboolean
