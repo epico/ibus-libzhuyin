@@ -19,3 +19,75 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "ZYZBopomofoSymbolSection.h"
+#include <assert.h>
+#include <zhuyin.h>
+
+namespace ZY {
+
+BopomofoSymbolSection::BopomofoSymbolSection (PhoneticEditor & editor,
+                                              ZhuyinProperties & props) :
+    SymbolSection (editor, props)
+{
+    m_type = "bopomofo";
+}
+
+BopomofoSymbolSection::~BopomofoSymbolSection ()
+{
+}
+
+bool
+BopomofoSymbolSection::initCandidates (const String & lookup)
+{
+    assert (1 == lookup.length ());
+    m_lookup = lookup;
+    const char key = lookup[0];
+
+    /* cache the choices. */
+    gchar ** symbols = NULL;
+    assert (zhuyin_in_chewing_keyboard (instance, key, &symbols));
+    size_t num = g_strv_length (symbols);
+    assert (num > 0);
+    for (size_t i = 0; i < num; ++i) {
+        m_candidates.push_back (symbols[i]);
+    }
+    g_strfreev (symbols);
+
+    return true;
+}
+
+bool
+BopomofoSymbolSection::fillLookupTableByPage ()
+{
+    LookupTable & lookup_table = getLookupTable ();
+
+    guint len = m_candidates.size ();
+
+    guint filled_nr = lookup_table.size ();
+    guint page_size = lookup_table.pageSize ();
+
+    /* fill lookup table by libzhuyin get candidates. */
+    guint need_nr = MIN (page_size, len - filled_nr);
+    g_assert (need_nr >=0);
+    if (need_nr == 0)
+        return FALSE;
+
+    for (guint i = filled_nr; i < filled_nr + need_nr; i++) {
+        if (i >= len)  /* no more candidates */
+            break;
+
+        Text text (m_candidates[i]);
+        lookup_table.appendCandidate (text);
+    }
+
+    return TRUE;
+}
+
+int
+BopomofoSymbolSection::selectCandidate (guint index)
+{
+    m_choice = m_candidates[index];
+    return g_utf8_strlen (m_choice, -1);;
+}
+
+};
