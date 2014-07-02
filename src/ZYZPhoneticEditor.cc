@@ -378,8 +378,16 @@ PhoneticEditor::selectCandidate (guint index)
         STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state /* ||
         STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
         STATE_USER_SYMBOL_SHOWN == m_input_state */) {
-        return m_symbol_sections[m_input_state]->
-            selectCandidate (index);
+        SymbolSectionPtr symbols = m_symbol_sections[m_input_state];
+
+        int retval = symbols->selectCandidate (index);
+
+        erase_input_sequence (m_text, m_cursor, 1);
+        insert_symbol (m_text, m_cursor, symbols->m_type,
+                       symbols->m_lookup, symbols->m_choice);
+
+        update ();
+        return retval;
     }
 
     return FALSE;

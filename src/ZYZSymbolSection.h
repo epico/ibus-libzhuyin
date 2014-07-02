@@ -31,6 +31,7 @@ namespace ZY {
 class ZhuyinProperties;
 
 class SymbolSection {
+    friend class PhoneticEditor;
 public:
     SymbolSection (PhoneticEditor & editor, ZhuyinProperties & props) :
         m_editor (editor), m_props(props) {}
