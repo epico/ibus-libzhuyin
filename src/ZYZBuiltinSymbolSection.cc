@@ -29,7 +29,7 @@ BuiltinSymbolSection::BuiltinSymbolSection (PhoneticEditor & editor,
                                             ZhuyinProperties & props) :
     SymbolSection (editor, props)
 {
-    m_type = "builtin";
+    m_type = BUILTIN_SYMBOL_TYPE;
 }
 
 BuiltinSymbolSection::~BuiltinSymbolSection ()

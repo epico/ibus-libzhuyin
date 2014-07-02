@@ -169,8 +169,8 @@ PhoneticEditor::processShowCandidateKey (guint keyval, guint keycode,
         switch (keyval) {
         case IBUS_Down:
         case IBUS_KP_Down:
-            assert (FALSE);
             /* check phonetic or symbol section here */
+            prepareCandidates ();
             m_input_state = STATE_CANDIDATE_SHOWN;
             break;
 
@@ -499,7 +499,8 @@ PhoneticEditor::resizeInstances (void)
     }
 }
 
-guint PhoneticEditor::getZhuyinCursor (void)
+guint
+PhoneticEditor::getZhuyinCursor (void)
 {
     /* decrement the cursor variable to calculate the zhuyin cursor. */
     guint cursor = m_cursor;
@@ -637,5 +638,119 @@ PhoneticEditor::insertEnglish (gint ch)
 
     return FALSE;
 }
+
+gboolean
+PhoneticEditor::prepareCandidates (void)
+{
+    /* decrement the cursor variable to calculate the zhuyin cursor. */
+    guint cursor = m_cursor;
+
+    const String & enhanced_text = m_text;
+
+    size_t index = 0;
+    size_t start_pos = 0, end_pos = 0;
+
+    while (end_pos != enhanced_text.size ()) {
+        if (0 == cursor)
+            break;
+
+        start_pos = end_pos;
+        section_t type = probe_section_quick (enhanced_text, start_pos);
+
+        if (PHONETIC_SECTION == type) {
+            String section;
+            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+
+            size_t section_len = end_pos - start_pos;
+
+            if (cursor < section_len)
+                break;
+
+            cursor -= section_len;
+            ++index;
+        }
+
+        if (SYMBOL_SECTION == type) {
+            String type, lookup, choice;
+            get_symbol_section (enhanced_text, start_pos, end_pos,
+                                type, lookup, choice);
+            --cursor;
+        }
+    }
+
+    /* deal with candidates */
+    if (m_cursor != enhanced_text.size ()) {
+        section_t type = probe_section_quick (enhanced_text, start_pos);
+
+        if (PHONETIC_SECTION == type) {
+            String section;
+            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+            size_t section_len = end_pos - start_pos;
+
+            zhuyin_instance_t * instance = m_instances[index];
+            size_t parsed_len = zhuyin_get_parsed_input_length (instance);
+
+            assert (cursor < section_len);
+            assert (parsed_len <= section_len);
+
+            String lookup;
+            if (cursor >= parsed_len) {
+                lookup = section[cursor];
+                m_input_state = STATE_BOPOMOFO_SYMBOL_SHOWN;
+                m_symbol_sections[m_input_state]->initCandidates
+                    (m_instance, lookup);
+
+                update ();
+                return TRUE;
+            } else {
+                guint len = 0;
+                zhuyin_get_n_zhuyin (instance, &len);
+
+                guint inner_cursor = len;
+
+                guint16 prev_end = 0, cur_end;
+                for (size_t i = 0; i < len; ++i) {
+                    ChewingKeyRest *pos = NULL;
+                    zhuyin_get_zhuyin_key_rest (instance, i, &pos);
+                    zhuyin_get_zhuyin_key_rest_positions
+                        (instance, pos, NULL, &cur_end);
+
+                    if (prev_end < cursor && cursor < cur_end)
+                        inner_cursor = i;
+
+                    prev_end = cur_end;
+                }
+
+                assert (inner_cursor >= 0);
+                m_input_state = STATE_CANDIDATE_SHOWN;
+                m_phonetic_section->initCandidates (instance, inner_cursor);
+
+                update ();
+                return TRUE;
+            }
+        }
+
+        if (SYMBOL_SECTION == type) {
+            String type, lookup, choice;
+            get_symbol_section (enhanced_text, start_pos, end_pos,
+                                type, lookup, choice);
+
+            if (BUILTIN_SYMBOL_TYPE == type) {
+                m_input_state = STATE_BUILTIN_SYMBOL_SHOWN;
+                m_symbol_sections[m_input_state]->initCandidates
+                    (m_instance, lookup);
+            } else if (BOPOMOFO_SYMBOL_TYPE == type) {
+                m_input_state = STATE_BOPOMOFO_SYMBOL_SHOWN;
+                m_symbol_sections[m_input_state]->initCandidates
+                    (m_instance, lookup);
+            } else
+                assert (FALSE);
+
+            update ();
+            return TRUE;
+        }
+    }
+}
+
 
 };

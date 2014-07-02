@@ -49,6 +49,8 @@ bool
 half_english_to_full_english (const char key, String & english);
 
 #define BUILTIN_SYMBOL_TYPE "builtin"
+#define BOPOMOFO_SYMBOL_TYPE "bopomofo"
+
 
 };
 

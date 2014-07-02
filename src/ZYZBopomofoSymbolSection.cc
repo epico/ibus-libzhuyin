@@ -22,6 +22,7 @@
 #include "ZYZBopomofoSymbolSection.h"
 #include <assert.h>
 #include <zhuyin.h>
+#include "ZYSymbols.h"
 
 namespace ZY {
 
@@ -29,7 +30,7 @@ BopomofoSymbolSection::BopomofoSymbolSection (PhoneticEditor & editor,
                                               ZhuyinProperties & props) :
     SymbolSection (editor, props)
 {
-    m_type = "bopomofo";
+    m_type = BOPOMOFO_SYMBOL_TYPE;
 }
 
 BopomofoSymbolSection::~BopomofoSymbolSection ()

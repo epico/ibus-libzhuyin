@@ -68,6 +68,7 @@ public:
     virtual gboolean insertEnglish (gint ch);
 
 protected:
+    gboolean prepareCandidates (void);
     gboolean selectCandidate (guint i);
     gboolean selectCandidateInPage (guint i);
 
