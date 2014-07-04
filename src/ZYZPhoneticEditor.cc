@@ -687,7 +687,7 @@ PhoneticEditor::prepareCandidates (void)
     }
 
     /* deal with candidates */
-    if (m_cursor != enhanced_text.size ()) {
+    if (m_cursor != get_enhanced_text_length (enhanced_text)) {
         section_t type = probe_section_quick (enhanced_text, start_pos);
 
         if (PHONETIC_SECTION == type) {
@@ -701,9 +701,8 @@ PhoneticEditor::prepareCandidates (void)
             assert (cursor < section_len);
             assert (parsed_len <= section_len);
 
-            String lookup;
             if (cursor >= parsed_len) {
-                lookup = section[cursor];
+                String lookup = section[cursor];
                 m_input_state = STATE_BOPOMOFO_SYMBOL_SHOWN;
                 m_symbol_sections[m_input_state]->initCandidates
                     (m_instance, lookup);
