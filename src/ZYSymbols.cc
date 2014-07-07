@@ -34,7 +34,7 @@ static const char G_EASY_SYMBOL_KEY[] = {
 };
 
 bool
-is_easy_symbol(const char key)
+is_easy_symbol(const gint key)
 {
     for (size_t i = 0; i < G_N_ELEMENTS (G_EASY_SYMBOL_KEY); ++i) {
         if (key == G_EASY_SYMBOL_KEY[i])
@@ -209,7 +209,7 @@ find_lookup_key (const String & symbol)
 }
 
 int
-get_choice_list (const char key, gchar ** & choices)
+get_choice_list (const gint key, gchar ** & choices)
 {
     choices = NULL;
     GPtrArray * array = g_ptr_array_new ();
@@ -238,14 +238,14 @@ get_choice_list (const char key, gchar ** & choices)
 }
 
 bool
-is_half_punct (const char key)
+is_half_punct (const gint key)
 {
     String punct;
     return half_punct_to_full_punct (key, punct);
 }
 
 bool
-half_punct_to_full_punct (const char key, String & punct)
+half_punct_to_full_punct (const gint key, String & punct)
 {
     punct = "";
 
@@ -297,14 +297,14 @@ half_punct_to_full_punct (const char key, String & punct)
 }
 
 bool
-is_half_english (const char key)
+is_half_english (const gint key)
 {
     String english;
     return half_english_to_full_english (key, english);
 }
 
 bool
-half_english_to_full_english (const char key, String & english)
+half_english_to_full_english (const gint key, String & english)
 {
     english = "";
 

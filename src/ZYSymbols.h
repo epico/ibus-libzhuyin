@@ -28,25 +28,25 @@
 namespace ZY {
 
 bool
-is_easy_symbol(const char key);
+is_easy_symbol(const gint key);
 
 int
 find_lookup_key (const String & symbol);
 
 int
-get_choice_list (const char key, gchar ** & choices);
+get_choice_list (const gint key, gchar ** & choices);
 
 bool
-is_half_punct (const char key);
+is_half_punct (const gint key);
 
 bool
-half_punct_to_full_punct (const char key, String & punct);
+half_punct_to_full_punct (const gint key, String & punct);
 
 bool
-is_half_english (const char key);
+is_half_english (const gint key);
 
 bool
-half_english_to_full_english (const char key, String & english);
+half_english_to_full_english (const gint key, String & english);
 
 #define BUILTIN_SYMBOL_TYPE "builtin"
 #define BOPOMOFO_SYMBOL_TYPE "bopomofo"
