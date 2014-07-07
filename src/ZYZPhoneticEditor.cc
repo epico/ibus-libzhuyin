@@ -171,7 +171,6 @@ PhoneticEditor::processShowCandidateKey (guint keyval, guint keycode,
         case IBUS_KP_Down:
             /* check phonetic or symbol section here */
             prepareCandidates ();
-            m_input_state = STATE_CANDIDATE_SHOWN;
             break;
 
         case IBUS_Up:
@@ -700,7 +699,7 @@ PhoneticEditor::prepareCandidates (void)
     }
 
     /* deal with candidates */
-    if (m_cursor != get_enhanced_text_length (enhanced_text)) {
+    if (m_cursor < get_enhanced_text_length (enhanced_text)) {
         section_t type = probe_section_quick (enhanced_text, start_pos);
 
         if (PHONETIC_SECTION == type) {
@@ -715,7 +714,8 @@ PhoneticEditor::prepareCandidates (void)
             assert (parsed_len <= section_len);
 
             if (cursor >= parsed_len) {
-                String lookup = section[cursor];
+                String lookup;
+                lookup += section[cursor];
                 m_input_state = STATE_BOPOMOFO_SYMBOL_SHOWN;
                 m_symbol_sections[m_input_state]->initCandidates
                     (m_instance, lookup);

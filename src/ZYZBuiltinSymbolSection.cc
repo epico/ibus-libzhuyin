@@ -40,6 +40,9 @@ bool
 BuiltinSymbolSection::initCandidates (zhuyin_instance_t * instance,
                                       const String & lookup)
 {
+    if (!lookup)
+        return false;
+
     assert (1 == lookup.length ());
     m_lookup = lookup;
 
