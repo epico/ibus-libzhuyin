@@ -43,6 +43,8 @@ BuiltinSymbolSection::initCandidates (zhuyin_instance_t * instance,
     if (!lookup)
         return false;
 
+    m_candidates.clear ();
+
     assert (1 == lookup.length ());
     m_lookup = lookup;
 

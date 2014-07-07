@@ -44,7 +44,6 @@ public:
     virtual int selectCandidate (guint index);
 
 protected:
-    String m_lookup;
     std::vector<String> m_candidates;
 };
 
