@@ -172,7 +172,7 @@ ZhuyinConfig::readDefaultValues (void)
     m_init_full_punct = read (CONFIG_INIT_FULL_PUNCT, true);
     m_init_trad_chinese = read (CONFIG_INIT_TRAD_CHINESE, true);
 
-    m_candidate_keys = read (CONFIG_CANDIDATE_KEYS, "1234567890");
+    m_candidate_keys = read (CONFIG_CANDIDATE_KEYS, std::string ("1234567890"));
 
     /* fuzzy zhuyin */
     if (read (CONFIG_FUZZY_ZHUYIN, false))
@@ -223,7 +223,7 @@ ZhuyinConfig::valueChanged (const std::string &section,
             }
         }
     } else if (CONFIG_CANDIDATE_KEYS == name) {
-        m_candidate_keys = normalizeGVariant (value, "1234567890");
+        m_candidate_keys = normalizeGVariant (value, std::string ("1234567890"));
     } /* lookup table page size */
     else if (CONFIG_ORIENTATION == name) {
         m_orientation = normalizeGVariant (value, IBUS_ORIENTATION_VERTICAL);

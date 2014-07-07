@@ -342,6 +342,8 @@ PhoneticEditor::candidateClicked (guint index, guint button,
 void
 PhoneticEditor::reset (void)
 {
+    m_input_state = STATE_INPUT;
+
     m_lookup_table.clear ();
     m_buffer = "";
 
@@ -371,8 +373,15 @@ PhoneticEditor::commit (const gchar *str)
 gboolean
 PhoneticEditor::selectCandidate (guint index)
 {
-    if (STATE_CANDIDATE_SHOWN == m_input_state)
-        return m_phonetic_section->selectCandidate (index);
+    if (STATE_CANDIDATE_SHOWN == m_input_state) {
+        int retval = m_phonetic_section->selectCandidate (index);
+
+        m_input_state = STATE_INPUT;
+
+        updateZhuyin ();
+        update ();
+        return retval;
+    }
 
     if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
         STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state /* ||
@@ -385,6 +394,8 @@ PhoneticEditor::selectCandidate (guint index)
         erase_input_sequence (m_text, m_cursor, 1);
         insert_symbol (m_text, m_cursor, symbols->m_type,
                        symbols->m_lookup, symbols->m_choice);
+
+        m_input_state = STATE_INPUT;
 
         update ();
         return retval;
@@ -575,6 +586,8 @@ PhoneticEditor::getZhuyinCursor (void)
                 zhuyin_cursor += cursor;
                 cursor = 0;
             }
+
+            ++ index;
         }
 
         if (SYMBOL_SECTION == type) {

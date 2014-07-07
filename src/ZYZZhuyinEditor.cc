@@ -189,11 +189,15 @@ ZhuyinEditor::insert (gint ch)
         return TRUE;
     }
 
-    if (insertPunct (ch))
+    if (insertPunct (ch)) {
+        update ();
         return TRUE;
+    }
 
-    if (insertEnglish (ch))
+    if (insertEnglish (ch)) {
+        update ();
         return TRUE;
+    }
 
     return FALSE;
 }
@@ -210,6 +214,7 @@ ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
                   IBUS_LOCK_MASK);
 
     if (STATE_INPUT == m_input_state) {
+
         if (insert (keyval))
             return TRUE;
 
