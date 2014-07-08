@@ -757,12 +757,22 @@ PhoneticEditor::prepareCandidates (void)
 
             if (BUILTIN_SYMBOL_TYPE == type) {
                 m_input_state = STATE_BUILTIN_SYMBOL_SHOWN;
-                m_symbol_sections[m_input_state]->initCandidates
+                bool retval = m_symbol_sections[m_input_state]->initCandidates
                     (m_instance, lookup);
+
+                if (!retval) {
+                    m_input_state = STATE_INPUT;
+                    return FALSE;
+                }
             } else if (BOPOMOFO_SYMBOL_TYPE == type) {
                 m_input_state = STATE_BOPOMOFO_SYMBOL_SHOWN;
-                m_symbol_sections[m_input_state]->initCandidates
+                bool retval = m_symbol_sections[m_input_state]->initCandidates
                     (m_instance, lookup);
+
+                if (!retval) {
+                    m_input_state = STATE_INPUT;
+                    return FALSE;
+                }
             } else
                 assert (FALSE);
 
