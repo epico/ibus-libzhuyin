@@ -551,25 +551,10 @@ PhoneticEditor::getZhuyinCursor (void)
                 zhuyin_get_n_zhuyin (instance, &len);
                 zhuyin_cursor += len;
             } else {
-                guint len = 0;
-                zhuyin_get_n_zhuyin (instance, &len);
+                guint16 inner_cursor = 0;
+                zhuyin_get_zhuyin_key_rest_offset
+                    (instance, cursor, &inner_cursor);
 
-                guint inner_cursor = len;
-
-                guint16 prev_end = 0, cur_end;
-                for (size_t i = 0; i < len; ++i) {
-                    ChewingKeyRest *pos = NULL;
-                    zhuyin_get_zhuyin_key_rest (instance, i, &pos);
-                    zhuyin_get_zhuyin_key_rest_positions
-                        (instance, pos, NULL, &cur_end);
-
-                    if (prev_end < cursor && cursor < cur_end)
-                        inner_cursor = i;
-
-                    prev_end = cur_end;
-                }
-
-                assert (inner_cursor >= 0);
                 zhuyin_cursor += inner_cursor;
                 cursor = 0;
             }
@@ -723,25 +708,10 @@ PhoneticEditor::prepareCandidates (void)
                 update ();
                 return TRUE;
             } else {
-                guint len = 0;
-                zhuyin_get_n_zhuyin (instance, &len);
+                guint16 inner_cursor = 0;
+                zhuyin_get_zhuyin_key_rest_offset
+                    (instance, cursor, &inner_cursor);
 
-                guint inner_cursor = len;
-
-                guint16 prev_end = 0, cur_end;
-                for (size_t i = 0; i < len; ++i) {
-                    ChewingKeyRest *pos = NULL;
-                    zhuyin_get_zhuyin_key_rest (instance, i, &pos);
-                    zhuyin_get_zhuyin_key_rest_positions
-                        (instance, pos, NULL, &cur_end);
-
-                    if (prev_end < cursor && cursor < cur_end)
-                        inner_cursor = i;
-
-                    prev_end = cur_end;
-                }
-
-                assert (inner_cursor >= 0);
                 m_input_state = STATE_CANDIDATE_SHOWN;
                 m_phonetic_section->initCandidates (instance, inner_cursor);
 
@@ -780,6 +750,8 @@ PhoneticEditor::prepareCandidates (void)
             return TRUE;
         }
     }
+
+    return FALSE;
 }
 
 
