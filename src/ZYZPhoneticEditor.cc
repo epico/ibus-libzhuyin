@@ -95,6 +95,24 @@ PhoneticEditor::processEnter (guint keyval, guint keycode,
 }
 
 gboolean
+PhoneticEditor::processSpace (guint keyval, guint keycode,
+                              guint modifiers)
+{
+    if (IBUS_space != keyval && IBUS_KP_Space != keyval)
+        return FALSE;
+
+    if (cmshm_filter (modifiers) != 0)
+        return TRUE;
+
+    selectCandidate (m_lookup_table.cursorPos ());
+
+    updateZhuyin ();
+    update ();
+    return TRUE;
+}
+
+
+gboolean
 PhoneticEditor::processFunctionKey (guint keyval, guint keycode,
                                     guint modifiers)
 {
