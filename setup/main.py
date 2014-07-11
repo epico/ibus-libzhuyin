@@ -85,7 +85,6 @@ class PreferencesWindow:
         self.__chinese_mode = self.__builder.get_object("chinesemode")
         self.__full_half_english = self.__builder.get_object("fullhalfenglish")
         self.__full_half_punct = self.__builder.get_object("fullhalfpunct")
-        self.__clean_all_buffer = self.__builder.get_object("cleanallbuffer")
         self.__always_input_num = self.__builder.get_object("alwaysinputnum")
         self.__space_as_selection = self.__builder.get_object("spaceasselection")
 
@@ -93,7 +92,6 @@ class PreferencesWindow:
         self.__chinese_mode.set_active(self.__get_value("chinesemode", True))
         self.__full_half_english.set_active(self.__get_value("fullhalfenglish", False))
         self.__full_half_punct.set_active(self.__get_value("fullhalfpunct", True))
-        self.__clean_all_buffer.set_active(self.__get_value("cleanallbuffer", False))
         self.__always_input_num.set_active(self.__get_value("alwaysinputnum", True))
         self.__space_as_selection.set_active(self.__get_value("spaceasselection", False))
 
@@ -101,7 +99,6 @@ class PreferencesWindow:
         self.__chinese_mode.connect("toggled", self.__toggled_cb, "chinesemode")
         self.__full_half_english.connect("toggled", self.__toggled_cb, "fullhalfenglish")
         self.__full_half_punct.connect("toggled", self.__toggled_cb, "fullhalfpunct")
-        self.__clean_all_buffer.connect("toggled", self.__toggled_cb, "cleanallbuffer")
         self.__always_input_num.connect("toggled", self.__toggled_cb, "alwaysinputnum")
         self.__space_as_selection.connect("toggled", self.__toggled_cb, "spaceasselection")
 
