@@ -33,7 +33,7 @@ const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboardlayout";
 const gchar * const CONFIG_INIT_CHINESE              = "chinesemode";
 const gchar * const CONFIG_INIT_FULL_ENGLISH         = "fullhalfenglish";
 const gchar * const CONFIG_INIT_FULL_PUNCT           = "fullhalfpunct";
-const gchar * const CONFIG_INIT_TRAD_CHINESE         = "TraditionalChinese";
+const gchar * const CONFIG_INIT_TRAD_CHINESE         = "traditionalchinese";
 const gchar * const CONFIG_CANDIDATE_KEYS            = "candidatekeys";
 
 const zhuyin_option_t ZHUYIN_DEFAULT_OPTION =
@@ -212,7 +212,7 @@ ZhuyinConfig::valueChanged (const std::string &section,
     else if (CONFIG_INIT_FULL_PUNCT == name)
         m_init_full_punct = normalizeGVariant (value, true);
     else if (CONFIG_INIT_TRAD_CHINESE == name)
-        m_init_trad_chinese = normalizeGVariant (value, false);
+        m_init_trad_chinese = normalizeGVariant (value, true);
     else if (CONFIG_KEYBOARD_LAYOUT == name) {
         gint layout = normalizeGVariant (value, 0);
         m_keyboard_layout = CHEWING_DEFAULT;
