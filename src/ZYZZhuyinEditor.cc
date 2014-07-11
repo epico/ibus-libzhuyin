@@ -213,6 +213,9 @@ ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
                   IBUS_META_MASK |
                   IBUS_LOCK_MASK);
 
+    if (processEscape (keyval, keycode, modifiers))
+        return TRUE;
+
     if (STATE_INPUT == m_input_state) {
 
         if (insert (keyval))

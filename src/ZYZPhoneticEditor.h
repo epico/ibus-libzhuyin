@@ -56,6 +56,7 @@ public:
     virtual void reset (void);
     virtual void candidateClicked (guint index, guint button, guint state);
     virtual gboolean processKeyEvent (guint keyval, guint keycode, guint modifiers);
+    virtual gboolean processEscape (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processEnter (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processSpace (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processFunctionKey (guint keyval, guint keycode, guint modifiers);

@@ -75,6 +75,21 @@ PhoneticEditor::~PhoneticEditor (void)
 }
 
 gboolean
+PhoneticEditor::processEscape (guint keyval, guint keycode,
+                               guint modifiers)
+{
+    if (IBUS_Escape != keyval)
+        return FALSE;
+
+    if (cmshm_filter (modifiers) != 0)
+        return TRUE;
+
+    reset ();
+    return TRUE;
+}
+
+
+gboolean
 PhoneticEditor::processEnter (guint keyval, guint keycode,
                               guint modifiers)
 {
