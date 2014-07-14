@@ -66,8 +66,9 @@ public:
     virtual void updateLookupTableFast ();
     virtual gboolean fillLookupTableByPage ();
 
-    virtual gboolean insertPunct (gint ch);
-    virtual gboolean insertEnglish (gint ch);
+    virtual gboolean insertPunct (guint ch);
+    virtual gboolean insertEnglish (guint ch);
+    virtual gboolean insertNumbers (guint ch);
 
 protected:
     gboolean prepareCandidates (void);

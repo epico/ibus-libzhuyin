@@ -192,11 +192,19 @@ ZhuyinEditor::insert (gint ch)
     }
 
     if (insertPunct (ch)) {
+        updateZhuyin ();
         update ();
         return TRUE;
     }
 
     if (insertEnglish (ch)) {
+        updateZhuyin ();
+        update ();
+        return TRUE;
+    }
+
+    if (insertNumbers (ch)) {
+        updateZhuyin ();
         update ();
         return TRUE;
     }

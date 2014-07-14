@@ -183,11 +183,23 @@ PinyinEditor::insert (gint ch)
         return TRUE;
     }
 
-    if (insertPunct (ch))
+    if (insertPunct (ch)) {
+        updateZhuyin ();
+        update ();
         return TRUE;
+    }
 
-    if (insertEnglish (ch))
+    if (insertEnglish (ch)) {
+        updateZhuyin ();
+        update ();
         return TRUE;
+    }
+
+    if (insertNumbers (ch)) {
+        updateZhuyin ();
+        update ();
+        return TRUE;
+    }
 
     return FALSE;
 }

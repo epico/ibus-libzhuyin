@@ -630,7 +630,7 @@ PhoneticEditor::getZhuyinCursor (void)
 }
 
 gboolean
-PhoneticEditor::insertPunct (gint ch)
+PhoneticEditor::insertPunct (guint ch)
 {
     /* for punctuations. */
     if (is_half_punct (ch)) {
@@ -658,7 +658,7 @@ PhoneticEditor::insertPunct (gint ch)
 }
 
 gboolean
-PhoneticEditor::insertEnglish (gint ch)
+PhoneticEditor::insertEnglish (guint ch)
 {
     /* for English. */
     if (is_half_english (ch)) {
@@ -684,6 +684,45 @@ PhoneticEditor::insertEnglish (gint ch)
 
     return FALSE;
 }
+
+gboolean
+PhoneticEditor::insertNumbers (guint ch)
+{
+    /* for input pad numbers. */
+    static const guint keyvals[] = {IBUS_KP_Delete, IBUS_KP_Insert,
+                                    IBUS_KP_End, IBUS_KP_Down,
+                                    IBUS_KP_Next, IBUS_KP_Left,
+                                    IBUS_KP_Begin, IBUS_KP_Right,
+                                    IBUS_KP_Home, IBUS_KP_Up,
+                                    IBUS_KP_Prior};
+
+    static const char numbers[] = {'.', '0',
+                                   '1', '2',
+                                   '3', '4',
+                                   '5', '6',
+                                   '7', '8',
+                                   '9'};
+
+    assert (G_N_ELEMENTS (keyvals) == G_N_ELEMENTS (numbers));
+
+    if (!m_config.alwaysInputNumbers ())
+        return FALSE;
+
+    for (size_t i = 0; i < G_N_ELEMENTS (keyvals); ++i) {
+        if (keyvals[i] == ch) {
+            String choice;
+            choice += numbers[i];
+
+            insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
+                           "", choice);
+
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
 
 gboolean
 PhoneticEditor::prepareCandidates (void)
