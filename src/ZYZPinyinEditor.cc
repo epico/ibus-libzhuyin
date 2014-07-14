@@ -160,8 +160,9 @@ PinyinEditor::updatePreeditText (void)
     } else {
         TradSimpConverter::tradToSimp (m_preedit_text.c_str (), m_buffer);
     }
+    m_preedit_text = m_buffer;
 
-    StaticText preedit_text (m_buffer);
+    StaticText preedit_text (m_preedit_text);
     /* underline */
     preedit_text.appendAttribute (IBUS_ATTR_TYPE_UNDERLINE, IBUS_ATTR_UNDERLINE_SINGLE, 0, -1);
 
