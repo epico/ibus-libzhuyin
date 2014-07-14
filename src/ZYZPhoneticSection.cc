@@ -101,6 +101,12 @@ PhoneticSection::selectCandidate (guint index)
     guint16 prev_pos = m_cursor, cur_pos = 0;
     ChewingKeyRest * key_rest = NULL;
 
+    guint len = 0;
+    zhuyin_get_n_candidate (m_instance, &len);
+
+    if (index >= len)
+        return 0;
+
     lookup_candidate_t * candidate = NULL;
     zhuyin_get_candidate (m_instance, index, &candidate);
 
@@ -111,7 +117,6 @@ PhoneticSection::selectCandidate (guint index)
     offset = zhuyin_choose_candidate
         (m_instance, offset, candidate);
 
-    guint len = 0;
     zhuyin_get_n_zhuyin (m_instance, &len);
 
     if (offset < len) {

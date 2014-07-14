@@ -89,6 +89,9 @@ BuiltinSymbolSection::fillLookupTableByPage ()
 int
 BuiltinSymbolSection::selectCandidate (guint index)
 {
+    if (index >= m_candidates.size ())
+        return 0;
+
     m_choice = m_candidates[index];
     return 1;
 }

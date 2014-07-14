@@ -159,6 +159,7 @@ ZhuyinEditor::updatePreeditText (void)
         start_pos = end_pos;
     }
 
+    m_buffer.clear ();
     if (m_props.modeTrad ()) {
         m_buffer = m_preedit_text;
     } else {

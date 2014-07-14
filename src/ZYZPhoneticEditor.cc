@@ -408,6 +408,9 @@ PhoneticEditor::selectCandidate (guint index)
     if (STATE_CANDIDATE_SHOWN == m_input_state) {
         int offset = m_phonetic_section->selectCandidate (index);
 
+        if (0 == offset)
+            return FALSE;
+
         m_cursor += offset;
         m_input_state = STATE_INPUT;
 
@@ -423,6 +426,9 @@ PhoneticEditor::selectCandidate (guint index)
         SymbolSectionPtr symbols = m_symbol_sections[m_input_state];
 
         int offset = symbols->selectCandidate (index);
+
+        if (0 == offset)
+            return FALSE;
 
         erase_input_sequence (m_text, m_cursor, 1);
         insert_symbol (m_text, m_cursor, symbols->m_type,
