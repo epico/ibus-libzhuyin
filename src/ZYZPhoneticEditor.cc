@@ -406,13 +406,14 @@ gboolean
 PhoneticEditor::selectCandidate (guint index)
 {
     if (STATE_CANDIDATE_SHOWN == m_input_state) {
-        int retval = m_phonetic_section->selectCandidate (index);
+        int offset = m_phonetic_section->selectCandidate (index);
 
+        m_cursor += offset;
         m_input_state = STATE_INPUT;
 
         updateZhuyin ();
         update ();
-        return retval;
+        return TRUE;
     }
 
     if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
@@ -421,16 +422,17 @@ PhoneticEditor::selectCandidate (guint index)
         STATE_USER_SYMBOL_SHOWN == m_input_state */) {
         SymbolSectionPtr symbols = m_symbol_sections[m_input_state];
 
-        int retval = symbols->selectCandidate (index);
+        int offset = symbols->selectCandidate (index);
 
         erase_input_sequence (m_text, m_cursor, 1);
         insert_symbol (m_text, m_cursor, symbols->m_type,
                        symbols->m_lookup, symbols->m_choice);
 
+        m_cursor += offset;
         m_input_state = STATE_INPUT;
 
         update ();
-        return retval;
+        return TRUE;
     }
 
     return FALSE;
@@ -741,12 +743,8 @@ PhoneticEditor::prepareCandidates (void)
                 update ();
                 return TRUE;
             } else {
-                guint16 inner_cursor = 0;
-                zhuyin_get_zhuyin_key_rest_offset
-                    (instance, cursor, &inner_cursor);
-
                 m_input_state = STATE_CANDIDATE_SHOWN;
-                m_phonetic_section->initCandidates (instance, inner_cursor);
+                m_phonetic_section->initCandidates (instance, cursor);
 
                 update ();
                 return TRUE;

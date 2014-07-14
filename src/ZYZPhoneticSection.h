@@ -35,7 +35,7 @@ public:
 
 public:
     virtual bool initCandidates (zhuyin_instance_t * instance,
-                                 int offset);
+                                 int cursor);
     virtual bool fillLookupTableByPage ();
     virtual int selectCandidate (guint index);
 
@@ -48,7 +48,7 @@ protected:
 
     /* other variables. */
     zhuyin_instance_t * m_instance;
-    int m_offset;
+    int m_cursor;
 };
 
 };

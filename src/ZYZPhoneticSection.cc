@@ -20,6 +20,7 @@
  */
 
 #include "ZYZPhoneticSection.h"
+#include <assert.h>
 #include "ZYZhuyinProperties.h"
 #include "ZYTradSimpConverter.h"
 
@@ -37,10 +38,14 @@ PhoneticSection::~PhoneticSection ()
 
 bool
 PhoneticSection::initCandidates (zhuyin_instance_t * instance,
-                                 int offset)
+                                 int cursor)
 {
     m_instance = instance;
-    m_offset = offset;
+    m_cursor = cursor;
+
+    guint16 offset = 0;
+    zhuyin_get_zhuyin_key_rest_offset
+        (instance, cursor, &offset);
 
     zhuyin_guess_candidates (m_instance, offset);
 
@@ -93,12 +98,32 @@ PhoneticSection::fillLookupTableByPage ()
 int
 PhoneticSection::selectCandidate (guint index)
 {
+    guint16 prev_pos = m_cursor, cur_pos = 0;
+    ChewingKeyRest * key_rest = NULL;
+
     lookup_candidate_t * candidate = NULL;
     zhuyin_get_candidate (m_instance, index, &candidate);
 
-    int retval = zhuyin_choose_candidate (m_instance, m_offset, candidate);
+    guint16 offset = 0;
+    zhuyin_get_zhuyin_key_rest_offset
+        (m_instance, m_cursor, &offset);
 
-    return retval - m_offset;
+    offset = zhuyin_choose_candidate
+        (m_instance, offset, candidate);
+
+    guint len = 0;
+    zhuyin_get_n_zhuyin (m_instance, &len);
+
+    if (offset < len) {
+        zhuyin_get_zhuyin_key_rest (m_instance, offset, &key_rest);
+        zhuyin_get_zhuyin_key_rest_positions
+            (m_instance, key_rest, &cur_pos, NULL);
+    } else {
+        assert (offset == len);
+        cur_pos = zhuyin_get_parsed_input_length (m_instance);
+    }
+
+    return cur_pos - prev_pos;
 }
 
 };

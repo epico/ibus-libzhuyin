@@ -90,7 +90,7 @@ int
 BuiltinSymbolSection::selectCandidate (guint index)
 {
     m_choice = m_candidates[index];
-    return g_utf8_strlen (m_choice, -1);
+    return 1;
 }
 
 };
