@@ -52,6 +52,8 @@ Config::initDefaultValues (void)
     m_init_full_english = FALSE;
     m_init_full_punct = TRUE;
     m_init_trad_chinese = TRUE;
+
+    m_always_input_numbers = FALSE;
 }
 
 

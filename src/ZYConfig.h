@@ -49,6 +49,7 @@ public:
     gboolean initFullEnglish (void) const       { return m_init_full_english; }
     gboolean initFullPunct (void) const         { return m_init_full_punct; }
     gboolean initTradChinese (void) const       { return m_init_trad_chinese; }
+    gboolean alwaysInputNumbers (void) const    { return m_always_input_numbers; }
     std::string candidateKeys (void) const      { return m_candidate_keys; }
 
 protected:
@@ -82,6 +83,8 @@ protected:
     gboolean m_init_full_english;
     gboolean m_init_full_punct;
     gboolean m_init_trad_chinese;
+
+    gboolean m_always_input_numbers;
 
     std::string m_candidate_keys;
 };

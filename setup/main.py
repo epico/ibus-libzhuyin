@@ -93,7 +93,7 @@ class PreferencesWindow:
         self.__full_half_english.set_active(self.__get_value("fullhalfenglish", False))
         self.__full_half_punct.set_active(self.__get_value("fullhalfpunct", True))
         self.__traditional_chinese.set_active(self.__get_value("traditionalchinese", True))
-        self.__always_input_num.set_active(self.__get_value("alwaysinputnum", True))
+        self.__always_input_num.set_active(self.__get_value("alwaysinputnum", False))
 
         # connect signals
         self.__chinese_mode.connect("toggled", self.__toggled_cb, "chinesemode")

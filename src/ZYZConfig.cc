@@ -29,11 +29,13 @@ const gchar * const CONFIG_FUZZY_ZHUYIN              = "fuzzyzhuyin";
 const gchar * const CONFIG_ORIENTATION               = "LookupTableOrientation";
 const gchar * const CONFIG_PAGE_SIZE                 = "candidatenum";
 
-const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboardlayout";
 const gchar * const CONFIG_INIT_CHINESE              = "chinesemode";
 const gchar * const CONFIG_INIT_FULL_ENGLISH         = "fullhalfenglish";
 const gchar * const CONFIG_INIT_FULL_PUNCT           = "fullhalfpunct";
 const gchar * const CONFIG_INIT_TRAD_CHINESE         = "traditionalchinese";
+const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "alwaysinputnum";
+
+const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboardlayout";
 const gchar * const CONFIG_CANDIDATE_KEYS            = "candidatekeys";
 
 const zhuyin_option_t ZHUYIN_DEFAULT_OPTION =
@@ -83,6 +85,8 @@ ZhuyinConfig::initDefaultValues (void)
     m_init_full_english = FALSE;
     m_init_full_punct = TRUE;
     m_init_trad_chinese = TRUE;
+
+    m_always_input_numbers = FALSE;
 
     m_candidate_keys = "1234567890";
 }
@@ -157,6 +161,14 @@ ZhuyinConfig::readDefaultValues (void)
         g_warn_if_reached ();
     }
 
+    /* init states */
+    m_init_chinese = read (CONFIG_INIT_CHINESE, true);
+    m_init_full_english = read (CONFIG_INIT_FULL_ENGLISH, false);
+    m_init_full_punct = read (CONFIG_INIT_FULL_PUNCT, true);
+    m_init_trad_chinese = read (CONFIG_INIT_TRAD_CHINESE, true);
+
+    m_always_input_numbers = read (CONFIG_ALWAYS_INPUT_NUMBERS, false);
+
     gint layout = read (CONFIG_KEYBOARD_LAYOUT, 0);
     m_keyboard_layout = CHEWING_DEFAULT;
 
@@ -165,12 +177,6 @@ ZhuyinConfig::readDefaultValues (void)
             m_keyboard_layout = zhuyin_schemes[i].scheme;
         }
     }
-
-    /* init states */
-    m_init_chinese = read (CONFIG_INIT_CHINESE, true);
-    m_init_full_english = read (CONFIG_INIT_FULL_ENGLISH, false);
-    m_init_full_punct = read (CONFIG_INIT_FULL_PUNCT, true);
-    m_init_trad_chinese = read (CONFIG_INIT_TRAD_CHINESE, true);
 
     m_candidate_keys = read (CONFIG_CANDIDATE_KEYS, std::string ("1234567890"));
 
@@ -208,11 +214,13 @@ ZhuyinConfig::valueChanged (const std::string &section,
     if (CONFIG_INIT_CHINESE == name)
         m_init_chinese = normalizeGVariant (value, true);
     else if (CONFIG_INIT_FULL_ENGLISH == name)
-        m_init_full_english = normalizeGVariant (value, true);
+        m_init_full_english = normalizeGVariant (value, false);
     else if (CONFIG_INIT_FULL_PUNCT == name)
         m_init_full_punct = normalizeGVariant (value, true);
     else if (CONFIG_INIT_TRAD_CHINESE == name)
         m_init_trad_chinese = normalizeGVariant (value, true);
+    else if (CONFIG_ALWAYS_INPUT_NUMBERS == name)
+        m_always_input_numbers = normalizeGVariant (value, false);
     else if (CONFIG_KEYBOARD_LAYOUT == name) {
         gint layout = normalizeGVariant (value, 0);
         m_keyboard_layout = CHEWING_DEFAULT;
