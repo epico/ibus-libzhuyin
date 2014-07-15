@@ -150,6 +150,65 @@ LibZhuyinBackEnd::modified (void)
 }
 
 gboolean
+LibZhuyinBackEnd::importZhuyinDictionary (const char * filename)
+{
+    /* user phrase library should be already loaded here. */
+    FILE * dictfile = fopen (filename, "r");
+    if (NULL == dictfile)
+        return FALSE;
+
+    import_iterator_t * iter = zhuyin_begin_add_phrases
+        (m_zhuyin_context, USER_DICTIONARY);
+
+    if (NULL == iter)
+        return FALSE;
+
+    char* linebuf = NULL; size_t size = 0; ssize_t read;
+    while ((read = getline (&linebuf, &size, dictfile)) != -1) {
+        if (0 == strlen (linebuf))
+            continue;
+
+        if ( '\n' == linebuf[strlen (linebuf) - 1] ) {
+            linebuf[strlen (linebuf) - 1] = '\0';
+        }
+
+        gchar ** items = g_strsplit_set (linebuf, " \t", 2);
+        guint len = g_strv_length (items);
+
+        if (2 != len)
+            continue;
+
+        gchar * phrase = items[0];
+        gchar * zhuyin = items[1];
+
+        zhuyin_iterator_add_phrase (iter, phrase, zhuyin, -1);
+
+        g_strfreev (items);
+    }
+
+    zhuyin_end_add_phrases (iter);
+    fclose (dictfile);
+
+    zhuyin_save (m_zhuyin_context);
+    return TRUE;
+}
+
+gboolean
+LibZhuyinBackEnd::cleanZhuyinUserData (const char * target)
+{
+    if (0 == strcmp ("all", target))
+        zhuyin_mask_out (m_zhuyin_context, 0x0, 0x0);
+    else if (0 == strcmp ("user", target))
+        zhuyin_mask_out (m_zhuyin_context, PHRASE_INDEX_LIBRARY_MASK,
+                         PHRASE_INDEX_MAKE_TOKEN (USER_DICTIONARY, null_token));
+    else
+        g_warning ("unknown clear target: %s.\n", target);
+
+    zhuyin_save (m_zhuyin_context);
+    return TRUE;
+}
+
+gboolean
 LibZhuyinBackEnd::timeoutCallback (gpointer data)
 {
     LibZhuyinBackEnd *self = static_cast<LibZhuyinBackEnd *>(data);
