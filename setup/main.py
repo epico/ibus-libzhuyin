@@ -249,7 +249,7 @@ class PreferencesWindow:
 
 
     def __clear_user_data_cb(self, widget, name):
-        self.__set_value("ClearUserData", name)
+        self.__set_value("clearuserdata", name)
 
 
     def __init_about(self):

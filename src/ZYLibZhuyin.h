@@ -48,7 +48,7 @@ public:
     void modified (void);
 
     gboolean importZhuyinDictionary (const char * filename);
-    gboolean cleanZhuyinUserData (const char * target);
+    gboolean clearZhuyinUserData (const char * target);
 
     /* use static initializer in C++. */
     static LibZhuyinBackEnd & instance (void) { return *m_instance; }

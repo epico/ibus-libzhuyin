@@ -22,6 +22,7 @@
 #include "ZYZConfig.h"
 #include <zhuyin.h>
 #include "ZYLibZhuyin.h"
+#include <string.h>
 
 namespace ZY {
 
@@ -37,6 +38,9 @@ const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "alwaysinputnum";
 
 const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboardlayout";
 const gchar * const CONFIG_CANDIDATE_KEYS            = "candidatekeys";
+
+const gchar * const CONFIG_IMPORT_DICTIONARY         = "importdictionary";
+const gchar * const CONFIG_CLEAR_USER_DATA           = "clearuserdata";
 
 const zhuyin_option_t ZHUYIN_DEFAULT_OPTION =
     USE_TONE           |
@@ -142,6 +146,13 @@ ZhuyinConfig::readDefaultValues (void)
     GVariant *value;
     g_variant_iter_init (&iter, values);
     while (g_variant_iter_next (&iter, "{sv}", &name, &value)) {
+        /* skip signals here. */
+        if (0 == strcmp(CONFIG_IMPORT_DICTIONARY, name))
+            continue;
+
+        if (0 == strcmp(CONFIG_CLEAR_USER_DATA, name))
+            continue;
+
         valueChanged (m_section, name, value);
         g_free (name);
         g_variant_unref (value);
@@ -247,6 +258,14 @@ ZhuyinConfig::valueChanged (const std::string &section,
             m_page_size = 10;
             g_warn_if_reached ();
         }
+    }
+    else if (CONFIG_IMPORT_DICTIONARY == name) {
+        std::string filename = normalizeGVariant (value, std::string(""));
+        LibZhuyinBackEnd::instance ().importZhuyinDictionary(filename.c_str ());
+    }
+    else if (CONFIG_CLEAR_USER_DATA == name) {
+        std::string target = normalizeGVariant (value, std::string(""));
+        LibZhuyinBackEnd::instance ().clearZhuyinUserData(target.c_str ());
     } /* fuzzy zhuyin */
     else if (CONFIG_FUZZY_ZHUYIN == name) {
         if (normalizeGVariant (value, false))
@@ -283,7 +302,8 @@ ZhuyinConfig::valueChangedCallback (IBusConfig   *config,
 
     self->valueChanged (section, name, value);
 
-    LibZhuyinBackEnd::instance ().setZhuyinOptions (self);
+    if (self->m_section == "engine/zhuyin")
+        LibZhuyinBackEnd::instance ().setZhuyinOptions (self);
 }
 
 };
