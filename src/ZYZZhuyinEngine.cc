@@ -121,10 +121,11 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
     if (m_props.modeChinese ()) {
         retval = m_editors[m_input_mode]->processKeyEvent
             (keyval, keycode, modifiers);
-    } else {
+    }
+
+    if (G_UNLIKELY (!retval))
         retval = m_fallback_editor->processKeyEvent
             (keyval, keycode, modifiers);
-    }
 
     /* store ignored key event by editors */
     m_prev_pressed_key = retval ? IBUS_VoidSymbol : keyval;
