@@ -113,9 +113,15 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 
             return TRUE;
         }
-    } else {
-        /* skip the key press event. */
-        return TRUE;
+
+        if (m_input_mode == MODE_INIT &&
+            m_editors[MODE_INIT]->text ().empty ()) {
+            /* If it is init mode, and no any previous input text,
+             * we will let client applications to handle release key event */
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 
     if (m_props.modeChinese ()) {

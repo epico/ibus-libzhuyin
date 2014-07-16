@@ -99,11 +99,8 @@ PhoneticEditor::processEnter (guint keyval, guint keycode,
     if (cmshm_filter (modifiers) != 0)
         return TRUE;
 
-    if (!m_text) {
-        Text text ("\n");
-        commitText (text);
-        return TRUE;
-    }
+    if (!m_text)
+        return FALSE;
 
     commit ();
     return TRUE;
