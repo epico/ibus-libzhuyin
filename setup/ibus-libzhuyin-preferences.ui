@@ -42,6 +42,15 @@
       <row>
         <col id="0" translatable="yes">DaChen CP26</col>
       </row>
+      <row>
+        <col id="0" translatable="yes">Hanyu Pinyin</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Luoma Pinyin</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Secondary Bopomofo</col>
+      </row>
     </data>
   </object>
   <object class="GtkListStore" id="liststoreSelectionKeys">
