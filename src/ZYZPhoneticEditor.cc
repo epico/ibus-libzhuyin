@@ -491,44 +491,15 @@ PhoneticEditor::moveCursorLeft (void)
         return FALSE;
 
     /* NOTE: adjust cursor when in parsed phonetic section. */
-
-    /* decrement the cursor variable to calculate the zhuyin cursor. */
-    guint cursor = m_cursor;
-    /* move cursor one character back. */
-    cursor --;
-
     const String & enhanced_text = m_text;
+    guint cursor = m_cursor;
 
     size_t index = 0;
     size_t start_pos = 0, end_pos = 0;
 
-    while (end_pos != enhanced_text.size ()) {
-        if (0 == cursor)
-            break;
-
-        start_pos = end_pos;
-        section_t type = probe_section_quick (enhanced_text, start_pos);
-
-        if (PHONETIC_SECTION == type) {
-            String section;
-            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
-
-            size_t section_len = end_pos - start_pos;
-
-            if (cursor < section_len)
-                break;
-
-            cursor -= section_len;
-            ++index;
-        }
-
-        if (SYMBOL_SECTION == type) {
-            String type, lookup, choice;
-            get_symbol_section (enhanced_text, start_pos, end_pos,
-                                type, lookup, choice);
-            --cursor;
-        }
-    }
+    /* move cursor one character back. */
+    probe_section_start (enhanced_text, m_cursor - 1,
+                         cursor, index, start_pos);
 
     section_t type = probe_section_quick (enhanced_text, start_pos);
 
@@ -558,6 +529,7 @@ PhoneticEditor::moveCursorLeft (void)
                 (instance, key_rest, &begin, NULL);
 
             /* align to the begin of chewing key. */
+            /* restore cursor variable. */
             m_cursor = m_cursor - (cursor + 1 - begin);
             update ();
             return TRUE;
@@ -577,42 +549,14 @@ PhoneticEditor::moveCursorRight (void)
         return FALSE;
 
     /* NOTE: adjust cursor when in parsed phonetic section. */
-
-    /* decrement the cursor variable to calculate the zhuyin cursor. */
-    guint cursor = m_cursor;
-
     const String & enhanced_text = m_text;
+    guint cursor = m_cursor;
 
     size_t index = 0;
     size_t start_pos = 0, end_pos = 0;
 
-    while (end_pos != enhanced_text.size ()) {
-        if (0 == cursor)
-            break;
-
-        start_pos = end_pos;
-        section_t type = probe_section_quick (enhanced_text, start_pos);
-
-        if (PHONETIC_SECTION == type) {
-            String section;
-            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
-
-            size_t section_len = end_pos - start_pos;
-
-            if (cursor < section_len)
-                break;
-
-            cursor -= section_len;
-            ++index;
-        }
-
-        if (SYMBOL_SECTION == type) {
-            String type, lookup, choice;
-            get_symbol_section (enhanced_text, start_pos, end_pos,
-                                type, lookup, choice);
-            --cursor;
-        }
-    }
+    probe_section_start (enhanced_text, m_cursor,
+                         cursor, index, start_pos);
 
     section_t type = probe_section_quick (enhanced_text, start_pos);
 
@@ -882,41 +826,14 @@ PhoneticEditor::insertNumbers (guint ch)
 gboolean
 PhoneticEditor::prepareCandidates (void)
 {
-    /* decrement the cursor variable to calculate the zhuyin cursor. */
-    guint cursor = m_cursor;
-
     const String & enhanced_text = m_text;
+    guint cursor = m_cursor;
 
     size_t index = 0;
     size_t start_pos = 0, end_pos = 0;
 
-    while (end_pos != enhanced_text.size ()) {
-        if (0 == cursor)
-            break;
-
-        start_pos = end_pos;
-        section_t type = probe_section_quick (enhanced_text, start_pos);
-
-        if (PHONETIC_SECTION == type) {
-            String section;
-            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
-
-            size_t section_len = end_pos - start_pos;
-
-            if (cursor < section_len)
-                break;
-
-            cursor -= section_len;
-            ++index;
-        }
-
-        if (SYMBOL_SECTION == type) {
-            String type, lookup, choice;
-            get_symbol_section (enhanced_text, start_pos, end_pos,
-                                type, lookup, choice);
-            --cursor;
-        }
-    }
+    probe_section_start (enhanced_text, m_cursor,
+                         cursor, index, start_pos);
 
     /* deal with candidates */
     if (m_cursor < get_enhanced_text_length (enhanced_text)) {
