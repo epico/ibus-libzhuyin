@@ -558,7 +558,7 @@ PhoneticEditor::moveCursorLeft (void)
                 (instance, key_rest, &begin, NULL);
 
             /* align to the begin of chewing key. */
-            m_cursor = start_pos + begin;
+            m_cursor = m_cursor - (cursor + 1 - begin);
             update ();
             return TRUE;
         }
@@ -632,12 +632,12 @@ PhoneticEditor::moveCursorRight (void)
         if (cursor < parsed_len) {
             guint16 offset = 0;
             zhuyin_get_zhuyin_key_rest_offset (instance, cursor, &offset);
+            offset ++;
 
             guint len = 0;
             zhuyin_get_n_zhuyin (instance, &len);
-            if (offset < len) {
-                offset ++;
 
+            if (offset < len) {
                 /* move to the begin of next syllable. */
                 ChewingKeyRest * key_rest = NULL;
                 zhuyin_get_zhuyin_key_rest (instance, offset, &key_rest);
@@ -647,12 +647,13 @@ PhoneticEditor::moveCursorRight (void)
                 (instance, key_rest, &begin, NULL);
 
                 /* align to the begin of chewing key. */
-                m_cursor = start_pos + begin;
+                m_cursor = m_cursor + (begin - cursor);
                 update ();
                 return TRUE;
             } else {
+                assert (offset == len);
                 /* align to the end of parsed phonetic section. */
-                m_cursor = start_pos + parsed_len;
+                m_cursor = m_cursor + (parsed_len - cursor);
                 update ();
                 return TRUE;
             }
