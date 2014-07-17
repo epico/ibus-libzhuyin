@@ -54,6 +54,11 @@ get_symbol_section (const String & enhanced_text,
                     String & type, String & lookup, String & choice);
 
 bool
+probe_section_start(const String & enhanced_text,
+                    guint offset, guint & inner_offset,
+                    size_t & index, size_t & start_pos);
+
+bool
 insert_phonetic(String & enhanced_text, size_t offset, const char key);
 
 bool

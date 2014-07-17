@@ -240,6 +240,50 @@ get_symbol_section (const String & enhanced_text,
 }
 
 bool
+probe_section_start(const String & enhanced_text,
+                    guint offset, guint & inner_offset,
+                    size_t & index, size_t & start_pos)
+{
+    /* decrement the cursor variable to calculate the zhuyin cursor. */
+    guint cursor = offset;
+    inner_offset = 0;
+
+    index = 0;
+    start_pos = 0; size_t end_pos = 0;
+
+    while (end_pos != enhanced_text.size ()) {
+        if (0 == cursor)
+            break;
+
+        start_pos = end_pos;
+        section_t type = probe_section_quick (enhanced_text, start_pos);
+
+        if (PHONETIC_SECTION == type) {
+            String section;
+            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+
+            size_t section_len = end_pos - start_pos;
+
+            if (cursor < section_len)
+                break;
+
+            cursor -= section_len;
+            ++index;
+        }
+
+        if (SYMBOL_SECTION == type) {
+            String type, lookup, choice;
+            get_symbol_section (enhanced_text, start_pos, end_pos,
+                                type, lookup, choice);
+            --cursor;
+        }
+    }
+
+    inner_offset = cursor;
+    return true;
+}
+
+bool
 insert_section (String & enhanced_text, size_t offset, const String & section)
 {
     size_t pos = 0;
