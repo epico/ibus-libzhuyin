@@ -549,7 +549,7 @@ PhoneticEditor::moveCursorLeft (void)
             guint16 offset = 0;
             zhuyin_get_zhuyin_key_rest_offset (instance, cursor, &offset);
 
-            /* move to the beginning of currect syllable. */
+            /* move to the begin of current syllable. */
             ChewingKeyRest * key_rest = NULL;
             zhuyin_get_zhuyin_key_rest (instance, offset, &key_rest);
 
@@ -557,7 +557,7 @@ PhoneticEditor::moveCursorLeft (void)
             zhuyin_get_zhuyin_key_rest_positions
                 (instance, key_rest, &begin, NULL);
 
-            /* align to the beginning of chewing key. */
+            /* align to the begin of chewing key. */
             m_cursor = start_pos + begin;
             update ();
             return TRUE;
@@ -575,6 +575,89 @@ PhoneticEditor::moveCursorRight (void)
     if (G_UNLIKELY (m_cursor ==
                     get_enhanced_text_length (m_text)))
         return FALSE;
+
+    /* NOTE: adjust cursor when in parsed phonetic section. */
+
+    /* decrement the cursor variable to calculate the zhuyin cursor. */
+    guint cursor = m_cursor;
+
+    const String & enhanced_text = m_text;
+
+    size_t index = 0;
+    size_t start_pos = 0, end_pos = 0;
+
+    while (end_pos != enhanced_text.size ()) {
+        if (0 == cursor)
+            break;
+
+        start_pos = end_pos;
+        section_t type = probe_section_quick (enhanced_text, start_pos);
+
+        if (PHONETIC_SECTION == type) {
+            String section;
+            get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+
+            size_t section_len = end_pos - start_pos;
+
+            if (cursor < section_len)
+                break;
+
+            cursor -= section_len;
+            ++index;
+        }
+
+        if (SYMBOL_SECTION == type) {
+            String type, lookup, choice;
+            get_symbol_section (enhanced_text, start_pos, end_pos,
+                                type, lookup, choice);
+            --cursor;
+        }
+    }
+
+    section_t type = probe_section_quick (enhanced_text, start_pos);
+
+    /* only when in phonetic section, need adjustments.  */
+    if (PHONETIC_SECTION == type) {
+        String section;
+        get_phonetic_section (enhanced_text, start_pos, end_pos, section);
+        size_t section_len = end_pos - start_pos;
+
+        zhuyin_instance_t * instance = m_instances[index];
+        size_t parsed_len = zhuyin_get_parsed_input_length (instance);
+
+        assert (cursor < section_len);
+        assert (parsed_len <= section_len);
+
+        /* only when in parsed phonetic section, need adjustments.  */
+        if (cursor < parsed_len) {
+            guint16 offset = 0;
+            zhuyin_get_zhuyin_key_rest_offset (instance, cursor, &offset);
+
+            guint len = 0;
+            zhuyin_get_n_zhuyin (instance, &len);
+            if (offset < len) {
+                offset ++;
+
+                /* move to the begin of next syllable. */
+                ChewingKeyRest * key_rest = NULL;
+                zhuyin_get_zhuyin_key_rest (instance, offset, &key_rest);
+
+                guint16 begin = 0;
+                zhuyin_get_zhuyin_key_rest_positions
+                (instance, key_rest, &begin, NULL);
+
+                /* align to the begin of chewing key. */
+                m_cursor = start_pos + begin;
+                update ();
+                return TRUE;
+            } else {
+                /* align to the end of parsed phonetic section. */
+                m_cursor = start_pos + parsed_len;
+                update ();
+                return TRUE;
+            }
+        }
+    }
 
     m_cursor ++;
     update ();
