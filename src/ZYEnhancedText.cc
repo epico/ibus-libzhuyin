@@ -268,6 +268,12 @@ probe_section_start(const String & enhanced_text,
                 break;
 
             cursor -= section_len;
+
+            if (0 == cursor) {
+                start_pos = end_pos;
+                break;
+            }
+
             ++index;
         }
 
