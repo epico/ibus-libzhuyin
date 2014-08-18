@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=IBus LibZhuyin Setup
+Name[zh_CN]=IBus 新注音配置工具
+Name[zh_TW]=IBus 新注音配置工具
+Name[zh_HK]=IBus 新注音配置工具
+Comment=Set ibus-libzhuyin Preferences
+Comment[zh_CN]=设置 IBus 新注音首选项
+Comment[zh_TW]=設定 IBus 新注音個人偏好
+Comment[zh_HK]=設定 IBus 新注音個人偏好
+Exec=@libexecdir@/ibus-setup-libzhuyin
+Icon=@pkgdatadir@/icons/ibus-zhuyin.svg
+NoDisplay=true
+Type=Application
+StartupNotify=true
