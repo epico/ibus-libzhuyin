@@ -23,11 +23,28 @@ SUBDIRS = \
         icons \
         $(NULL)
 
-EXTRA_DIST = \
+desktop_in_in_files = \
+        ibus-setup-libzhuyin.desktop.in.in \
         $(NULL)
 
-noinst_DIST = \
+desktop_in_files = $(desktop_in_in_files:.in.in=.in)
+
+$(desktop_in_files): %.desktop.in: %.desktop.in.in Makefile
+	$(AM_V_GEN) sed \
+		-e "s|\@libexecdir\@|$(libexecdir)|" \
+		-e "s|\@pkgdatadir\@|$(pkgdatadir)|" \
+		$< > $@.tmp && mv $@.tmp $@
+
+desktopdir=$(datadir)/applications
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+@INTLTOOL_DESKTOP_RULE@
+
+EXTRA_DIST = \
+        $(desktop_in_in_files) \
         $(NULL)
 
 DISTCLEANFILES = \
+        $(desktop_in_files) \
+        $(desktop_DATA) \
         $(NULL)
