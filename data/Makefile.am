@@ -18,30 +18,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-SUBDIRS = po src setup data
 
-dist_doc_DATA = \
-	README \
-	COPYING \
-	AUTHORS \
-	ChangeLog \
-	INSTALL \
-	NEWS
-
-ACLOCAL_AMFLAGS = -I m4
-
-# Remove doc directory on uninstall
-uninstall-local:
-	-rm -r $(docdir)
+SUBDIRS = \
+        icons \
+        $(NULL)
 
 EXTRA_DIST = \
-        autogen.sh \
-        ibus-libzhuyin.spec.in \
         $(NULL)
 
 noinst_DIST = \
         $(NULL)
 
 DISTCLEANFILES = \
-        po/stamp-it \
         $(NULL)

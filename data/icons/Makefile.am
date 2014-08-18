@@ -18,30 +18,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-SUBDIRS = po src setup data
 
-dist_doc_DATA = \
-	README \
-	COPYING \
-	AUTHORS \
-	ChangeLog \
-	INSTALL \
-	NEWS
+icons_DATA = \
+	ibus-zhuyin.svg \
+        chinese.svg \
+        english.svg \
+        full.svg \
+        full-punct.svg \
+        half.svg \
+        half-punct.svg \
+        simp-chinese.svg \
+        trad-chinese.svg \
+        $(NULL)
 
-ACLOCAL_AMFLAGS = -I m4
-
-# Remove doc directory on uninstall
-uninstall-local:
-	-rm -r $(docdir)
+iconsdir = $(pkgdatadir)/icons
 
 EXTRA_DIST = \
-        autogen.sh \
-        ibus-libzhuyin.spec.in \
+        $(icons_DATA) \
         $(NULL)
 
-noinst_DIST = \
-        $(NULL)
-
-DISTCLEANFILES = \
-        po/stamp-it \
-        $(NULL)
