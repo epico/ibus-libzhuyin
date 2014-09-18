@@ -22,7 +22,9 @@
 
 #include "ZYSymbolLookup.h"
 #include <stdio.h>
+#include <string.h>
 
+namespace ZY {
 
 gboolean
 SymbolLookup::loadFromFile(const char * filename)
@@ -88,3 +90,5 @@ SymbolLookup::dumpInfo ()
     for (i = 0; i < m_indexes.size (); ++i)
         printf ("%s %s\n", m_indexes[i].c_str (), m_symbols[i].c_str ());
 }
+
+};

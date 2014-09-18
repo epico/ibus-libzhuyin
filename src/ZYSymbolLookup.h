@@ -26,6 +26,8 @@
 #include <vector>
 #include <glib.h>
 
+namespace ZY {
+
 class SymbolLookup {
 private:
     typedef std::vector<String> symbol_vec_t;
@@ -45,5 +47,6 @@ protected:
     symbol_vec_t m_symbols;
 };
 
+};
 
 #endif

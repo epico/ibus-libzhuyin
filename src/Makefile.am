@@ -40,6 +40,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYZZhuyinEditor.cc \
 	ZYZPinyinEditor.cc \
 	ZYSymbols.cc \
+	ZYSymbolLookup.cc \
 	ZYZBuiltinSymbolSection.cc \
 	ZYZPhoneticSection.cc \
 	ZYZBopomofoSymbolSection.cc \
@@ -65,6 +66,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYZZhuyinEditor.h \
 	ZYZPinyinEditor.h \
 	ZYSymbols.h \
+	ZYSymbolLookup.h \
 	ZYZSymbolSection.h \
 	ZYZBuiltinSymbolSection.h \
 	ZYZPhoneticSection.h \
