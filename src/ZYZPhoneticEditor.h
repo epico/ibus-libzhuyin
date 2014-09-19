@@ -25,6 +25,7 @@
 #include <zhuyin.h>
 #include "ZYLookupTable.h"
 #include "ZYZEnhancedEditor.h"
+#include "ZYSymbolLookup.h"
 #include <vector>
 
 namespace ZY {
@@ -62,6 +63,7 @@ public:
     virtual gboolean processFunctionKey (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processShowCandidateKey (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processCandidateKey (guint keyval, guint keycode, guint modifiers);
+    virtual gboolean processEasySymbolKey (guint keyval, guint keycode, guint modifiers);
     virtual void updateLookupTable ();
     virtual void updateLookupTableFast ();
     virtual gboolean fillLookupTableByPage ();
@@ -95,6 +97,8 @@ protected:
 
     void resizeInstances (void);
 
+    gboolean loadEasySymbolFile(const gchar * filename);
+
     /* varibles */
     LookupTable                 m_lookup_table;
     String                      m_buffer;
@@ -118,6 +122,8 @@ protected:
     PhoneticSectionPtr m_phonetic_section;
 
     zhuyin_instance_vec m_instances;
+
+    SymbolLookup m_easy_symbols;
 };
 
 };

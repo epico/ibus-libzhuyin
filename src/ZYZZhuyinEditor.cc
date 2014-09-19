@@ -227,6 +227,8 @@ ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         return TRUE;
 
     if (STATE_INPUT == m_input_state) {
+        if (processEasySymbolKey (keyval, keycode, modifiers))
+            return TRUE;
 
         if (insert (keyval))
             return TRUE;

@@ -61,6 +61,16 @@ PhoneticEditor::PhoneticEditor (ZhuyinProperties & props, Config & config)
 
     m_phonetic_section.reset
         (new PhoneticSection (*this, props));
+
+    /* load easy symbols: easysymbol.txt */
+    gchar * path = g_build_filename (g_get_user_config_dir (),
+                                     "ibus", "libzhuyin",
+                                     "easysymbol.txt", NULL);
+    loadEasySymbolFile (".." G_DIR_SEPARATOR_S "data" G_DIR_SEPARATOR_S
+                        "easysymbol.txt") ||
+        loadEasySymbolFile (path) ||
+        loadEasySymbolFile (PKGDATADIR G_DIR_SEPARATOR_S "easysymbol.txt");
+    g_free(path);
 }
 
 PhoneticEditor::~PhoneticEditor (void)
@@ -72,6 +82,14 @@ PhoneticEditor::~PhoneticEditor (void)
     resizeInstances ();
 
     LibZhuyinBackEnd::instance ().freeZhuyinInstance (m_instance);
+}
+
+gboolean
+PhoneticEditor::loadEasySymbolFile(const gchar * filename)
+{
+    printf ("load %s.\n", filename);
+    gboolean retval = m_easy_symbols.loadFromFile (filename);
+    return retval;
 }
 
 gboolean
@@ -270,6 +288,32 @@ PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
     }
 
     return FALSE;
+}
+
+gboolean
+PhoneticEditor::processEasySymbolKey (guint keyval, guint keycode,
+                                  guint modifiers)
+{
+    if (! ('A' <= keyval && keyval <= 'Z'))
+        return FALSE;
+
+    String index;
+    index.append (1, keyval);
+    String symbol = m_easy_symbols.find (index);
+
+    if ("" == symbol)
+        return FALSE;
+
+    String lookup;
+    int ch = find_lookup_key (symbol);
+    if (ch != 0)
+        lookup = ch;
+
+    insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
+                   lookup, symbol);
+
+    update ();
+    return TRUE;
 }
 
 gboolean
