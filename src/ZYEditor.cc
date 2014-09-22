@@ -24,8 +24,7 @@
 namespace ZY {
 
 Editor::Editor (ZhuyinProperties & props, Config & config)
-    : m_text (128),
-      m_cursor (0),
+    : m_cursor (0),
       m_props (props),
       m_config (config)
 {

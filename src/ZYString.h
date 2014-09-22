@@ -23,6 +23,7 @@
 
 #include <glib.h>
 #include <stdarg.h>
+#include <assert.h>
 #include <string>
 
 namespace ZY {
@@ -32,7 +33,8 @@ public:
     String () : std::string () { }
     String (const gchar *str) : std::string (str) { }
     String (const std::string &str) : std::string (str) { }
-    String (gint len) : std::string () { reserve (len); }
+    String (gint len) : std::string () { assert (FALSE); }
+    String (const gchar ch) : std::string (1, ch) { }
 
     String & printf (const gchar *fmt, ...)
     {
@@ -146,6 +148,12 @@ public:
     String & operator= (const gchar * str)
     {
         assign (str);
+        return *this;
+    }
+
+    String & operator= (const gchar ch)
+    {
+        assign (1, ch);
         return *this;
     }
 

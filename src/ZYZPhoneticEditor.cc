@@ -87,7 +87,6 @@ PhoneticEditor::~PhoneticEditor (void)
 gboolean
 PhoneticEditor::loadEasySymbolFile(const gchar * filename)
 {
-    printf ("load %s.\n", filename);
     gboolean retval = m_easy_symbols.loadFromFile (filename);
     return retval;
 }
@@ -297,8 +296,7 @@ PhoneticEditor::processEasySymbolKey (guint keyval, guint keycode,
     if (! ('A' <= keyval && keyval <= 'Z'))
         return FALSE;
 
-    String index;
-    index.append (1, keyval);
+    String index = (gchar) keyval;
     String symbol = m_easy_symbols.find (index);
 
     if ("" == symbol)
@@ -307,7 +305,7 @@ PhoneticEditor::processEasySymbolKey (guint keyval, guint keycode,
     String lookup;
     int ch = find_lookup_key (symbol);
     if (ch != 0)
-        lookup = ch;
+        lookup = (gchar) ch;
 
     insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                    lookup, symbol);
@@ -784,12 +782,12 @@ PhoneticEditor::insertPunct (guint ch)
             String lookup;
             int ch = find_lookup_key (choice);
             if (ch != 0)
-                lookup = ch;
+                lookup = (gchar) ch;
 
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            lookup, choice);
         } else {
-            String choice = ch;
+            String choice = (gchar)ch;
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            "", choice);
         }
@@ -812,12 +810,12 @@ PhoneticEditor::insertEnglish (guint ch)
             String lookup;
             int ch = find_lookup_key (choice);
             if (ch != 0)
-                lookup = ch;
+                lookup = (gchar) ch;
 
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            lookup, choice);
         } else {
-            String choice = ch;
+            String choice = (gchar) ch;
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            "", choice);
         }
