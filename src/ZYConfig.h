@@ -52,6 +52,9 @@ public:
     gboolean alwaysInputNumbers (void) const    { return m_always_input_numbers; }
     std::string candidateKeys (void) const      { return m_candidate_keys; }
 
+    gboolean easySymbol (void) const            { return m_easy_symbol; }
+    gboolean userSymbol (void) const            { return m_user_symbol; }
+
 protected:
     bool read (const gchar * name, bool defval);
     gint read (const gchar * name, gint defval);
@@ -87,6 +90,9 @@ protected:
     gboolean m_always_input_numbers;
 
     std::string m_candidate_keys;
+
+    gboolean m_easy_symbol;
+    gboolean m_user_symbol;
 };
 
 static inline bool

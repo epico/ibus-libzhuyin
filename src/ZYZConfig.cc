@@ -39,6 +39,9 @@ const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "alwaysinputnum";
 const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboardlayout";
 const gchar * const CONFIG_CANDIDATE_KEYS            = "candidatekeys";
 
+const gchar * const CONFIG_EASY_SYMBOL               = "easysymbol";
+const gchar * const CONFIG_USER_SYMBOL               = "usersymbol";
+
 const gchar * const CONFIG_IMPORT_DICTIONARY         = "importdictionary";
 const gchar * const CONFIG_CLEAR_USER_DATA           = "clearuserdata";
 
@@ -93,6 +96,9 @@ ZhuyinConfig::initDefaultValues (void)
     m_always_input_numbers = FALSE;
 
     m_candidate_keys = "1234567890";
+
+    m_easy_symbol = TRUE;
+    m_user_symbol = TRUE;
 }
 
 /* Here are the zhuyin keyboard layout mapping table. */
@@ -191,6 +197,9 @@ ZhuyinConfig::readDefaultValues (void)
 
     m_candidate_keys = read (CONFIG_CANDIDATE_KEYS, std::string ("1234567890"));
 
+    m_easy_symbol = read (CONFIG_EASY_SYMBOL, true);
+    m_user_symbol = read (CONFIG_USER_SYMBOL, true);
+
     /* fuzzy zhuyin */
     if (read (CONFIG_FUZZY_ZHUYIN, false))
         m_option_mask |= ZHUYIN_AMB_ALL;
@@ -258,6 +267,12 @@ ZhuyinConfig::valueChanged (const std::string &section,
             m_page_size = 10;
             g_warn_if_reached ();
         }
+    }
+    else if (CONFIG_EASY_SYMBOL == name) {
+        m_easy_symbol = normalizeGVariant (value, true);
+    }
+    else if (CONFIG_USER_SYMBOL == name) {
+        m_user_symbol = normalizeGVariant (value, true);
     }
     else if (CONFIG_IMPORT_DICTIONARY == name) {
         std::string filename = normalizeGVariant (value, std::string(""));
