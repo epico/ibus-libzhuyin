@@ -293,6 +293,9 @@ gboolean
 PhoneticEditor::processEasySymbolKey (guint keyval, guint keycode,
                                   guint modifiers)
 {
+    if (!m_config.easySymbol ())
+        return FALSE;
+
     if (! ('A' <= keyval && keyval <= 'Z'))
         return FALSE;
 
