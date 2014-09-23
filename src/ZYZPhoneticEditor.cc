@@ -85,7 +85,7 @@ PhoneticEditor::~PhoneticEditor (void)
 }
 
 gboolean
-PhoneticEditor::loadEasySymbolFile(const gchar * filename)
+PhoneticEditor::loadEasySymbolFile (const gchar * filename)
 {
     gboolean retval = m_easy_symbols.loadFromFile (filename);
     return retval;

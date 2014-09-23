@@ -97,7 +97,7 @@ protected:
 
     void resizeInstances (void);
 
-    gboolean loadEasySymbolFile(const gchar * filename);
+    gboolean loadEasySymbolFile (const gchar * filename);
 
     /* varibles */
     LookupTable                 m_lookup_table;

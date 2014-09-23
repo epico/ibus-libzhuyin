@@ -45,6 +45,8 @@ public:
     virtual int selectCandidate (guint index);
 
 protected:
+    gboolean loadUserSymbolFile (const gchar * filename);
+
     std::vector<String> m_candidates;
     SymbolLookup m_user_symbols;
 }
