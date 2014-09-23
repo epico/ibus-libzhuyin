@@ -49,7 +49,7 @@ protected:
 
     std::vector<String> m_candidates;
     SymbolLookup m_user_symbols;
-}
+};
 
 };
 

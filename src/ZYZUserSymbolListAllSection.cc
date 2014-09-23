@@ -49,8 +49,67 @@ UserSymbolListAllSection::~UserSymbolListAllSection ()
 gboolean
 UserSymbolListAllSection::loadUserSymbolFile (const gchar * filename)
 {
+    printf ("load %s.\n", filename);
     gboolean retval = m_user_symbols.loadFromFile (filename);
     return retval;
+}
+
+bool
+UserSymbolListAllSection::initCandidates (zhuyin_instance_t * instance,
+                                          const String & lookup)
+{
+    if (!lookup)
+        return false;
+
+    m_candidates.clear ();
+
+    assert ("`" == lookup);
+    m_lookup = lookup;
+
+    /* cache the symbols. */
+    const std::vector<String> & indexes = m_user_symbols.getIndexes ();
+    for (size_t i = 0; i < indexes.size (); ++i) {
+        m_candidates.push_back (indexes[i]);
+    }
+
+    return true;
+}
+
+bool
+UserSymbolListAllSection::fillLookupTableByPage ()
+{
+    LookupTable & lookup_table = getLookupTable ();
+
+    guint len = m_candidates.size ();
+
+    guint filled_nr = lookup_table.size ();
+    guint page_size = lookup_table.pageSize ();
+
+    /* fill lookup table by libzhuyin get candidates. */
+    guint need_nr = MIN (page_size, len - filled_nr);
+    g_assert (need_nr >=0);
+    if (need_nr == 0)
+        return FALSE;
+
+    for (guint i = filled_nr; i < filled_nr + need_nr; i++) {
+        if (i >= len)  /* no more candidates */
+            break;
+
+        Text text (m_candidates[i]);
+        lookup_table.appendCandidate (text);
+    }
+
+    return TRUE;
+}
+
+int
+UserSymbolListAllSection::selectCandidate (guint index)
+{
+    if (index >= m_candidates.size ())
+        return 0;
+
+    m_choice = m_candidates[index];
+    return m_choice.utf8Length ();
 }
 
 };
