@@ -45,6 +45,7 @@ ibus_engine_libzhuyin_c_sources = \
 	ZYZPhoneticSection.cc \
 	ZYZBopomofoSymbolSection.cc \
 	ZYZUserSymbolListAllSection.cc \
+	ZYZUserSymbolShownSection.cc \
 	ZYFallbackEditor.cc \
 	ZYEngine.cc \
 	ZYZZhuyinEngine.cc \
@@ -73,6 +74,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYZPhoneticSection.h \
 	ZYZBopomofoSymbolSection.h \
 	ZYZUserSymbolListAllSection.h \
+	ZYZUserSymbolShownSection.h \
 	ZYPointer.h \
 	ZYProperty.h \
 	ZYRawEditor.h \

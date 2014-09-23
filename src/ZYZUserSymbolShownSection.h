@@ -45,7 +45,7 @@ public:
 
 protected:
     std::vector<String> m_candidates;
-}
+};
 
 };
 
