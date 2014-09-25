@@ -29,6 +29,8 @@
 #include "ZYEnhancedText.h"
 #include "ZYLibZhuyin.h"
 #include "ZYSymbols.h"
+#include "ZYZUserSymbolListAllSection.h"
+#include "ZYZUserSymbolShownSection.h"
 
 
 namespace ZY {
@@ -58,6 +60,12 @@ PhoneticEditor::PhoneticEditor (ZhuyinProperties & props, Config & config)
 
     m_symbol_sections[STATE_BOPOMOFO_SYMBOL_SHOWN].reset
         (new BopomofoSymbolSection (*this, props));
+
+    m_symbol_sections[STATE_USER_SYMBOL_LIST_ALL].reset
+        (new UserSymbolListAllSection (*this, props));
+
+    m_symbol_sections[STATE_USER_SYMBOL_SHOWN].reset
+        (new UserSymbolShownSection (*this, props));
 
     m_phonetic_section.reset
         (new PhoneticSection (*this, props));
@@ -318,6 +326,25 @@ PhoneticEditor::processEasySymbolKey (guint keyval, guint keycode,
 }
 
 gboolean
+PhoneticEditor::processUserSymbolKey (guint keyval, guint keycode,
+                                      guint modifiers)
+{
+    if (!m_config.userSymbol ())
+        return FALSE;
+
+    if ('`' == keyval)
+        return FALSE;
+
+    m_input_state = STATE_USER_SYMBOL_LIST_ALL;
+    m_symbol_sections[m_input_state]->initCandidates
+        (m_instance, "`");
+
+    update ();
+    return TRUE;
+}
+
+
+gboolean
 PhoneticEditor::processKeyEvent (guint keyval, guint keycode,
                                  guint modifiers)
 {
@@ -350,9 +377,9 @@ PhoneticEditor::fillLookupTableByPage (void)
         return m_phonetic_section->fillLookupTableByPage ();
 
     if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
-        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state /* ||
+        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state ||
         STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
-        STATE_USER_SYMBOL_SHOWN == m_input_state */) {
+        STATE_USER_SYMBOL_SHOWN == m_input_state) {
         return m_symbol_sections[m_input_state]->
             fillLookupTableByPage ();
     }
@@ -462,9 +489,7 @@ PhoneticEditor::selectCandidate (guint index)
     }
 
     if (STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
-        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state /* ||
-        STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
-        STATE_USER_SYMBOL_SHOWN == m_input_state */) {
+        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state) {
         SymbolSectionPtr symbols = m_symbol_sections[m_input_state];
 
         int offset = symbols->selectCandidate (index);
@@ -481,6 +506,44 @@ PhoneticEditor::selectCandidate (guint index)
 
         update ();
         return TRUE;
+    }
+
+    if (STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
+        STATE_USER_SYMBOL_SHOWN == m_input_state) {
+        SymbolSectionPtr symbols = m_symbol_sections[m_input_state];
+
+        int offset = symbols->selectCandidate (index);
+
+        if (0 == offset)
+            return FALSE;
+
+        if (1 == offset) { /* direct commit. */
+            String choice = symbols->m_choice;
+            String lookup;
+            int ch = find_lookup_key (choice);
+            if (ch != 0)
+                lookup = (gchar) ch;
+
+            assert (BUILTIN_SYMBOL_TYPE == symbols->m_type);
+            erase_input_sequence (m_text, m_cursor, 1);
+            insert_symbol (m_text, m_cursor, symbols->m_type,
+                           lookup, choice);
+
+            m_cursor += offset;
+            m_input_state = STATE_INPUT;
+
+            update ();
+            return TRUE;
+        }
+
+        if (1 < offset) { /* show candidate. */
+            m_input_state = STATE_USER_SYMBOL_SHOWN;
+            m_symbol_sections[m_input_state]->initCandidates
+                (m_instance, symbols->m_choice);
+
+            update ();
+            return TRUE;
+        }
     }
 
     return FALSE;

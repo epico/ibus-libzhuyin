@@ -222,6 +222,9 @@ PinyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         if (processEasySymbolKey (keyval, keycode, modifiers))
             return TRUE;
 
+        if (processUserSymbolKey (keyval, keycode, modifiers))
+            return TRUE;
+
         if (insert (keyval))
             return TRUE;
 
@@ -237,9 +240,9 @@ PinyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 
     if (STATE_CANDIDATE_SHOWN == m_input_state ||
         STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
-        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state /* ||
+        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state ||
         STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
-        STATE_USER_SYMBOL_SHOWN == m_input_state */) {
+        STATE_USER_SYMBOL_SHOWN == m_input_state) {
 
         if (processSpace (keyval, keycode, modifiers))
             return TRUE;
