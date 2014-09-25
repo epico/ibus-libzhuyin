@@ -497,8 +497,8 @@ PhoneticEditor::selectCandidate (guint index)
             return FALSE;
 
         erase_input_sequence (m_text, m_cursor, 1);
-        insert_symbol (m_text, m_cursor, symbols->m_type,
-                       symbols->m_lookup, symbols->m_choice);
+        insert_symbol (m_text, m_cursor, symbols->getType (),
+                       symbols->getLookup (), symbols->getChoice ());
 
         m_cursor += offset;
         m_input_state = STATE_INPUT;
@@ -517,15 +517,15 @@ PhoneticEditor::selectCandidate (guint index)
             return FALSE;
 
         if (1 == offset) { /* direct commit. */
-            String choice = symbols->m_choice;
+            String choice = symbols->getChoice ();
             String lookup;
             int ch = find_lookup_key (choice);
             if (ch != 0)
                 lookup = (gchar) ch;
 
-            assert (BUILTIN_SYMBOL_TYPE == symbols->m_type);
+            assert (BUILTIN_SYMBOL_TYPE == symbols->getType ());
             erase_input_sequence (m_text, m_cursor, 1);
-            insert_symbol (m_text, m_cursor, symbols->m_type,
+            insert_symbol (m_text, m_cursor, symbols->getType (),
                            lookup, choice);
 
             m_cursor += offset;
@@ -536,7 +536,7 @@ PhoneticEditor::selectCandidate (guint index)
         }
 
         if (1 < offset) { /* show candidate. */
-            String choice = symbols->m_choice;
+            String choice = symbols->getChoice ();
 
             m_input_state = STATE_USER_SYMBOL_SHOWN;
             m_symbol_sections[m_input_state]->initCandidates
