@@ -57,7 +57,7 @@ FallbackEditor::processPunct (guint keyval, guint keycode, guint modifiers)
 
     } else {
         /* Chinese mode, handled by ZhuyinEditor or PinyinEditor. */
-        assert (FALSE);
+        return TRUE;
     }
 
     return FALSE;
@@ -88,7 +88,7 @@ FallbackEditor::processEnglish (guint keyval, guint keycode, guint modifiers) {
 
     } else {
         /* Chinese mode, handled by ZhuyinEditor or PinyinEditor. */
-        assert (FALSE);
+        return TRUE;
     }
 
     return FALSE;

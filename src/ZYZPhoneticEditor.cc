@@ -289,7 +289,6 @@ PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
         std::size_t found = keys.find (keyval);
         if (found != std::string::npos) { /* found. */
             selectCandidateInPage (found);
-            m_input_state = STATE_INPUT;
             return TRUE;
         }
     }
@@ -332,7 +331,7 @@ PhoneticEditor::processUserSymbolKey (guint keyval, guint keycode,
     if (!m_config.userSymbol ())
         return FALSE;
 
-    if ('`' == keyval)
+    if ('`' != keyval)
         return FALSE;
 
     m_input_state = STATE_USER_SYMBOL_LIST_ALL;
@@ -537,9 +536,11 @@ PhoneticEditor::selectCandidate (guint index)
         }
 
         if (1 < offset) { /* show candidate. */
+            String choice = symbols->m_choice;
+
             m_input_state = STATE_USER_SYMBOL_SHOWN;
             m_symbol_sections[m_input_state]->initCandidates
-                (m_instance, symbols->m_choice);
+                (m_instance, choice);
 
             update ();
             return TRUE;

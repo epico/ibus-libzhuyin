@@ -49,7 +49,6 @@ UserSymbolListAllSection::~UserSymbolListAllSection ()
 gboolean
 UserSymbolListAllSection::loadUserSymbolFile (const gchar * filename)
 {
-    printf ("load %s.\n", filename);
     gboolean retval = m_user_symbols.loadFromFile (filename);
     return retval;
 }
@@ -108,7 +107,7 @@ UserSymbolListAllSection::selectCandidate (guint index)
     if (index >= m_candidates.size ())
         return 0;
 
-    m_choice = m_candidates[index];
+    m_choice = m_user_symbols.find (m_candidates[index]);
     return m_choice.utf8Length ();
 }
 
