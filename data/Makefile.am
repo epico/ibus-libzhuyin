@@ -40,8 +40,16 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_DESKTOP_RULE@
 
+symbols_DATA = \
+        easysymbol.txt \
+        usersymbol.txt \
+        $(NULL)
+
+symbolsdir = $(pkgdatadir)
+
 EXTRA_DIST = \
         $(desktop_in_in_files) \
+        $(symbols_DATA) \
         $(NULL)
 
 DISTCLEANFILES = \
