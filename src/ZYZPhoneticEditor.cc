@@ -362,10 +362,24 @@ PhoneticEditor::updateLookupTable (void)
     m_lookup_table.clear ();
 
     fillLookupTableByPage ();
+    updateLookupTableLabel ();
     if (m_lookup_table.size ()) {
         Editor::updateLookupTable (m_lookup_table, TRUE);
     } else {
         hideLookupTable ();
+    }
+}
+
+void
+PhoneticEditor::updateLookupTableLabel (void)
+{
+    String labels = m_config.candidateKeys ();
+
+    size_t len = MIN (labels.length (), m_config.pageSize ());
+    for (size_t i = 0; i < len; ++i) {
+        String label = (gchar) labels[i];
+        Text text (label);
+        m_lookup_table.setLabel (i, text);
     }
 }
 

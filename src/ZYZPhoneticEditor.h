@@ -67,6 +67,7 @@ public:
     virtual gboolean processUserSymbolKey (guint keyval, guint keycode, guint modifiers);
     virtual void updateLookupTable ();
     virtual void updateLookupTableFast ();
+    virtual void updateLookupTableLabel ();
     virtual gboolean fillLookupTableByPage ();
 
     virtual gboolean insertPunct (guint ch);
