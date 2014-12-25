@@ -67,7 +67,7 @@ LIBZHUYIN_DATADIR=`$PKG_CONFIG --variable=pkgdatadir libzhuyin`
 AC_SUBST(LIBZHUYIN_DATADIR)
 
 # check opencc
-PKG_CHECK_MODULES(OPENCC, [opencc], [enable_opencc=yes])
+PKG_CHECK_MODULES(OPENCC, [opencc >= 1.0.0], [enable_opencc=yes])
 
 # check if ibus_config_get_values, which is available in ibus-1.3.99+ (git master)
 save_CFLAGS="$CFLAGS"
