@@ -25,7 +25,7 @@
 			<longname>New Zhuyin</longname>
 			<description>New Zhuyin input method</description>
 			<rank>99</rank>
-			<symbol>&#x3109;</symbol>
+			<symbol>&#x3105;</symbol>
 			<setup>${libexecdir}/ibus-setup-libzhuyin zhuyin</setup>
 		</engine>
 	</engines>
