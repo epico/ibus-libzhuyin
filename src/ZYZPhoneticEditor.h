@@ -78,6 +78,8 @@ protected:
     gboolean prepareCandidates (void);
     gboolean selectCandidate (guint i);
     gboolean selectCandidateInPage (guint i);
+    guint getCursorLeft (void);
+    guint getCursorRight (void);
 
     void commit (const gchar *str);
 

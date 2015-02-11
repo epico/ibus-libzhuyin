@@ -577,42 +577,9 @@ PhoneticEditor::selectCandidateInPage (guint index)
     return selectCandidate (index);
 }
 
-gboolean
-PhoneticEditor::removeCharBefore (void)
+guint
+PhoneticEditor::getCursorLeft (void)
 {
-    if (G_UNLIKELY (m_cursor == 0))
-        return FALSE;
-
-    m_cursor --;
-    erase_input_sequence (m_text, m_cursor, 1);
-
-    updateZhuyin ();
-    update ();
-
-    return TRUE;
-}
-
-gboolean
-PhoneticEditor::removeCharAfter (void)
-{
-    if (G_UNLIKELY (m_cursor ==
-                    get_enhanced_text_length (m_text)))
-        return FALSE;
-
-    erase_input_sequence (m_text, m_cursor, 1);
-
-    updateZhuyin ();
-    update ();
-
-    return TRUE;
-}
-
-gboolean
-PhoneticEditor::moveCursorLeft (void)
-{
-    if (G_UNLIKELY (m_cursor == 0))
-        return FALSE;
-
     /* NOTE: adjust cursor when in parsed phonetic section. */
     const String & enhanced_text = m_text;
     guint cursor = m_cursor;
@@ -653,24 +620,16 @@ PhoneticEditor::moveCursorLeft (void)
 
             /* align to the begin of chewing key. */
             /* restore cursor variable. */
-            m_cursor = m_cursor - (cursor + 1 - begin);
-            update ();
-            return TRUE;
+            return m_cursor - (cursor + 1 - begin);
         }
     }
 
-    m_cursor --;
-    update ();
-    return TRUE;
+    return m_cursor - 1;
 }
 
-gboolean
-PhoneticEditor::moveCursorRight (void)
+guint
+PhoneticEditor::getCursorRight (void)
 {
-    if (G_UNLIKELY (m_cursor ==
-                    get_enhanced_text_length (m_text)))
-        return FALSE;
-
     /* NOTE: adjust cursor when in parsed phonetic section. */
     const String & enhanced_text = m_text;
     guint cursor = m_cursor;
@@ -714,20 +673,70 @@ PhoneticEditor::moveCursorRight (void)
                 (instance, key_rest, &begin, NULL);
 
                 /* align to the begin of chewing key. */
-                m_cursor = m_cursor + (begin - cursor);
-                update ();
-                return TRUE;
+                return m_cursor + (begin - cursor);
             } else {
                 assert (offset == len);
                 /* align to the end of parsed phonetic section. */
-                m_cursor = m_cursor + (parsed_len - cursor);
-                update ();
-                return TRUE;
+                return m_cursor + (parsed_len - cursor);
             }
         }
     }
 
-    m_cursor ++;
+    return m_cursor + 1;
+}
+
+
+gboolean
+PhoneticEditor::removeCharBefore (void)
+{
+    if (G_UNLIKELY (m_cursor == 0))
+        return FALSE;
+
+    guint cursor = getCursorLeft ();
+    erase_input_sequence (m_text, cursor, m_cursor - cursor);
+    m_cursor = cursor;
+
+    updateZhuyin ();
+    update ();
+
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::removeCharAfter (void)
+{
+    if (G_UNLIKELY (m_cursor ==
+                    get_enhanced_text_length (m_text)))
+        return FALSE;
+
+    guint cursor = getCursorRight ();
+    erase_input_sequence (m_text, m_cursor, cursor - m_cursor);
+
+    updateZhuyin ();
+    update ();
+
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::moveCursorLeft (void)
+{
+    if (G_UNLIKELY (m_cursor == 0))
+        return FALSE;
+
+    m_cursor = getCursorLeft ();
+    update ();
+    return TRUE;
+}
+
+gboolean
+PhoneticEditor::moveCursorRight (void)
+{
+    if (G_UNLIKELY (m_cursor ==
+                    get_enhanced_text_length (m_text)))
+        return FALSE;
+
+    m_cursor = getCursorRight ();
     update ();
     return TRUE;
 }
