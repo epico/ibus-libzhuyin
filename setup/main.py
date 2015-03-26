@@ -18,6 +18,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from __future__ import print_function
+
 import gettext
 
 import locale
@@ -298,7 +300,7 @@ class PreferencesWindow:
         elif isinstance(val, str):
             var = GLib.Variant.new_string(val)
         else:
-            print >> sys.stderr, "val(%s) is not in support type." % repr(val)
+            print("val(%s) is not in support type." % repr(val), file=sys.stderr)
             return
 
         self.__values[name] = val
