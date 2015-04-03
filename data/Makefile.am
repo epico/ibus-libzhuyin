@@ -19,9 +19,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
+APPDATA_XML = libzhuyin.appdata.xml
+
 SUBDIRS = \
         icons \
         $(NULL)
+
+appdatadir = @datadir@/appdata
+
+appdata_DATA = $(APPDATA_XML)
 
 desktop_in_in_files = \
         ibus-setup-libzhuyin.desktop.in.in \
@@ -55,4 +61,5 @@ EXTRA_DIST = \
 DISTCLEANFILES = \
         $(desktop_in_files) \
         $(desktop_DATA) \
+        $(APPDATA_XML) \
         $(NULL)
