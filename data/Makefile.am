@@ -56,10 +56,10 @@ symbolsdir = $(pkgdatadir)
 EXTRA_DIST = \
         $(desktop_in_in_files) \
         $(symbols_DATA) \
+        $(APPDATA_XML) \
         $(NULL)
 
 DISTCLEANFILES = \
         $(desktop_in_files) \
         $(desktop_DATA) \
-        $(APPDATA_XML) \
         $(NULL)
