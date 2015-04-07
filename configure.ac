@@ -59,7 +59,7 @@ PKG_CHECK_MODULES(IBUS, [
 
 # check libzhuyin
 PKG_CHECK_MODULES(LIBZHUYIN, [
-    libzhuyin >= 0.9.93
+    libzhuyin >= 1.0.0
 ], [enable_libzhuyin=yes])
 
 LIBZHUYIN_DATADIR=`$PKG_CONFIG --variable=pkgdatadir libzhuyin`
