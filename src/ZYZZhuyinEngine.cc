@@ -111,6 +111,8 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
                 assert (FALSE);
             }
 
+            /* after mode switch, reset all states. */
+            reset ();
             return TRUE;
         }
 
