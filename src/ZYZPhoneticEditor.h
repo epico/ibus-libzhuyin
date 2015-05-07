@@ -84,7 +84,7 @@ protected:
     void commit (const gchar *str);
 
     /* pure virtual functions */
-    virtual gboolean insert (gint ch) = 0;
+    virtual gboolean insert (guint keyval, guint keycode, guint modifiers) = 0;
     virtual gboolean removeCharBefore (void);
     virtual gboolean removeCharAfter (void);
     virtual gboolean moveCursorLeft (void);

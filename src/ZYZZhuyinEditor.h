@@ -45,7 +45,7 @@ protected:
     void commit ();
     void reset ();
 
-    gboolean insert (gint ch);
+    gboolean insert (guint keyval, guint keycode, guint modifiers);
 
 protected:
     String m_preedit_text;

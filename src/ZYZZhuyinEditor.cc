@@ -178,32 +178,38 @@ ZhuyinEditor::updatePreeditText (void)
 }
 
 gboolean
-ZhuyinEditor::insert (gint ch)
+ZhuyinEditor::insert (guint keyval, guint keycode, guint modifiers)
 {
+    /* let client applications to handle shortcut key event */
+    modifiers = cmshm_filter (modifiers);
+
+    if (modifiers != 0 && m_text.empty ())
+        return FALSE;
+
     gchar ** symbols = NULL;
-    if (zhuyin_in_chewing_keyboard (m_instance, ch, &symbols)) {
+    if (zhuyin_in_chewing_keyboard (m_instance, keyval, &symbols)) {
         g_strfreev (symbols);
 
-        insert_phonetic (m_text, m_cursor++, ch);
+        insert_phonetic (m_text, m_cursor++, keyval);
 
         updateZhuyin ();
         update ();
         return TRUE;
     }
 
-    if (insertPunct (ch)) {
+    if (insertPunct (keyval)) {
         updateZhuyin ();
         update ();
         return TRUE;
     }
 
-    if (insertEnglish (ch)) {
+    if (insertEnglish (keyval)) {
         updateZhuyin ();
         update ();
         return TRUE;
     }
 
-    if (insertNumbers (ch)) {
+    if (insertNumbers (keyval)) {
         updateZhuyin ();
         update ();
         return TRUE;
@@ -233,7 +239,7 @@ ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         if (processUserSymbolKey (keyval, keycode, modifiers))
             return TRUE;
 
-        if (insert (keyval))
+        if (insert (keyval, keycode, modifiers))
             return TRUE;
 
         if (processEnter (keyval, keycode, modifiers))
