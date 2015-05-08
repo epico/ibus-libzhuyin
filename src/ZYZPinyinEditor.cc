@@ -250,7 +250,7 @@ PinyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
         STATE_USER_SYMBOL_SHOWN == m_input_state) {
 
-        if (processSpace (keyval, keycode, modifiers))
+        if (processSelectCandidate (keyval, keycode, modifiers))
             return TRUE;
 
         if (processCandidateKey (keyval, keycode, modifiers))

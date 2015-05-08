@@ -59,7 +59,7 @@ public:
     virtual gboolean processKeyEvent (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processEscape (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processCommit (guint keyval, guint keycode, guint modifiers);
-    virtual gboolean processSpace (guint keyval, guint keycode, guint modifiers);
+    virtual gboolean processSelectCandidate (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processFunctionKey (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processShowCandidateKey (guint keyval, guint keycode, guint modifiers);
     virtual gboolean processCandidateKey (guint keyval, guint keycode, guint modifiers);

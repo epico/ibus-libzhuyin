@@ -132,8 +132,8 @@ PhoneticEditor::processCommit (guint keyval, guint keycode,
 }
 
 gboolean
-PhoneticEditor::processSpace (guint keyval, guint keycode,
-                              guint modifiers)
+PhoneticEditor::processSelectCandidate (guint keyval, guint keycode,
+                                        guint modifiers)
 {
     if (IBUS_space != keyval && IBUS_KP_Space != keyval)
         return FALSE;
