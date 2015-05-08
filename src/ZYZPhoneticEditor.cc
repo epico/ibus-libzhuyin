@@ -135,8 +135,19 @@ gboolean
 PhoneticEditor::processSelectCandidate (guint keyval, guint keycode,
                                         guint modifiers)
 {
-    if (IBUS_space != keyval && IBUS_KP_Space != keyval)
+
+    switch (keyval) {
+    case IBUS_space:
+    case IBUS_KP_Space:
+        break;
+
+    case IBUS_Return:
+    case IBUS_KP_Enter:
+        break;
+
+    default:
         return FALSE;
+    }
 
     if (cmshm_filter (modifiers) != 0)
         return TRUE;
