@@ -115,8 +115,8 @@ PhoneticEditor::processEscape (guint keyval, guint keycode,
 
 
 gboolean
-PhoneticEditor::processEnter (guint keyval, guint keycode,
-                              guint modifiers)
+PhoneticEditor::processCommit (guint keyval, guint keycode,
+                               guint modifiers)
 {
     if (IBUS_Return != keyval && IBUS_KP_Enter != keyval)
         return FALSE;

@@ -242,7 +242,7 @@ ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         if (insert (keyval, keycode, modifiers))
             return TRUE;
 
-        if (processEnter (keyval, keycode, modifiers))
+        if (processCommit (keyval, keycode, modifiers))
             return TRUE;
 
         if (processFunctionKey (keyval, keycode, modifiers))
