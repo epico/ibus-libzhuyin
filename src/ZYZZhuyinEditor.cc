@@ -26,6 +26,7 @@
 #include "ZYZhuyinProperties.h"
 #include "ZYTradSimpConverter.h"
 #include "ZYEnhancedText.h"
+#include "ZYSymbols.h"
 
 
 using namespace ZY;
@@ -82,8 +83,24 @@ ZhuyinEditor::updateZhuyin (void)
             get_phonetic_section (enhanced_text, start_pos, end_pos, section);
 
             zhuyin_instance_t * instance = m_instances[index];
-            zhuyin_parse_more_chewings (instance, section.c_str ());
+            size_t len = zhuyin_parse_more_chewings
+                (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
+
+            /* check whether the last character is space,
+               if not part of parsed chewing input,
+               turn the space into symbol. */
+            if (end_pos == m_text.size () &&
+                ' ' == section[section.size () - 1] &&
+                section.size () > len) {
+                size_t length = get_enhanced_text_length (m_text);
+                erase_input_sequence (m_text, length - 1, 1);
+                insert_symbol (m_text, length - 1, BUILTIN_SYMBOL_TYPE,
+                               "", " ");
+                /* as we changed the last space character,
+                   reached the end of user input, exit the loop. */
+                break;
+            }
 
             ++index;
         }
