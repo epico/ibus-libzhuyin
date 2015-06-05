@@ -96,12 +96,20 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
                 triggered = TRUE;
         }
 
-        if (triggered && m_editors[m_input_mode]->text ().empty ()) {
+        if (triggered) {
+            /* ibus-chewing always switch Chinese mode,
+               when the shift key is pressed. */
+            PhoneticEditor *editor = dynamic_cast<PhoneticEditor *>
+                (m_editors[MODE_INIT].get ());
+            assert (NULL != editor);
+
             /* switch input editor. */
             m_props.toggleModeChinese ();
 
             switch (m_input_mode) {
             case MODE_INIT:
+                if (editor->text ().size ())
+                    editor->commit ();
                 m_input_mode = MODE_RAW;
                 break;
             case MODE_RAW:

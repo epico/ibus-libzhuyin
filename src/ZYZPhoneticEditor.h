@@ -30,6 +30,8 @@
 
 namespace ZY {
 
+class ZhuyinEngine;
+
 class PhoneticSection;
 typedef std::shared_ptr<PhoneticSection> PhoneticSectionPtr;
 
@@ -37,6 +39,7 @@ class SymbolSection;
 typedef std::shared_ptr<SymbolSection> SymbolSectionPtr;
 
 class PhoneticEditor : public EnhancedEditor {
+    friend class ZhuyinEngine;
     friend class SymbolSection;
     friend class PhoneticSection;
 
