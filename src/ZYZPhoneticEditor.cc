@@ -109,8 +109,24 @@ PhoneticEditor::processEscape (guint keyval, guint keycode,
     if (cmshm_filter (modifiers) != 0)
         return TRUE;
 
-    reset ();
-    return TRUE;
+    if (STATE_INPUT == m_input_state) {
+        reset ();
+        update ();
+        return TRUE;
+    }
+
+    if (STATE_CANDIDATE_SHOWN == m_input_state ||
+        STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
+        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state ||
+        STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
+        STATE_USER_SYMBOL_SHOWN == m_input_state) {
+
+        m_input_state = STATE_INPUT;
+        update ();
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
 
