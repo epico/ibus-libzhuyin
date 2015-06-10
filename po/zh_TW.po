@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 11:11+0800\n"
-"PO-Revision-Date: 2015-05-13 16:00+0800\n"
-"Last-Translator: Peng Huang <shawn.p.huang@gmail.com>\n"
+"PO-Revision-Date: 2015-06-07 15:01+0800\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Peng Huang <shawn.p.huang@gmail.com>\n"
-"Language: \n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #: ../src/ZYZhuyinProperties.cc:40 ../src/ZYZhuyinProperties.cc:105
 msgid "Chinese"
@@ -34,35 +35,35 @@ msgstr "切換到中文模式"
 
 #: ../src/ZYZhuyinProperties.cc:51 ../src/ZYZhuyinProperties.cc:130
 msgid "Full Width Letter"
-msgstr "全角字母"
+msgstr "全形字母"
 
 #: ../src/ZYZhuyinProperties.cc:52 ../src/ZYZhuyinProperties.cc:131
 msgid "Half Width Letter"
-msgstr "半角字母"
+msgstr "半形字母"
 
 #: ../src/ZYZhuyinProperties.cc:57 ../src/ZYZhuyinProperties.cc:136
 msgid "Switch to Half Width Letter Mode"
-msgstr "切換到半母字母模式"
+msgstr "切換到半形字母模式"
 
 #: ../src/ZYZhuyinProperties.cc:58 ../src/ZYZhuyinProperties.cc:137
 msgid "Switch to Full Width Letter Mode"
-msgstr "切換到全角字母模式"
+msgstr "切換到全形字母模式"
 
 #: ../src/ZYZhuyinProperties.cc:62 ../src/ZYZhuyinProperties.cc:146
 msgid "Full Width Punct"
-msgstr "全角符號"
+msgstr "全形符號"
 
 #: ../src/ZYZhuyinProperties.cc:63 ../src/ZYZhuyinProperties.cc:147
 msgid "Half Width Punct"
-msgstr "半角符號"
+msgstr "半形符號"
 
 #: ../src/ZYZhuyinProperties.cc:68 ../src/ZYZhuyinProperties.cc:152
 msgid "Switch to Half Width Punctuation Mode"
-msgstr "切換到半角符號模式"
+msgstr "切換到半形符號模式"
 
 #: ../src/ZYZhuyinProperties.cc:69 ../src/ZYZhuyinProperties.cc:153
 msgid "Switch to Full Width Punctuation Mode"
-msgstr "切換到全角符號模式"
+msgstr "切換到全形符號模式"
 
 #: ../src/ZYZhuyinProperties.cc:73 ../src/ZYZhuyinProperties.cc:162
 msgid "Traditional Chinese"
@@ -82,7 +83,7 @@ msgstr "切換到繁體中文模式"
 
 #: ../src/ZYZhuyinProperties.cc:83 ../src/ZYZhuyinProperties.cc:85
 msgid "Preferences"
-msgstr "首選項"
+msgstr "偏好設定"
 
 #: ../src/ZYZhuyinProperties.cc:88 ../src/ZYZhuyinProperties.cc:109
 msgid "中"
@@ -94,19 +95,19 @@ msgstr "英"
 
 #: ../src/ZYMain.cc:98
 msgid "Libzhuyin input method"
-msgstr "註音輸入法"
+msgstr "注音輸入法"
 
 #: ../src/ZYMain.cc:108
 msgid "New Zhuyin (debug)"
-msgstr "新注音 （調試）"
+msgstr "新注音 (調試)"
 
 #: ../src/ZYMain.cc:109
 msgid "New Zhuyin input method (debug)"
-msgstr "新注音輸入法（調試）"
+msgstr "新注音輸入法 (調試)"
 
 #: ../setup/main.py:234
 msgid "Please choose a file"
-msgstr "請選擇文件"
+msgstr "請選擇檔案"
 
 #: ../setup/main.py:260
 #, python-format
@@ -147,7 +148,7 @@ msgstr "許氏 Dvorak"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:9
 msgid "DaChen CP26"
-msgstr "大千 26鍵"
+msgstr "大千26鍵"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:10
 msgid "Hanyu Pinyin"
@@ -159,7 +160,7 @@ msgstr "羅馬拼音"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:12
 msgid "Secondary Bopomofo"
-msgstr "註音二式"
+msgstr "注音二式"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:13
 msgid "Use Chinese Mode When Start-up"
@@ -167,11 +168,11 @@ msgstr "啓動後使用中文模式"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:14
 msgid "Use Full Width English When Start-up"
-msgstr "啓動後使用全角英文模式"
+msgstr "啓動後使用全形英文模式"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:15
 msgid "Use Full Width Punctuation When Start-up"
-msgstr "啓動後使用全角符號模式"
+msgstr "啓動後使用全形符號模式"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:16
 msgid "Use Traditional Chinese When Start-up"
@@ -187,7 +188,7 @@ msgstr "輸入"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:19
 msgid "Keyboard Layout"
-msgstr "鍵盤佈局："
+msgstr "鍵盤配置"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:20
 msgid "Candidate Choose Keys"
@@ -207,47 +208,47 @@ msgstr "啓動模糊音"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:24
 msgid "l <=> n"
-msgstr ""
+msgstr "ㄌ <=> ㄋ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:25
 msgid "f <=> h"
-msgstr ""
+msgstr "ㄈ <=> ㄏ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:26
 msgid "l <=> r"
-msgstr ""
+msgstr "ㄌ <=> ㄖ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:27
 msgid "g <=> k"
-msgstr ""
+msgstr "ㄍ <=> ㄎ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:28
 msgid "c <=> ch"
-msgstr ""
+msgstr "ㄘ <=> ㄔ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:29
 msgid "z <=> zh"
-msgstr ""
+msgstr "ㄗ <=> ㄓ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:30
 msgid "s <=> sh"
-msgstr ""
+msgstr "ㄙ <=> ㄕ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:31
 msgid "an <=> ang"
-msgstr ""
+msgstr "ㄢ <=> ㄤ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:32
 msgid "in <=> ing"
-msgstr ""
+msgstr "ㄣ <=> ㄥ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:33
 msgid "en <=> eng"
-msgstr ""
+msgstr "ㄧㄣ <=> ㄧㄥ"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:34
 msgid "Fuzzy Zhuyin"
-msgstr "模糊註音"
+msgstr "模糊注音"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:35
 msgid "User Symbols"
@@ -271,11 +272,11 @@ msgstr "清除"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:40
 msgid "Import"
-msgstr "導入"
+msgstr "匯入"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:41
 msgid "Clear All Data"
-msgstr "清除所有數據"
+msgstr "清除所有資料"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:42
 msgid ""
@@ -284,10 +285,10 @@ msgid ""
 "    \"phrase zhuyin\"\n"
 "  like \"你好 ㄋㄧˇ ㄏㄠˇ\"."
 msgstr ""
-"<b>詞典文件格式:</b>\n"
-"   每一行包含:\n"
-"      \"短語 註音\"\n"
-"   例如 \"你好 ㄋㄧˇ ㄏㄠˇ\""
+"<b>詞典檔案格式：</b>\n"
+"   每一行包含：\n"
+"      「短語 注音」\n"
+"   例如「你好 ㄋㄧˇ ㄏㄠˇ」"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:46
 msgid "Help"
@@ -296,7 +297,7 @@ msgstr "幫助"
 #: ../setup/ibus-libzhuyin-preferences.ui.h:48
 #, no-c-format
 msgid "<big><b>IBus Zhuyin %s</b></big>"
-msgstr "<big><b>IBus 註音 %s</b></big>"
+msgstr "<big><b>IBus 注音 %s</b></big>"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:49
 msgid "New Zhuyin input method for IBus"
@@ -304,7 +305,7 @@ msgstr "IBus 新注音輸入法"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:50
 msgid "<small>Copyright (c) 2013-2014 Peng Wu</small>"
-msgstr "<small>版權所有 (c) 2013-2014 吳鵬</small>"
+msgstr "<small>著作權所有 (c) 2013-2014 吳鵬</small>"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:51
 msgid ""
@@ -319,12 +320,12 @@ msgid ""
 "</small>"
 msgstr ""
 "<small>\n"
-"<b>作者:</b>\n"
+"<b>作者：</b>\n"
 "Peng Wu\n"
 "Peng Huang\n"
 "...\n"
 "\n"
-"<b>貢獻者:</b>\n"
+"<b>貢獻者：</b>\n"
 "...\n"
 "</small>"
 
