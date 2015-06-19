@@ -87,21 +87,6 @@ ZhuyinEditor::updateZhuyin (void)
                 (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
 
-            /* check whether the last character is space,
-               if not part of parsed chewing input,
-               turn the space into symbol. */
-            if (end_pos == m_text.size () &&
-                ' ' == section[section.size () - 1] &&
-                section.size () > len) {
-                size_t length = get_enhanced_text_length (m_text);
-                erase_input_sequence (m_text, length - 1, 1);
-                insert_symbol (m_text, length - 1, BUILTIN_SYMBOL_TYPE,
-                               "", " ");
-                /* as we changed the last space character,
-                   reached the end of user input, exit the loop. */
-                break;
-            }
-
             ++index;
         }
 
