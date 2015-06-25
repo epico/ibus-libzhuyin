@@ -62,12 +62,15 @@ ZhuyinEditor::commit (void)
 void
 ZhuyinEditor::reset (void)
 {
+    m_preedit_text = "";
+
     PhoneticEditor::reset ();
 }
 
 void
 ZhuyinEditor::updateZhuyin (void)
 {
+    static const char * tones[] = {" ", "ˊ", "ˇ", "ˋ", "˙", NULL};
     const String & enhanced_text = m_text;
 
     resizeInstances ();
@@ -87,19 +90,38 @@ ZhuyinEditor::updateZhuyin (void)
                 (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
 
-            /* check whether the last character is space,
+            /* check whether the last character is tone,
                if not part of parsed chewing input,
-               turn the space into symbol. */
-            if (end_pos == m_text.size () &&
-                ' ' == section[section.size () - 1] &&
-                section.size () > len) {
-                size_t length = get_enhanced_text_length (m_text);
-                erase_input_sequence (m_text, length - 1, 1);
-                insert_symbol (m_text, length - 1, BUILTIN_SYMBOL_TYPE,
-                               "", " ");
-                /* as we changed the last space character,
-                   reached the end of user input, exit the loop. */
-                break;
+               turn the tone into symbol. */
+            if (end_pos == m_text.size ()) {
+
+                /* check tone symbol. */
+                const char tone = section[section.size () - 1];
+                gchar ** symbols = NULL;
+                zhuyin_in_chewing_keyboard (instance, tone, &symbols);
+
+                gboolean is_tone = FALSE;
+                /* TODO: use g_strv_contains in future. */
+                if (1 == g_strv_length (symbols)) {
+                    for (const char ** strs = tones; *strs != NULL; ++strs) {
+                        if (g_str_equal (*strs, symbols[0])) {
+                            is_tone = TRUE;
+                            break;
+                        }
+                    }
+                }
+
+                if (is_tone && section.size () > len) {
+                    size_t length = get_enhanced_text_length (m_text);
+                    erase_input_sequence (m_text, length - 1, 1);
+                    insert_symbol (m_text, length - 1, BUILTIN_SYMBOL_TYPE,
+                                   "", symbols[0]);
+                    /* as we changed the last space character,
+                       reached the end of user input, exit the loop. */
+                    g_strfreev (symbols);
+                    break;
+                }
+                g_strfreev (symbols);
             }
 
             ++index;

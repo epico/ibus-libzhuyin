@@ -63,6 +63,8 @@ PinyinEditor::commit (void)
 void
 PinyinEditor::reset (void)
 {
+    m_preedit_text = "";
+
     PhoneticEditor::reset ();
 }
 
