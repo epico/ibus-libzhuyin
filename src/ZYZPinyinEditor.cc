@@ -63,12 +63,10 @@ PinyinEditor::commit (void)
 void
 PinyinEditor::reset (void)
 {
-    m_preedit_text = "";
-
     PhoneticEditor::reset ();
 }
 
-guint
+void
 PinyinEditor::updateZhuyin (void)
 {
     const String & enhanced_text = m_text;
@@ -77,7 +75,6 @@ PinyinEditor::updateZhuyin (void)
 
     size_t index = 0;
     size_t start_pos = 0, end_pos = 0;
-    guint pos = 0;
 
     while (end_pos != enhanced_text.size ()) {
         section_t type = probe_section_quick (enhanced_text, start_pos);
@@ -87,11 +84,8 @@ PinyinEditor::updateZhuyin (void)
             get_phonetic_section (enhanced_text, start_pos, end_pos, section);
 
             zhuyin_instance_t * instance = m_instances[index];
-            size_t len = zhuyin_parse_more_full_pinyins
-                (instance, section.c_str ());
+            zhuyin_parse_more_full_pinyins (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
-
-            pos = start_pos + len;
 
             ++index;
         }
@@ -106,7 +100,7 @@ PinyinEditor::updateZhuyin (void)
         start_pos = end_pos;
     }
 
-    return pos;
+    return;
 }
 
 void
@@ -186,15 +180,6 @@ PinyinEditor::insert (guint keyval, guint keycode, guint modifiers)
 
     if (modifiers != 0 && m_text.empty ())
         return FALSE;
-
-    /* the space key is not part of pinyin string. */
-    if (IBUS_space == keyval &&
-        m_cursor == get_enhanced_text_length (m_text)) {
-        commit ();
-        StaticText space (" ");
-        commitText (space);
-        return TRUE;
-    }
 
     if (IS_PINYIN (keyval)) {
         insert_phonetic (m_text, m_cursor++, keyval);

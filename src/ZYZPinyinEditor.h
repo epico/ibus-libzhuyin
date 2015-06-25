@@ -40,7 +40,7 @@ protected:
 
     virtual void updatePreeditText ();
     virtual void updateAuxiliaryText ();
-    virtual guint updateZhuyin (void);
+    virtual void updateZhuyin (void);
 
     void commit ();
     void reset ();

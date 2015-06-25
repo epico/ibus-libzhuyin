@@ -62,12 +62,10 @@ ZhuyinEditor::commit (void)
 void
 ZhuyinEditor::reset (void)
 {
-    m_preedit_text = "";
-
     PhoneticEditor::reset ();
 }
 
-guint
+void
 ZhuyinEditor::updateZhuyin (void)
 {
     const String & enhanced_text = m_text;
@@ -76,7 +74,6 @@ ZhuyinEditor::updateZhuyin (void)
 
     size_t index = 0;
     size_t start_pos = 0, end_pos = 0;
-    guint pos = 0;
 
     while (end_pos != enhanced_text.size ()) {
         section_t type = probe_section_quick (enhanced_text, start_pos);
@@ -90,8 +87,6 @@ ZhuyinEditor::updateZhuyin (void)
                 (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
 
-            pos = start_pos + len;
-
             ++index;
         }
 
@@ -104,7 +99,7 @@ ZhuyinEditor::updateZhuyin (void)
         start_pos = end_pos;
     }
 
-    return pos;
+    return;
 }
 
 void
@@ -199,17 +194,7 @@ ZhuyinEditor::insert (guint keyval, guint keycode, guint modifiers)
 
         insert_phonetic (m_text, m_cursor++, keyval);
 
-        guint len = updateZhuyin ();
-
-        /* the space key is part of zhuyin string. */
-        if (IBUS_space == keyval &&
-            len < m_text.size () &&
-            m_cursor == get_enhanced_text_length (m_text)) {
-            update ();
-            commit ();
-            return TRUE;
-        }
-
+        updateZhuyin ();
         update ();
         return TRUE;
     }
