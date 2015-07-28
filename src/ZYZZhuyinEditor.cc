@@ -271,6 +271,9 @@ ZhuyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
     if (processEscape (keyval, keycode, modifiers))
         return TRUE;
 
+    if (processSpace (keyval, keycode, modifiers))
+        return TRUE;
+
     if (STATE_INPUT == m_input_state) {
         if (processEasySymbolKey (keyval, keycode, modifiers))
             return TRUE;

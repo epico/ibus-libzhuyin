@@ -129,6 +129,51 @@ PhoneticEditor::processEscape (guint keyval, guint keycode,
     return FALSE;
 }
 
+gboolean
+PhoneticEditor::processSpace (guint keyval, guint keycode,
+                              guint modifiers)
+{
+    if (IBUS_space != keyval && IBUS_KP_Space != keyval)
+        return FALSE;
+
+    if (STATE_INPUT == m_input_state) {
+        if (cmshm_filter (modifiers) != 0)
+            return FALSE;
+
+        if (m_text.empty ()) {
+            assert (is_half_english (' '));
+            if (m_props.modeFullEnglish ()) {
+                String english;
+                half_english_to_full_english (keyval, english);
+                commit (english);
+            } else {
+                String english = ' ';
+                commit (english);
+            }
+            return TRUE;
+        }
+
+        /* use space to show candidates. */
+        assert (FALSE);
+    }
+
+    if (STATE_CANDIDATE_SHOWN == m_input_state ||
+        STATE_BUILTIN_SYMBOL_SHOWN == m_input_state ||
+        STATE_BOPOMOFO_SYMBOL_SHOWN == m_input_state ||
+        STATE_USER_SYMBOL_LIST_ALL == m_input_state ||
+        STATE_USER_SYMBOL_SHOWN == m_input_state) {
+        if (cmshm_filter (modifiers) != 0)
+            return TRUE;
+
+        selectCandidate (m_lookup_table.cursorPos ());
+
+        updateZhuyin ();
+        update ();
+        return TRUE;
+    }
+
+    return FALSE;
+}
 
 gboolean
 PhoneticEditor::processCommit (guint keyval, guint keycode,
@@ -153,10 +198,6 @@ PhoneticEditor::processSelectCandidate (guint keyval, guint keycode,
 {
 
     switch (keyval) {
-    case IBUS_space:
-    case IBUS_KP_Space:
-        break;
-
     case IBUS_Return:
     case IBUS_KP_Enter:
         break;
