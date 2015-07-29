@@ -35,6 +35,7 @@ const gchar * const CONFIG_INIT_FULL_ENGLISH         = "fullhalfenglish";
 const gchar * const CONFIG_INIT_FULL_PUNCT           = "fullhalfpunct";
 const gchar * const CONFIG_INIT_TRAD_CHINESE         = "traditionalchinese";
 const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "alwaysinputnum";
+const gchar * const CONFIG_SPACE_SHOW_CANDIDATES     = "spaceshowcandidates";
 
 const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboardlayout";
 const gchar * const CONFIG_CANDIDATE_KEYS            = "candidatekeys";
@@ -94,6 +95,7 @@ ZhuyinConfig::initDefaultValues (void)
     m_init_trad_chinese = TRUE;
 
     m_always_input_numbers = FALSE;
+    m_space_show_candidates = FALSE;
 
     m_candidate_keys = "1234567890";
 
@@ -185,6 +187,7 @@ ZhuyinConfig::readDefaultValues (void)
     m_init_trad_chinese = read (CONFIG_INIT_TRAD_CHINESE, true);
 
     m_always_input_numbers = read (CONFIG_ALWAYS_INPUT_NUMBERS, false);
+    m_space_show_candidates = read (CONFIG_SPACE_SHOW_CANDIDATES, false);
 
     gint layout = read (CONFIG_KEYBOARD_LAYOUT, 0);
     m_keyboard_layout = CHEWING_DEFAULT;
@@ -241,6 +244,8 @@ ZhuyinConfig::valueChanged (const std::string &section,
         m_init_trad_chinese = normalizeGVariant (value, true);
     else if (CONFIG_ALWAYS_INPUT_NUMBERS == name)
         m_always_input_numbers = normalizeGVariant (value, false);
+    else if (CONFIG_SPACE_SHOW_CANDIDATES == name)
+        m_space_show_candidates = normalizeGVariant (value, false);
     else if (CONFIG_KEYBOARD_LAYOUT == name) {
         gint layout = normalizeGVariant (value, 0);
         m_keyboard_layout = CHEWING_DEFAULT;

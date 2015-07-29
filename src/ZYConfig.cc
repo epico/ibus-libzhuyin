@@ -54,6 +54,7 @@ Config::initDefaultValues (void)
     m_init_trad_chinese = TRUE;
 
     m_always_input_numbers = FALSE;
+    m_space_show_candidates = FALSE;
 
     m_easy_symbol = TRUE;
     m_user_symbol = TRUE;

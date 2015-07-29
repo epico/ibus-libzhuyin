@@ -50,6 +50,7 @@ public:
     gboolean initFullPunct (void) const         { return m_init_full_punct; }
     gboolean initTradChinese (void) const       { return m_init_trad_chinese; }
     gboolean alwaysInputNumbers (void) const    { return m_always_input_numbers; }
+    gboolean spaceShowCandidates (void) const   { return m_space_show_candidates; }
     std::string candidateKeys (void) const      { return m_candidate_keys; }
 
     gboolean easySymbol (void) const            { return m_easy_symbol; }
@@ -88,6 +89,7 @@ protected:
     gboolean m_init_trad_chinese;
 
     gboolean m_always_input_numbers;
+    gboolean m_space_show_candidates;
 
     std::string m_candidate_keys;
 
