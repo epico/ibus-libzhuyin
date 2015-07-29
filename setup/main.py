@@ -89,6 +89,7 @@ class PreferencesWindow:
         self.__full_half_punct = self.__builder.get_object("fullhalfpunct")
         self.__traditional_chinese = self.__builder.get_object("traditionalchinese")
         self.__always_input_num = self.__builder.get_object("alwaysinputnum")
+        self.__space_show_candidates = self.__builder.get_object("spaceshowcandidates")
 
         # read values
         self.__chinese_mode.set_active(self.__get_value("chinesemode", True))
@@ -96,6 +97,7 @@ class PreferencesWindow:
         self.__full_half_punct.set_active(self.__get_value("fullhalfpunct", True))
         self.__traditional_chinese.set_active(self.__get_value("traditionalchinese", True))
         self.__always_input_num.set_active(self.__get_value("alwaysinputnum", False))
+        self.__space_show_candidates.set_active(self.__get_value("spaceshowcandidates", False))
 
         # connect signals
         self.__chinese_mode.connect("toggled", self.__toggled_cb, "chinesemode")
@@ -103,6 +105,7 @@ class PreferencesWindow:
         self.__full_half_punct.connect("toggled", self.__toggled_cb, "fullhalfpunct")
         self.__traditional_chinese.connect("toggled", self.__toggled_cb, "traditionalchinese")
         self.__always_input_num.connect("toggled", self.__toggled_cb, "alwaysinputnum")
+        self.__space_show_candidates.connect("toggled", self.__toggled_cb, "spaceshowcandidates")
 
 
     def __init_keyboard(self):
