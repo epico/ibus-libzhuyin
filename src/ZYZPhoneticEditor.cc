@@ -564,8 +564,10 @@ PhoneticEditor::selectCandidate (guint index)
     if (STATE_CANDIDATE_SHOWN == m_input_state) {
         int offset = m_phonetic_section->selectCandidate (index);
 
+#if 0
         if (0 == offset)
             return FALSE;
+#endif
 
         m_cursor += offset;
         m_input_state = STATE_INPUT;
@@ -1038,11 +1040,26 @@ PhoneticEditor::prepareCandidates (void)
     size_t index = 0;
     size_t start_pos = 0, end_pos = 0;
 
-    probe_section_start (enhanced_text, m_cursor,
-                         cursor, index, start_pos);
+    /* hack here: we use "m_cursor - 1" to determine the section type
+       for candidates before cursor. */
+    if (m_config.candidatesAfterCursor ())
+        probe_section_start (enhanced_text, m_cursor,
+                             cursor, index, start_pos);
+    else
+        probe_section_start (enhanced_text, m_cursor - 1,
+                             cursor, index, start_pos);
+
+    gboolean show_candidates = FALSE;
+    if (m_config.candidatesAfterCursor ()) {
+        show_candidates = m_cursor >= 0 &&
+            m_cursor < get_enhanced_text_length (enhanced_text);
+    } else {
+        show_candidates = m_cursor > 0 &&
+            m_cursor <= get_enhanced_text_length (enhanced_text);
+    }
 
     /* deal with candidates */
-    if (m_cursor < get_enhanced_text_length (enhanced_text)) {
+    if (show_candidates) {
         section_t type = probe_section_quick (enhanced_text, start_pos);
 
         if (PHONETIC_SECTION == type) {
@@ -1067,7 +1084,11 @@ PhoneticEditor::prepareCandidates (void)
                 return TRUE;
             } else {
                 m_input_state = STATE_CANDIDATE_SHOWN;
-                m_phonetic_section->initCandidates (instance, cursor);
+                if (m_config.candidatesAfterCursor ())
+                    m_phonetic_section->initCandidates (instance, cursor);
+                else
+                    /* hack here: restore cursor. */
+                    m_phonetic_section->initCandidates (instance, cursor + 1);
 
                 update ();
                 return TRUE;
