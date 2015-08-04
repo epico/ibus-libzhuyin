@@ -55,6 +55,7 @@ Config::initDefaultValues (void)
 
     m_always_input_numbers = FALSE;
     m_space_show_candidates = FALSE;
+    m_candidates_after_cursor = TRUE;
 
     m_easy_symbol = TRUE;
     m_user_symbol = TRUE;

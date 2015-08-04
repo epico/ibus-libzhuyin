@@ -21,6 +21,7 @@
 
 #include "ZYZPhoneticSection.h"
 #include <assert.h>
+#include "ZYConfig.h"
 #include "ZYZhuyinProperties.h"
 #include "ZYTradSimpConverter.h"
 
@@ -47,7 +48,10 @@ PhoneticSection::initCandidates (zhuyin_instance_t * instance,
     zhuyin_get_zhuyin_key_rest_offset
         (instance, cursor, &offset);
 
-    zhuyin_guess_candidates (m_instance, offset);
+    if (m_editor.m_config.candidatesAfterCursor ())
+        zhuyin_guess_candidates_after_cursor (m_instance, offset);
+    else
+        zhuyin_guess_candidates_before_cursor (m_instance, offset);
 
     return true;
 }
