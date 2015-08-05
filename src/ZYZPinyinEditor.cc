@@ -72,6 +72,8 @@ void
 PinyinEditor::updateZhuyin (void)
 {
     const String & enhanced_text = m_text;
+    String new_text;
+    size_t append_offset = 0;
 
     resizeInstances ();
 
@@ -89,6 +91,9 @@ PinyinEditor::updateZhuyin (void)
             zhuyin_parse_more_full_pinyins (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
 
+            new_text += section;
+            append_offset += section.length ();
+
             ++index;
         }
 
@@ -97,11 +102,14 @@ PinyinEditor::updateZhuyin (void)
             get_symbol_section (enhanced_text, start_pos, end_pos,
                                 type, lookup, choice);
 
+            insert_symbol (new_text, append_offset, type, lookup, choice);
+            append_offset ++;
         }
 
         start_pos = end_pos;
     }
 
+    m_text = new_text;
     return;
 }
 

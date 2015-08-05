@@ -71,7 +71,10 @@ void
 ZhuyinEditor::updateZhuyin (void)
 {
     static const char * tones[] = {" ", "ˊ", "ˇ", "ˋ", "˙", NULL};
+
     const String & enhanced_text = m_text;
+    String new_text;
+    size_t append_offset = 0;
 
     resizeInstances ();
 
@@ -89,6 +92,9 @@ ZhuyinEditor::updateZhuyin (void)
             size_t len = zhuyin_parse_more_chewings
                 (instance, section.c_str ());
             zhuyin_guess_sentence (instance);
+
+            new_text += section;
+            append_offset += section.length ();
 
             /* check whether the last character is tone,
                if not part of parsed chewing input,
@@ -112,9 +118,9 @@ ZhuyinEditor::updateZhuyin (void)
                 }
 
                 if (is_tone && section.size () > len) {
-                    size_t length = get_enhanced_text_length (m_text);
-                    erase_input_sequence (m_text, length - 1, 1);
-                    insert_symbol (m_text, length - 1, BUILTIN_SYMBOL_TYPE,
+                    erase_input_sequence (new_text, append_offset - 1, 1);
+                    insert_symbol (new_text, append_offset - 1,
+                                   BUILTIN_SYMBOL_TYPE,
                                    "", symbols[0]);
                     /* as we changed the last space character,
                        reached the end of user input, exit the loop. */
@@ -131,11 +137,15 @@ ZhuyinEditor::updateZhuyin (void)
             String type, lookup, choice;
             get_symbol_section (enhanced_text, start_pos, end_pos,
                                 type, lookup, choice);
+
+            insert_symbol (new_text, append_offset, type, lookup, choice);
+            append_offset ++;
         }
 
         start_pos = end_pos;
     }
 
+    m_text = new_text;
     return;
 }
 
