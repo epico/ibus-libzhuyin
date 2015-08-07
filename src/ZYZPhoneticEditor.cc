@@ -153,12 +153,7 @@ PhoneticEditor::processSpace (guint keyval, guint keycode,
             return TRUE;
         }
 
-        if (m_config.spaceShowCandidates ()) {
-            /* use space to show candidates. */
-            prepareCandidates ();
-            update ();
-            return TRUE;
-        } else {
+        if (!m_config.spaceShowCandidates ()) {
             return insert (keyval, keycode, modifiers);
         }
     }

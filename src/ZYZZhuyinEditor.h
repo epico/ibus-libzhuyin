@@ -36,6 +36,7 @@ public:
     virtual ~ZhuyinEditor (void);
 
 protected:
+    gboolean processSpace (guint keyval, guint keycode, guint modifiers);
     gboolean processKeyEvent (guint keyval, guint keycode, guint modifiers);
 
     virtual void updatePreeditText ();

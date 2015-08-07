@@ -234,6 +234,30 @@ PinyinEditor::insert (guint keyval, guint keycode, guint modifiers)
 }
 
 gboolean
+PinyinEditor::processSpace (guint keyval, guint keycode, guint modifiers)
+{
+    if (IBUS_space != keyval && IBUS_KP_Space != keyval)
+        return FALSE;
+
+    if (PhoneticEditor::processSpace (keyval, keycode, modifiers))
+        return TRUE;
+
+    if (STATE_INPUT == m_input_state) {
+        if (cmshm_filter (modifiers) != 0)
+            return FALSE;
+
+        if (m_config.spaceShowCandidates ()) {
+            /* use space to show candidates. */
+            prepareCandidates ();
+            update ();
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+gboolean
 PinyinEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 {
     modifiers &= (IBUS_SHIFT_MASK |
