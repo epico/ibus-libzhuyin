@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 11:11+0800\n"
+"POT-Creation-Date: 2015-08-11 13:56+0800\n"
 "PO-Revision-Date: 2015-05-13 16:00+0800\n"
 "Last-Translator: Peng Huang <shawn.p.huang@gmail.com>\n"
 "Language-Team: Peng Huang <shawn.p.huang@gmail.com>\n"
@@ -104,11 +104,11 @@ msgstr "新注音 （调试）"
 msgid "New Zhuyin input method (debug)"
 msgstr "新注音输入法（调试）"
 
-#: ../setup/main.py:234
+#: ../setup/main.py:242
 msgid "Please choose a file"
 msgstr "请选择文件"
 
-#: ../setup/main.py:260
+#: ../setup/main.py:268
 #, python-format
 msgid "<big><b>New Zhuyin %s</b></big>"
 msgstr "<big><b>IBus 新注音 %s</b></big>"
@@ -182,102 +182,110 @@ msgid "Always Input Numbers by Input Pad"
 msgstr "小键盘始终输入数字"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:18
+msgid "Use Space Key to Show Candidates"
+msgstr ""
+
+#: ../setup/ibus-libzhuyin-preferences.ui.h:19
+msgid "Show Candidates After the Cursor"
+msgstr ""
+
+#: ../setup/ibus-libzhuyin-preferences.ui.h:20
 msgid "Inputting"
 msgstr "输入"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:19
+#: ../setup/ibus-libzhuyin-preferences.ui.h:21
 msgid "Keyboard Layout"
 msgstr "键盘布局："
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:20
+#: ../setup/ibus-libzhuyin-preferences.ui.h:22
 msgid "Candidate Choose Keys"
 msgstr "候选词选择键"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:21
+#: ../setup/ibus-libzhuyin-preferences.ui.h:23
 msgid "Candidates per Page"
 msgstr "候选词每页显示个数"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:22
+#: ../setup/ibus-libzhuyin-preferences.ui.h:24
 msgid "Keyboard"
 msgstr "键盘"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:23
+#: ../setup/ibus-libzhuyin-preferences.ui.h:25
 msgid "Enable Fuzzy Zhuyin"
 msgstr "启动模糊音"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:24
+#: ../setup/ibus-libzhuyin-preferences.ui.h:26
 msgid "l <=> n"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:25
+#: ../setup/ibus-libzhuyin-preferences.ui.h:27
 msgid "f <=> h"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:26
+#: ../setup/ibus-libzhuyin-preferences.ui.h:28
 msgid "l <=> r"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:27
+#: ../setup/ibus-libzhuyin-preferences.ui.h:29
 msgid "g <=> k"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:28
+#: ../setup/ibus-libzhuyin-preferences.ui.h:30
 msgid "c <=> ch"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:29
+#: ../setup/ibus-libzhuyin-preferences.ui.h:31
 msgid "z <=> zh"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:30
+#: ../setup/ibus-libzhuyin-preferences.ui.h:32
 msgid "s <=> sh"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:31
+#: ../setup/ibus-libzhuyin-preferences.ui.h:33
 msgid "an <=> ang"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:32
+#: ../setup/ibus-libzhuyin-preferences.ui.h:34
 msgid "in <=> ing"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:33
+#: ../setup/ibus-libzhuyin-preferences.ui.h:35
 msgid "en <=> eng"
 msgstr ""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:34
+#: ../setup/ibus-libzhuyin-preferences.ui.h:36
 msgid "Fuzzy Zhuyin"
 msgstr "模糊注音"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:35
+#: ../setup/ibus-libzhuyin-preferences.ui.h:37
 msgid "User Symbols"
 msgstr "用户自定义符号"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:36
+#: ../setup/ibus-libzhuyin-preferences.ui.h:38
 msgid "Edit"
 msgstr "编辑"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:37
+#: ../setup/ibus-libzhuyin-preferences.ui.h:39
 msgid "Easy Symbols"
 msgstr "自定义快捷符号"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:38
+#: ../setup/ibus-libzhuyin-preferences.ui.h:40
 msgid "User Phrases"
 msgstr "使用自定义词组"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:39
+#: ../setup/ibus-libzhuyin-preferences.ui.h:41
 msgid "Clear"
 msgstr "清除"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:40
+#: ../setup/ibus-libzhuyin-preferences.ui.h:42
 msgid "Import"
 msgstr "导入"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:41
+#: ../setup/ibus-libzhuyin-preferences.ui.h:43
 msgid "Clear All Data"
 msgstr "清除所有数据"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:42
+#: ../setup/ibus-libzhuyin-preferences.ui.h:44
 msgid ""
 "<b>Dictionary File Format:</b>\n"
 "  Each line contains the following:\n"
@@ -289,24 +297,24 @@ msgstr ""
 "      \"短语 注音\"\n"
 "   例如 \"你好 ㄋㄧˇ ㄏㄠˇ\""
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:46
+#: ../setup/ibus-libzhuyin-preferences.ui.h:48
 msgid "Help"
 msgstr "帮助"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:48
+#: ../setup/ibus-libzhuyin-preferences.ui.h:50
 #, no-c-format
 msgid "<big><b>IBus Zhuyin %s</b></big>"
 msgstr "<big><b>IBus 注音 %s</b></big>"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:49
+#: ../setup/ibus-libzhuyin-preferences.ui.h:51
 msgid "New Zhuyin input method for IBus"
 msgstr "IBus 新注音输入法"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:50
+#: ../setup/ibus-libzhuyin-preferences.ui.h:52
 msgid "<small>Copyright (c) 2013-2014 Peng Wu</small>"
 msgstr "<small>版权所有 (c) 2013-2014 吴鹏</small>"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:51
+#: ../setup/ibus-libzhuyin-preferences.ui.h:53
 msgid ""
 "<small>\n"
 "<b>Authors:</b>\n"
@@ -328,6 +336,6 @@ msgstr ""
 "...\n"
 "</small>"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:60
+#: ../setup/ibus-libzhuyin-preferences.ui.h:62
 msgid "About"
 msgstr "关于"
