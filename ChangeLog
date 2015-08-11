@@ -1,3 +1,8 @@
+version 1.7.4
+* add option - "Use Space Key to Show Candidates".
+* add option - "Show Candidates After the Cursor".
+* use zhuyin_valid_zhuyin_keys method.
+
 version 1.7.1
 * migrate setup dialog to python 3.x.
 * support gnome-software.
