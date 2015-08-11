@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-11 13:56+0800\n"
-"PO-Revision-Date: 2015-05-13 16:00+0800\n"
+"PO-Revision-Date: 2015-08-11 14:01+0800\n"
 "Last-Translator: Peng Huang <shawn.p.huang@gmail.com>\n"
 "Language-Team: Peng Huang <shawn.p.huang@gmail.com>\n"
 "Language: \n"
@@ -183,11 +183,11 @@ msgstr "小键盘始终输入数字"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:18
 msgid "Use Space Key to Show Candidates"
-msgstr ""
+msgstr "使用空格键显示候选词"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:19
 msgid "Show Candidates After the Cursor"
-msgstr ""
+msgstr "显示光标后的候选词"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:20
 msgid "Inputting"
