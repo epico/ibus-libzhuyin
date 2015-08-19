@@ -73,6 +73,7 @@ ZhuyinEditor::updateZhuyin (void)
     static const char * tones[] = {" ", "ˊ", "ˇ", "ˋ", "˙", NULL};
 
     const String & enhanced_text = m_text;
+    const size_t text_len = get_enhanced_text_length (enhanced_text);
     String new_text;
     size_t append_offset = 0;
 
@@ -111,7 +112,7 @@ ZhuyinEditor::updateZhuyin (void)
             /* check whether the last character is tone,
                if not part of parsed chewing input,
                turn the tone into symbol. */
-            if (end_pos == m_text.size ()) {
+            if (m_cursor == text_len && end_pos == m_text.size ()) {
 
                 /* check tone symbol. */
                 const char tone = section[section.size () - 1];
