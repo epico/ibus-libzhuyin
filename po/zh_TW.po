@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-11 13:56+0800\n"
-"PO-Revision-Date: 2015-06-07 15:01+0800\n"
+"PO-Revision-Date: 2015-08-19 23:35+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Peng Huang <shawn.p.huang@gmail.com>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: ../src/ZYZhuyinProperties.cc:40 ../src/ZYZhuyinProperties.cc:105
 msgid "Chinese"
@@ -99,11 +99,11 @@ msgstr "注音輸入法"
 
 #: ../src/ZYMain.cc:108
 msgid "New Zhuyin (debug)"
-msgstr "新注音 (調試)"
+msgstr "新注音 (除錯)"
 
 #: ../src/ZYMain.cc:109
 msgid "New Zhuyin input method (debug)"
-msgstr "新注音輸入法 (調試)"
+msgstr "新注音輸入法 (除錯)"
 
 #: ../setup/main.py:242
 msgid "Please choose a file"
@@ -184,11 +184,11 @@ msgstr "小鍵盤始終輸入數字"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:18
 msgid "Use Space Key to Show Candidates"
-msgstr ""
+msgstr "用空白鍵叫出候選字詞"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:19
 msgid "Show Candidates After the Cursor"
-msgstr ""
+msgstr "游標後方挑選候選字詞"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:20
 msgid "Inputting"
@@ -200,11 +200,11 @@ msgstr "鍵盤配置"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:22
 msgid "Candidate Choose Keys"
-msgstr "候選詞選擇鍵"
+msgstr "候選字詞選擇鍵"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:23
 msgid "Candidates per Page"
-msgstr "候選詞每頁顯示個數"
+msgstr "候選字詞每頁顯示個數"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:24
 msgid "Keyboard"
