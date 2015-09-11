@@ -130,6 +130,11 @@ protected:
     zhuyin_instance_vec m_instances;
 
     SymbolLookup m_easy_symbols;
+
+    /* move left one character when cursor is at the end,
+     * only in candidates after cursor option.
+     */
+    gboolean m_moved_left;
 };
 
 };

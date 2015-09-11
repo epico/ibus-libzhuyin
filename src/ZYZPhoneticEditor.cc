@@ -79,6 +79,8 @@ PhoneticEditor::PhoneticEditor (ZhuyinProperties & props, Config & config)
         loadEasySymbolFile (path) ||
         loadEasySymbolFile (PKGDATADIR G_DIR_SEPARATOR_S "easysymbol.txt");
     g_free(path);
+
+    m_moved_left = FALSE;
 }
 
 PhoneticEditor::~PhoneticEditor (void)
@@ -122,6 +124,12 @@ PhoneticEditor::processEscape (guint keyval, guint keycode,
         STATE_USER_SYMBOL_SHOWN == m_input_state) {
 
         m_input_state = STATE_INPUT;
+
+        if (m_moved_left) {
+            moveCursorRight ();
+            m_moved_left = FALSE;
+        }
+
         update ();
         return TRUE;
     }
@@ -293,6 +301,12 @@ PhoneticEditor::processShowCandidateKey (guint keyval, guint keycode,
         switch (keyval) {
         case IBUS_Down:
         case IBUS_KP_Down:
+            if (m_config.candidatesAfterCursor () &&
+                m_cursor == get_enhanced_text_length (m_text)) {
+                moveCursorLeft ();
+                m_moved_left = TRUE;
+            }
+
             /* check phonetic or symbol section here */
             prepareCandidates ();
             break;
@@ -301,6 +315,12 @@ PhoneticEditor::processShowCandidateKey (guint keyval, guint keycode,
         case IBUS_KP_Up:
             m_lookup_table.clear ();
             m_input_state = STATE_INPUT;
+
+            if (m_moved_left) {
+                moveCursorRight ();
+                m_moved_left = FALSE;
+            }
+
             break;
 
         default:
