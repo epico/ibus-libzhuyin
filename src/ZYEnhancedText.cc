@@ -281,6 +281,7 @@ probe_section_start(const String & enhanced_text,
             String type, lookup, choice;
             get_symbol_section (enhanced_text, start_pos, end_pos,
                                 type, lookup, choice);
+            start_pos = end_pos;
             --cursor;
         }
     }
