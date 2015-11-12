@@ -733,7 +733,7 @@ PhoneticEditor::getCursorRight (void)
 
     section_t type = probe_section_quick (enhanced_text, start_pos);
 
-    /* only when in phonetic section, need adjustments.  */
+    /* when in phonetic section, need adjustments.  */
     if (PHONETIC_SECTION == type) {
         String section;
         get_phonetic_section (enhanced_text, start_pos, end_pos, section);
@@ -745,7 +745,7 @@ PhoneticEditor::getCursorRight (void)
         assert (cursor < section_len);
         assert (parsed_len <= section_len);
 
-        /* only when in parsed phonetic section, need adjustments.  */
+        /* when in parsed phonetic section, need adjustments.  */
         if (cursor < parsed_len) {
             guint16 offset = 0;
             zhuyin_get_zhuyin_key_rest_offset (instance, cursor, &offset);
@@ -770,6 +770,31 @@ PhoneticEditor::getCursorRight (void)
                 /* align to the end of parsed phonetic section. */
                 return m_cursor + (parsed_len - cursor);
             }
+        }
+    }
+
+    probe_section_start (enhanced_text, m_cursor + 1,
+                         cursor, index, start_pos);
+
+    type = probe_section_quick (enhanced_text, start_pos);
+
+    /* when besides phonetic section, need adjustments. */
+    if (PHONETIC_SECTION == type) {
+        zhuyin_instance_t * instance = m_instances[index];
+
+        guint len = 0;
+        zhuyin_get_n_zhuyin (instance, &len);
+
+        if (len) {
+            ChewingKeyRest * key_rest = NULL;
+            /* get the first zhuyin key. */
+            zhuyin_get_zhuyin_key_rest (instance, 0, &key_rest);
+
+            guint16 end = 0;
+            zhuyin_get_zhuyin_key_rest_positions
+                (instance, key_rest, NULL, &end);
+
+            return m_cursor + end;
         }
     }
 
