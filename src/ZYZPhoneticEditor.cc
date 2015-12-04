@@ -728,6 +728,12 @@ PhoneticEditor::getCursorRight (void)
     size_t index = 0;
     size_t start_pos = 0, end_pos = 0;
 
+    size_t total_length = get_enhanced_text_length (enhanced_text);
+
+    /* near the end of enhanced text length. */
+    if (m_cursor + 1 >= total_length)
+        return total_length;
+
     probe_section_start (enhanced_text, m_cursor,
                          cursor, index, start_pos);
 
