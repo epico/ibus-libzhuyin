@@ -601,6 +601,9 @@ PhoneticEditor::selectCandidate (guint index)
         if (0 == offset)
             return FALSE;
 
+        if (!m_config.candidatesAfterCursor ())
+            m_cursor --;
+
         erase_input_sequence (m_text, m_cursor, 1);
         insert_symbol (m_text, m_cursor, symbols->getType (),
                        symbols->getLookup (), symbols->getChoice ());
@@ -777,6 +780,11 @@ PhoneticEditor::getCursorRight (void)
                 return m_cursor + (parsed_len - cursor);
             }
         }
+    }
+
+    /* near symbol section */
+    if (SYMBOL_SECTION == type) {
+        return m_cursor + 1;
     }
 
     probe_section_start (enhanced_text, m_cursor + 1,
