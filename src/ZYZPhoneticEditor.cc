@@ -731,12 +731,6 @@ PhoneticEditor::getCursorRight (void)
     size_t index = 0;
     size_t start_pos = 0, end_pos = 0;
 
-    size_t total_length = get_enhanced_text_length (enhanced_text);
-
-    /* near the end of enhanced text length. */
-    if (m_cursor + 1 >= total_length)
-        return total_length;
-
     probe_section_start (enhanced_text, m_cursor,
                          cursor, index, start_pos);
 
@@ -782,36 +776,7 @@ PhoneticEditor::getCursorRight (void)
         }
     }
 
-    /* near symbol section */
-    if (SYMBOL_SECTION == type) {
-        return m_cursor + 1;
-    }
-
-    probe_section_start (enhanced_text, m_cursor + 1,
-                         cursor, index, start_pos);
-
-    type = probe_section_quick (enhanced_text, start_pos);
-
-    /* when besides phonetic section, need adjustments. */
-    if (PHONETIC_SECTION == type) {
-        zhuyin_instance_t * instance = m_instances[index];
-
-        guint len = 0;
-        zhuyin_get_n_zhuyin (instance, &len);
-
-        if (len) {
-            ChewingKeyRest * key_rest = NULL;
-            /* get the first zhuyin key. */
-            zhuyin_get_zhuyin_key_rest (instance, 0, &key_rest);
-
-            guint16 end = 0;
-            zhuyin_get_zhuyin_key_rest_positions
-                (instance, key_rest, NULL, &end);
-
-            return m_cursor + end;
-        }
-    }
-
+    /* for symbol section. */
     return m_cursor + 1;
 }
 
