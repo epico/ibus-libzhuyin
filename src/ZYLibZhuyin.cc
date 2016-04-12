@@ -160,8 +160,10 @@ LibZhuyinBackEnd::importZhuyinDictionary (const char * filename)
     import_iterator_t * iter = zhuyin_begin_add_phrases
         (m_zhuyin_context, USER_DICTIONARY);
 
-    if (NULL == iter)
+    if (NULL == iter) {
+        fclose(dictfile);
         return FALSE;
+    }
 
     char* linebuf = NULL; size_t size = 0; ssize_t read;
     while ((read = getline (&linebuf, &size, dictfile)) != -1) {
