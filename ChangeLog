@@ -1,3 +1,7 @@
+version 1.7.7
+* bug fixes.
+* update translations.
+
 version 1.7.4
 * add option - "Use Space Key to Show Candidates".
 * add option - "Show Candidates After the Cursor".
