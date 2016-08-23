@@ -118,8 +118,10 @@ ZhuyinProperties::toggleModeChinese (void)
                                _("Switch to Chinese Mode"));
     updateProperty (m_prop_chinese);
     
+#if 0
     m_prop_full_punct.setSensitive (m_mode_chinese);
     updateProperty (m_prop_full_punct);
+#endif
 }
 
 void

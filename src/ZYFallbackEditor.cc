@@ -45,7 +45,13 @@ FallbackEditor::processPunct (guint keyval, guint keycode, guint modifiers)
 
         /* Punctuation character */
         if (is_half_punct (keyval)) {
-            commit (keyval);
+            if(G_UNLIKELY (m_props.modeFullPunct ())) {
+                String punct;
+                half_punct_to_full_punct (keyval, punct);
+                commit (punct);
+            } else {
+                commit (keyval);
+            }
             return TRUE;
         }
 
