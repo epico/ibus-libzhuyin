@@ -147,7 +147,7 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
     m_prev_pressed_key = retval ? IBUS_VoidSymbol : keyval;
 
     if (modifiers == IBUS_SHIFT_MASK && keyval == IBUS_space) {
-        m_props.toggleModeFullEnglish ();
+        m_props.toggleModeFullWidth ();
         m_prev_pressed_key = keyval;
         return TRUE;
     }

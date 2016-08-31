@@ -31,11 +31,6 @@ FallbackEditor::processPunct (guint keyval, guint keycode, guint modifiers)
 {
     guint cmshm_modifiers = cmshm_filter (modifiers);
 
-    if (G_UNLIKELY (keyval == IBUS_period && cmshm_modifiers == IBUS_CONTROL_MASK)) {
-        m_props.toggleModeFullPunct ();
-        return TRUE;
-    }
-
     /* check ctrl, alt, hyper, supper masks */
     if (cmshm_modifiers != 0)
         return FALSE;
@@ -45,7 +40,7 @@ FallbackEditor::processPunct (guint keyval, guint keycode, guint modifiers)
 
         /* Punctuation character */
         if (is_half_punct (keyval)) {
-            if(G_UNLIKELY (m_props.modeFullPunct ())) {
+            if(G_UNLIKELY (m_props.modeFullWidth ())) {
                 String punct;
                 half_punct_to_full_punct (keyval, punct);
                 commit (punct);
@@ -76,7 +71,7 @@ FallbackEditor::processEnglish (guint keyval, guint keycode, guint modifiers) {
 
         /* English character */
         if (is_half_english (keyval)) {
-            if (G_UNLIKELY (m_props.modeFullEnglish ())) {
+            if (G_UNLIKELY (m_props.modeFullWidth ())) {
                 String english;
                 half_english_to_full_english (keyval, english);
                 commit (english);

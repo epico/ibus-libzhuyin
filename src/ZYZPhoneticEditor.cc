@@ -150,7 +150,7 @@ PhoneticEditor::processSpace (guint keyval, guint keycode,
 
         if (m_text.empty ()) {
             assert (is_half_english (' '));
-            if (m_props.modeFullEnglish ()) {
+            if (m_props.modeFullWidth ()) {
                 String english;
                 half_english_to_full_english (keyval, english);
                 commit (english);
@@ -960,7 +960,7 @@ PhoneticEditor::insertPunct (guint ch)
 {
     /* for punctuations. */
     if (is_half_punct (ch)) {
-        if (m_props.modeFullPunct ()) {
+        if (m_props.modeFullWidth ()) {
             String choice;
             assert (half_punct_to_full_punct (ch, choice));
 
@@ -988,7 +988,7 @@ PhoneticEditor::insertEnglish (guint ch)
 {
     /* for English. */
     if (is_half_english (ch)) {
-        if (m_props.modeFullEnglish ()) {
+        if (m_props.modeFullWidth ()) {
             String choice;
             assert (half_english_to_full_english (ch, choice));
 
