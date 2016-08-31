@@ -85,8 +85,7 @@ class PreferencesWindow:
 
         # init state
         self.__chinese_mode = self.__builder.get_object("chinesemode")
-        self.__full_half_english = self.__builder.get_object("fullhalfenglish")
-        self.__full_half_punct = self.__builder.get_object("fullhalfpunct")
+        self.__full_half_width = self.__builder.get_object("fullhalfwidth")
         self.__traditional_chinese = self.__builder.get_object("traditionalchinese")
         self.__always_input_num = self.__builder.get_object("alwaysinputnum")
         self.__space_show_candidates = self.__builder.get_object("spaceshowcandidates")
@@ -94,8 +93,7 @@ class PreferencesWindow:
 
         # read values
         self.__chinese_mode.set_active(self.__get_value("chinesemode", True))
-        self.__full_half_english.set_active(self.__get_value("fullhalfenglish", False))
-        self.__full_half_punct.set_active(self.__get_value("fullhalfpunct", True))
+        self.__full_half_width.set_active(self.__get_value("fullhalfwidth", False))
         self.__traditional_chinese.set_active(self.__get_value("traditionalchinese", True))
         self.__always_input_num.set_active(self.__get_value("alwaysinputnum", False))
         self.__space_show_candidates.set_active(self.__get_value("spaceshowcandidates", False))
@@ -103,8 +101,7 @@ class PreferencesWindow:
 
         # connect signals
         self.__chinese_mode.connect("toggled", self.__toggled_cb, "chinesemode")
-        self.__full_half_english.connect("toggled", self.__toggled_cb, "fullhalfenglish")
-        self.__full_half_punct.connect("toggled", self.__toggled_cb, "fullhalfpunct")
+        self.__full_half_width.connect("toggled", self.__toggled_cb, "fullhalfwidth")
         self.__traditional_chinese.connect("toggled", self.__toggled_cb, "traditionalchinese")
         self.__always_input_num.connect("toggled", self.__toggled_cb, "alwaysinputnum")
         self.__space_show_candidates.connect("toggled", self.__toggled_cb, "spaceshowcandidates")
