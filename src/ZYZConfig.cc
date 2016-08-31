@@ -31,8 +31,7 @@ const gchar * const CONFIG_ORIENTATION               = "LookupTableOrientation";
 const gchar * const CONFIG_PAGE_SIZE                 = "candidatenum";
 
 const gchar * const CONFIG_INIT_CHINESE              = "chinesemode";
-const gchar * const CONFIG_INIT_FULL_ENGLISH         = "fullhalfenglish";
-const gchar * const CONFIG_INIT_FULL_PUNCT           = "fullhalfpunct";
+const gchar * const CONFIG_INIT_FULL_WIDTH           = "fullhalfwidth";
 const gchar * const CONFIG_INIT_TRAD_CHINESE         = "traditionalchinese";
 const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "alwaysinputnum";
 const gchar * const CONFIG_SPACE_SHOW_CANDIDATES     = "spaceshowcandidates";
@@ -91,8 +90,7 @@ ZhuyinConfig::initDefaultValues (void)
     m_keyboard_layout = CHEWING_DEFAULT;
 
     m_init_chinese = TRUE;
-    m_init_full_english = FALSE;
-    m_init_full_punct = TRUE;
+    m_init_full_width = FALSE;
     m_init_trad_chinese = TRUE;
 
     m_always_input_numbers = FALSE;
@@ -184,8 +182,7 @@ ZhuyinConfig::readDefaultValues (void)
 
     /* init states */
     m_init_chinese = read (CONFIG_INIT_CHINESE, true);
-    m_init_full_english = read (CONFIG_INIT_FULL_ENGLISH, false);
-    m_init_full_punct = read (CONFIG_INIT_FULL_PUNCT, true);
+    m_init_full_width = read (CONFIG_INIT_FULL_WIDTH, false);
     m_init_trad_chinese = read (CONFIG_INIT_TRAD_CHINESE, true);
 
     m_always_input_numbers = read (CONFIG_ALWAYS_INPUT_NUMBERS, false);
@@ -239,10 +236,8 @@ ZhuyinConfig::valueChanged (const std::string &section,
     /* init states */
     if (CONFIG_INIT_CHINESE == name)
         m_init_chinese = normalizeGVariant (value, true);
-    else if (CONFIG_INIT_FULL_ENGLISH == name)
-        m_init_full_english = normalizeGVariant (value, false);
-    else if (CONFIG_INIT_FULL_PUNCT == name)
-        m_init_full_punct = normalizeGVariant (value, true);
+    else if (CONFIG_INIT_FULL_WIDTH == name)
+        m_init_full_width = normalizeGVariant (value, false);
     else if (CONFIG_INIT_TRAD_CHINESE == name)
         m_init_trad_chinese = normalizeGVariant (value, true);
     else if (CONFIG_ALWAYS_INPUT_NUMBERS == name)

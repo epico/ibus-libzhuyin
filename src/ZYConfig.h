@@ -46,8 +46,7 @@ public:
     guint pageSize (void) const                 { return m_page_size; }
     ZhuyinScheme keyboardLayout (void) const    { return m_keyboard_layout; }
     gboolean initChinese (void) const           { return m_init_chinese; }
-    gboolean initFullEnglish (void) const       { return m_init_full_english; }
-    gboolean initFullPunct (void) const         { return m_init_full_punct; }
+    gboolean initFullWidth (void) const         { return m_init_full_width; }
     gboolean initTradChinese (void) const       { return m_init_trad_chinese; }
     gboolean alwaysInputNumbers (void) const    { return m_always_input_numbers; }
     gboolean spaceShowCandidates (void) const   { return m_space_show_candidates; }
@@ -85,8 +84,7 @@ protected:
     ZhuyinScheme m_keyboard_layout;
 
     gboolean m_init_chinese;
-    gboolean m_init_full_english;
-    gboolean m_init_full_punct;
+    gboolean m_init_full_width;
     gboolean m_init_trad_chinese;
 
     gboolean m_always_input_numbers;
