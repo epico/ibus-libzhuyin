@@ -110,16 +110,16 @@ void
 ZhuyinProperties::toggleModeFullWidth (void)
 {
     m_mode_full_width = !m_mode_full_width;
-    m_prop_full_english.setLabel (m_mode_full_width ?
+    m_prop_full_width.setLabel (m_mode_full_width ?
                                   _("Full Width") :
                                   _("Half Width"));
-    m_prop_full_english.setIcon (m_mode_full_width ?
+    m_prop_full_width.setIcon (m_mode_full_width ?
                                  PKGDATADIR"/icons/full.svg" :
                                  PKGDATADIR"/icons/half.svg");
-    m_prop_full_english.setTooltip (m_mode_full_width ?
+    m_prop_full_width.setTooltip (m_mode_full_width ?
                                  _("Switch to Half Width Mode"):
                                  _("Switch to Full Width Mode"));
-    updateProperty (m_prop_full_english);
+    updateProperty (m_prop_full_width);
 }
 
 void
