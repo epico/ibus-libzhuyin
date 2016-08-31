@@ -33,15 +33,13 @@ public:
     ZhuyinProperties (Config & config);
 
     void toggleModeChinese      (void);
-    void toggleModeFullEnglish  (void);
-    void toggleModeFullPunct    (void);
+    void toggleModeFullWidth    (void);
     void toggleModeTrad         (void);
 
     void reset (void);
 
     gboolean modeChinese (void) const      { return m_mode_chinese; }
-    gboolean modeFullEnglish (void) const  { return m_mode_full_english; }
-    gboolean modeFullPunct (void) const    { return m_mode_full_punct; }
+    gboolean modeFullWidth (void) const    { return m_mode_full_width; }
     gboolean modeTrad (void) const         { return m_mode_trad; }
 
     PropList & properties (void)        { return m_props; }
@@ -64,14 +62,12 @@ private:
 private:
     Config    & m_config;
     gboolean    m_mode_chinese;
-    gboolean    m_mode_full_english;
-    gboolean    m_mode_full_punct;
+    gboolean    m_mode_full_width;
     gboolean    m_mode_trad;
 
     /* properties */
     Property    m_prop_chinese;
-    Property    m_prop_full_english;
-    Property    m_prop_full_punct;
+    Property    m_prop_full_width;
     Property    m_prop_trad;
     Property    m_prop_setup;
     PropList    m_props;

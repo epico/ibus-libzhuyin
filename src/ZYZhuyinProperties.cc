@@ -31,8 +31,7 @@ namespace ZY {
 ZhuyinProperties::ZhuyinProperties (Config & config)
     : m_config (config),
       m_mode_chinese (m_config.initChinese ()),
-      m_mode_full_english (m_config.initFullEnglish ()),
-      m_mode_full_punct (m_config.initFullPunct ()),
+      m_mode_full_width (m_config.initFullWidth ()),
       m_mode_trad (m_config.initTradChinese ()),
       m_prop_chinese ("InputMode",
                 PROP_TYPE_NORMAL,
@@ -45,28 +44,17 @@ ZhuyinProperties::ZhuyinProperties (Config & config)
                 StaticText (m_mode_chinese ?
                             _("Switch to English Mode") :
                             _("Switch to Chinese Mode"))),
-      m_prop_full_english ("mode.full",
+      m_prop_full_width ("mode.full",
                 PROP_TYPE_NORMAL,
-                StaticText (m_mode_full_english ?
-                            _("Full Width Letter") :
-                            _("Half Width Letter")),
-                m_mode_full_english ?
+                StaticText (m_mode_full_width ?
+                            _("Full Width") :
+                            _("Half Width")),
+                m_mode_full_width ?
                     PKGDATADIR"/icons/full.svg" :
                     PKGDATADIR"/icons/half.svg",
-                StaticText (m_mode_full_english ?
-                            _("Switch to Half Width Letter Mode"):
-                            _("Switch to Full Width Letter Mode"))),
-      m_prop_full_punct ("mode.full_punct",
-                PROP_TYPE_NORMAL,
-                StaticText (m_mode_full_punct ?
-                            _("Full Width Punct") :
-                            _("Half Width Punct")),
-                m_mode_full_punct ?
-                    PKGDATADIR"/icons/full-punct.svg" :
-                    PKGDATADIR"/icons/half-punct.svg",
-                StaticText (m_mode_full_punct ?
-                            _("Switch to Half Width Punctuation Mode"):
-                            _("Switch to Full Width Punctuation Mode"))),
+                StaticText (m_mode_full_width ?
+                            _("Switch to Half Width Mode"):
+                            _("Switch to Full Width Mode"))),
       m_prop_trad ( "mode.trad",
                 PROP_TYPE_NORMAL,
                 StaticText (m_mode_trad ?
@@ -90,8 +78,7 @@ ZhuyinProperties::ZhuyinProperties (Config & config)
         m_prop_chinese.setSymbol(N_("英"));
 
     m_props.append (m_prop_chinese);
-    m_props.append (m_prop_full_english);
-    m_props.append (m_prop_full_punct);
+    m_props.append (m_prop_full_width);
     m_props.append (m_prop_trad);
     m_props.append (m_prop_setup);
 
@@ -117,43 +104,22 @@ ZhuyinProperties::toggleModeChinese (void)
                                _("Switch to English Mode") :
                                _("Switch to Chinese Mode"));
     updateProperty (m_prop_chinese);
-    
-#if 0
-    m_prop_full_punct.setSensitive (m_mode_chinese);
-    updateProperty (m_prop_full_punct);
-#endif
 }
 
 void
-ZhuyinProperties::toggleModeFullEnglish (void)
+ZhuyinProperties::toggleModeFullWidth (void)
 {
-    m_mode_full_english = !m_mode_full_english;
-    m_prop_full_english.setLabel (m_mode_full_english ?
-                                  _("Full Width Letter") :
-                                  _("Half Width Letter"));
-    m_prop_full_english.setIcon (m_mode_full_english ?
+    m_mode_full_width = !m_mode_full_width;
+    m_prop_full_english.setLabel (m_mode_full_width ?
+                                  _("Full Width") :
+                                  _("Half Width"));
+    m_prop_full_english.setIcon (m_mode_full_width ?
                                  PKGDATADIR"/icons/full.svg" :
                                  PKGDATADIR"/icons/half.svg");
-    m_prop_full_english.setTooltip (m_mode_full_english ?
-                                 _("Switch to Half Width Letter Mode"):
-                                 _("Switch to Full Width Letter Mode"));
+    m_prop_full_english.setTooltip (m_mode_full_width ?
+                                 _("Switch to Half Width Mode"):
+                                 _("Switch to Full Width Mode"));
     updateProperty (m_prop_full_english);
-}
-
-void
-ZhuyinProperties::toggleModeFullPunct (void)
-{
-    m_mode_full_punct = !m_mode_full_punct;
-    m_prop_full_punct.setLabel (m_mode_full_punct ?
-                                _("Full Width Punct") :
-                                _("Half Width Punct"));
-    m_prop_full_punct.setIcon (m_mode_full_punct ?
-                                PKGDATADIR"/icons/full-punct.svg" :
-                                PKGDATADIR"/icons/half-punct.svg");
-    m_prop_full_punct.setTooltip(m_mode_full_punct ?
-                                 _("Switch to Half Width Punctuation Mode"):
-                                 _("Switch to Full Width Punctuation Mode"));
-    updateProperty (m_prop_full_punct);
 }
 
 void
@@ -178,11 +144,8 @@ ZhuyinProperties::reset (void)
     if (modeChinese () != m_config.initChinese ()) {
         toggleModeChinese ();
     }
-    if (modeFullEnglish () != m_config.initFullEnglish ()) {
-        toggleModeFullEnglish ();
-    }
-    if (modeFullPunct () != m_config.initFullPunct ()) {
-        toggleModeFullPunct ();
+    if (modeFullWidth () != m_config.initFullWidth ()) {
+        toggleModeFullWidth ();
     }
     if (modeTrad () != m_config.initTradChinese ()) {
         toggleModeTrad ();
@@ -193,7 +156,6 @@ gboolean
 ZhuyinProperties::propertyActivate (const gchar *prop_name, guint prop_state) {
     const static std::string mode_chinese ("InputMode");
     const static std::string mode_full ("mode.full");
-    const static std::string mode_full_punct ("mode.full_punct");
     const static std::string mode_trad ("mode.trad");
 
     if (mode_chinese == prop_name) {
@@ -201,11 +163,7 @@ ZhuyinProperties::propertyActivate (const gchar *prop_name, guint prop_state) {
         return TRUE;
     }
     else if (mode_full == prop_name) {
-        toggleModeFullEnglish ();
-        return TRUE;
-    }
-    else if (mode_full_punct == prop_name) {
-        toggleModeFullPunct ();
+        toggleModeFullWidth ();
         return TRUE;
     }
     else if (mode_trad == prop_name) {
