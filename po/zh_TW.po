@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-05 13:57+0800\n"
-"PO-Revision-Date: 2015-08-19 23:35+0800\n"
+"PO-Revision-Date: 2016-09-05 14:06+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Peng Huang <shawn.p.huang@gmail.com>\n"
 "Language: zh_TW\n"
@@ -34,24 +34,20 @@ msgid "Switch to Chinese Mode"
 msgstr "切換到中文模式"
 
 #: ../src/ZYZhuyinProperties.cc:50 ../src/ZYZhuyinProperties.cc:114
-#, fuzzy
 msgid "Full Width"
-msgstr "全形符號"
+msgstr "全形"
 
 #: ../src/ZYZhuyinProperties.cc:51 ../src/ZYZhuyinProperties.cc:115
-#, fuzzy
 msgid "Half Width"
-msgstr "半形符號"
+msgstr "半形"
 
 #: ../src/ZYZhuyinProperties.cc:56 ../src/ZYZhuyinProperties.cc:120
-#, fuzzy
 msgid "Switch to Half Width Mode"
-msgstr "切換到半形字母模式"
+msgstr "切換到半形模式"
 
 #: ../src/ZYZhuyinProperties.cc:57 ../src/ZYZhuyinProperties.cc:121
-#, fuzzy
 msgid "Switch to Full Width Mode"
-msgstr "切換到全形字母模式"
+msgstr "切換到全形模式"
 
 #: ../src/ZYZhuyinProperties.cc:61 ../src/ZYZhuyinProperties.cc:130
 msgid "Traditional Chinese"
@@ -155,9 +151,8 @@ msgid "Use Chinese Mode When Start-up"
 msgstr "啓動後使用中文模式"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:14
-#, fuzzy
 msgid "Use Full Width When Start-up"
-msgstr "啓動後使用全形英文模式"
+msgstr "啓動後使用全形模式"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:15
 msgid "Use Traditional Chinese When Start-up"
