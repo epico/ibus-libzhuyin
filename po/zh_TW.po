@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-11 13:56+0800\n"
+"POT-Creation-Date: 2016-09-05 13:57+0800\n"
 "PO-Revision-Date: 2015-08-19 23:35+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Peng Huang <shawn.p.huang@gmail.com>\n"
@@ -17,79 +17,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.4\n"
 
-#: ../src/ZYZhuyinProperties.cc:40 ../src/ZYZhuyinProperties.cc:105
+#: ../src/ZYZhuyinProperties.cc:39 ../src/ZYZhuyinProperties.cc:92
 msgid "Chinese"
 msgstr "中文"
 
-#: ../src/ZYZhuyinProperties.cc:41 ../src/ZYZhuyinProperties.cc:106
+#: ../src/ZYZhuyinProperties.cc:40 ../src/ZYZhuyinProperties.cc:93
 msgid "English"
 msgstr "英文"
 
-#: ../src/ZYZhuyinProperties.cc:46 ../src/ZYZhuyinProperties.cc:117
+#: ../src/ZYZhuyinProperties.cc:45 ../src/ZYZhuyinProperties.cc:104
 msgid "Switch to English Mode"
 msgstr "切換到英文模式"
 
-#: ../src/ZYZhuyinProperties.cc:47 ../src/ZYZhuyinProperties.cc:118
+#: ../src/ZYZhuyinProperties.cc:46 ../src/ZYZhuyinProperties.cc:105
 msgid "Switch to Chinese Mode"
 msgstr "切換到中文模式"
 
-#: ../src/ZYZhuyinProperties.cc:51 ../src/ZYZhuyinProperties.cc:130
-msgid "Full Width Letter"
-msgstr "全形字母"
-
-#: ../src/ZYZhuyinProperties.cc:52 ../src/ZYZhuyinProperties.cc:131
-msgid "Half Width Letter"
-msgstr "半形字母"
-
-#: ../src/ZYZhuyinProperties.cc:57 ../src/ZYZhuyinProperties.cc:136
-msgid "Switch to Half Width Letter Mode"
-msgstr "切換到半形字母模式"
-
-#: ../src/ZYZhuyinProperties.cc:58 ../src/ZYZhuyinProperties.cc:137
-msgid "Switch to Full Width Letter Mode"
-msgstr "切換到全形字母模式"
-
-#: ../src/ZYZhuyinProperties.cc:62 ../src/ZYZhuyinProperties.cc:146
-msgid "Full Width Punct"
+#: ../src/ZYZhuyinProperties.cc:50 ../src/ZYZhuyinProperties.cc:114
+#, fuzzy
+msgid "Full Width"
 msgstr "全形符號"
 
-#: ../src/ZYZhuyinProperties.cc:63 ../src/ZYZhuyinProperties.cc:147
-msgid "Half Width Punct"
+#: ../src/ZYZhuyinProperties.cc:51 ../src/ZYZhuyinProperties.cc:115
+#, fuzzy
+msgid "Half Width"
 msgstr "半形符號"
 
-#: ../src/ZYZhuyinProperties.cc:68 ../src/ZYZhuyinProperties.cc:152
-msgid "Switch to Half Width Punctuation Mode"
-msgstr "切換到半形符號模式"
+#: ../src/ZYZhuyinProperties.cc:56 ../src/ZYZhuyinProperties.cc:120
+#, fuzzy
+msgid "Switch to Half Width Mode"
+msgstr "切換到半形字母模式"
 
-#: ../src/ZYZhuyinProperties.cc:69 ../src/ZYZhuyinProperties.cc:153
-msgid "Switch to Full Width Punctuation Mode"
-msgstr "切換到全形符號模式"
+#: ../src/ZYZhuyinProperties.cc:57 ../src/ZYZhuyinProperties.cc:121
+#, fuzzy
+msgid "Switch to Full Width Mode"
+msgstr "切換到全形字母模式"
 
-#: ../src/ZYZhuyinProperties.cc:73 ../src/ZYZhuyinProperties.cc:162
+#: ../src/ZYZhuyinProperties.cc:61 ../src/ZYZhuyinProperties.cc:130
 msgid "Traditional Chinese"
 msgstr "繁體中文"
 
-#: ../src/ZYZhuyinProperties.cc:74 ../src/ZYZhuyinProperties.cc:163
+#: ../src/ZYZhuyinProperties.cc:62 ../src/ZYZhuyinProperties.cc:131
 msgid "Simplified Chinese"
 msgstr "簡體中文"
 
-#: ../src/ZYZhuyinProperties.cc:79 ../src/ZYZhuyinProperties.cc:168
+#: ../src/ZYZhuyinProperties.cc:67 ../src/ZYZhuyinProperties.cc:136
 msgid "Switch to Simplfied Chinese Mode"
 msgstr "切換到簡體中文模式"
 
-#: ../src/ZYZhuyinProperties.cc:80 ../src/ZYZhuyinProperties.cc:169
+#: ../src/ZYZhuyinProperties.cc:68 ../src/ZYZhuyinProperties.cc:137
 msgid "Switch to Traditional Chinese Mode"
 msgstr "切換到繁體中文模式"
 
-#: ../src/ZYZhuyinProperties.cc:83 ../src/ZYZhuyinProperties.cc:85
+#: ../src/ZYZhuyinProperties.cc:71 ../src/ZYZhuyinProperties.cc:73
 msgid "Preferences"
 msgstr "偏好設定"
 
-#: ../src/ZYZhuyinProperties.cc:88 ../src/ZYZhuyinProperties.cc:109
+#: ../src/ZYZhuyinProperties.cc:76 ../src/ZYZhuyinProperties.cc:96
 msgid "中"
 msgstr "中"
 
-#: ../src/ZYZhuyinProperties.cc:90 ../src/ZYZhuyinProperties.cc:111
+#: ../src/ZYZhuyinProperties.cc:78 ../src/ZYZhuyinProperties.cc:98
 msgid "英"
 msgstr "英"
 
@@ -105,11 +93,11 @@ msgstr "新注音 (除錯)"
 msgid "New Zhuyin input method (debug)"
 msgstr "新注音輸入法 (除錯)"
 
-#: ../setup/main.py:242
+#: ../setup/main.py:249
 msgid "Please choose a file"
 msgstr "請選擇檔案"
 
-#: ../setup/main.py:268
+#: ../setup/main.py:275
 #, python-format
 msgid "<big><b>New Zhuyin %s</b></big>"
 msgstr "<big><b>IBus 新注音 %s</b></big>"
@@ -167,126 +155,123 @@ msgid "Use Chinese Mode When Start-up"
 msgstr "啓動後使用中文模式"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:14
-msgid "Use Full Width English When Start-up"
+#, fuzzy
+msgid "Use Full Width When Start-up"
 msgstr "啓動後使用全形英文模式"
 
 #: ../setup/ibus-libzhuyin-preferences.ui.h:15
-msgid "Use Full Width Punctuation When Start-up"
-msgstr "啓動後使用全形符號模式"
-
-#: ../setup/ibus-libzhuyin-preferences.ui.h:16
 msgid "Use Traditional Chinese When Start-up"
 msgstr "啓動後使用繁體中文模式"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:17
+#: ../setup/ibus-libzhuyin-preferences.ui.h:16
 msgid "Always Input Numbers by Input Pad"
 msgstr "小鍵盤始終輸入數字"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:18
+#: ../setup/ibus-libzhuyin-preferences.ui.h:17
 msgid "Use Space Key to Show Candidates"
 msgstr "用空白鍵叫出候選字詞"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:19
+#: ../setup/ibus-libzhuyin-preferences.ui.h:18
 msgid "Show Candidates After the Cursor"
 msgstr "游標後方挑選候選字詞"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:20
+#: ../setup/ibus-libzhuyin-preferences.ui.h:19
 msgid "Inputting"
 msgstr "輸入"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:21
+#: ../setup/ibus-libzhuyin-preferences.ui.h:20
 msgid "Keyboard Layout"
 msgstr "鍵盤配置"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:22
+#: ../setup/ibus-libzhuyin-preferences.ui.h:21
 msgid "Candidate Choose Keys"
 msgstr "候選字詞選擇鍵"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:23
+#: ../setup/ibus-libzhuyin-preferences.ui.h:22
 msgid "Candidates per Page"
 msgstr "候選字詞每頁顯示個數"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:24
+#: ../setup/ibus-libzhuyin-preferences.ui.h:23
 msgid "Keyboard"
 msgstr "鍵盤"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:25
+#: ../setup/ibus-libzhuyin-preferences.ui.h:24
 msgid "Enable Fuzzy Zhuyin"
 msgstr "啓動模糊音"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:26
+#: ../setup/ibus-libzhuyin-preferences.ui.h:25
 msgid "l <=> n"
 msgstr "ㄌ <=> ㄋ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:27
+#: ../setup/ibus-libzhuyin-preferences.ui.h:26
 msgid "f <=> h"
 msgstr "ㄈ <=> ㄏ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:28
+#: ../setup/ibus-libzhuyin-preferences.ui.h:27
 msgid "l <=> r"
 msgstr "ㄌ <=> ㄖ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:29
+#: ../setup/ibus-libzhuyin-preferences.ui.h:28
 msgid "g <=> k"
 msgstr "ㄍ <=> ㄎ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:30
+#: ../setup/ibus-libzhuyin-preferences.ui.h:29
 msgid "c <=> ch"
 msgstr "ㄘ <=> ㄔ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:31
+#: ../setup/ibus-libzhuyin-preferences.ui.h:30
 msgid "z <=> zh"
 msgstr "ㄗ <=> ㄓ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:32
+#: ../setup/ibus-libzhuyin-preferences.ui.h:31
 msgid "s <=> sh"
 msgstr "ㄙ <=> ㄕ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:33
+#: ../setup/ibus-libzhuyin-preferences.ui.h:32
 msgid "an <=> ang"
 msgstr "ㄢ <=> ㄤ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:34
+#: ../setup/ibus-libzhuyin-preferences.ui.h:33
 msgid "in <=> ing"
 msgstr "ㄣ <=> ㄥ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:35
+#: ../setup/ibus-libzhuyin-preferences.ui.h:34
 msgid "en <=> eng"
 msgstr "ㄧㄣ <=> ㄧㄥ"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:36
+#: ../setup/ibus-libzhuyin-preferences.ui.h:35
 msgid "Fuzzy Zhuyin"
 msgstr "模糊注音"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:37
+#: ../setup/ibus-libzhuyin-preferences.ui.h:36
 msgid "User Symbols"
 msgstr "用戶自定義符號"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:38
+#: ../setup/ibus-libzhuyin-preferences.ui.h:37
 msgid "Edit"
 msgstr "編輯"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:39
+#: ../setup/ibus-libzhuyin-preferences.ui.h:38
 msgid "Easy Symbols"
 msgstr "自定義快捷符號"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:40
+#: ../setup/ibus-libzhuyin-preferences.ui.h:39
 msgid "User Phrases"
 msgstr "使用自定義詞組"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:41
+#: ../setup/ibus-libzhuyin-preferences.ui.h:40
 msgid "Clear"
 msgstr "清除"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:42
+#: ../setup/ibus-libzhuyin-preferences.ui.h:41
 msgid "Import"
 msgstr "匯入"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:43
+#: ../setup/ibus-libzhuyin-preferences.ui.h:42
 msgid "Clear All Data"
 msgstr "清除所有資料"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:44
+#: ../setup/ibus-libzhuyin-preferences.ui.h:43
 msgid ""
 "<b>Dictionary File Format:</b>\n"
 "  Each line contains the following:\n"
@@ -298,24 +283,24 @@ msgstr ""
 "      「短語 注音」\n"
 "   例如「你好 ㄋㄧˇ ㄏㄠˇ」"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:48
+#: ../setup/ibus-libzhuyin-preferences.ui.h:47
 msgid "Help"
 msgstr "幫助"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:50
+#: ../setup/ibus-libzhuyin-preferences.ui.h:49
 #, no-c-format
 msgid "<big><b>IBus Zhuyin %s</b></big>"
 msgstr "<big><b>IBus 注音 %s</b></big>"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:51
+#: ../setup/ibus-libzhuyin-preferences.ui.h:50
 msgid "New Zhuyin input method for IBus"
 msgstr "IBus 新注音輸入法"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:52
+#: ../setup/ibus-libzhuyin-preferences.ui.h:51
 msgid "<small>Copyright (c) 2013-2014 Peng Wu</small>"
 msgstr "<small>著作權所有 (c) 2013-2014 吳鵬</small>"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:53
+#: ../setup/ibus-libzhuyin-preferences.ui.h:52
 msgid ""
 "<small>\n"
 "<b>Authors:</b>\n"
@@ -337,6 +322,21 @@ msgstr ""
 "...\n"
 "</small>"
 
-#: ../setup/ibus-libzhuyin-preferences.ui.h:62
+#: ../setup/ibus-libzhuyin-preferences.ui.h:61
 msgid "About"
 msgstr "關於"
+
+#~ msgid "Full Width Letter"
+#~ msgstr "全形字母"
+
+#~ msgid "Half Width Letter"
+#~ msgstr "半形字母"
+
+#~ msgid "Switch to Half Width Punctuation Mode"
+#~ msgstr "切換到半形符號模式"
+
+#~ msgid "Switch to Full Width Punctuation Mode"
+#~ msgstr "切換到全形符號模式"
+
+#~ msgid "Use Full Width Punctuation When Start-up"
+#~ msgstr "啓動後使用全形符號模式"
