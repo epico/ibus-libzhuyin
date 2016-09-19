@@ -956,13 +956,13 @@ PhoneticEditor::getZhuyinCursor (void)
 }
 
 gboolean
-PhoneticEditor::insertPunct (guint ch)
+PhoneticEditor::insertPunct (guint keyval, guint keycode, guint modifiers)
 {
     /* for punctuations. */
-    if (is_half_punct (ch)) {
-        if (m_props.modeFullWidth ()) {
+    if (is_half_punct (keyval)) {
+        if (m_props.modeFullWidth () || modifiers & IBUS_SHIFT_MASK) {
             String choice;
-            assert (half_punct_to_full_punct (ch, choice));
+            assert (half_punct_to_full_punct (keyval, choice));
 
             String lookup;
             int ch = find_lookup_key (choice);
@@ -972,7 +972,7 @@ PhoneticEditor::insertPunct (guint ch)
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            lookup, choice);
         } else {
-            String choice = (gchar)ch;
+            String choice = (gchar) keyval;
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            "", choice);
         }
@@ -984,13 +984,13 @@ PhoneticEditor::insertPunct (guint ch)
 }
 
 gboolean
-PhoneticEditor::insertEnglish (guint ch)
+PhoneticEditor::insertEnglish (guint keyval, guint keycode, guint modifiers)
 {
     /* for English. */
-    if (is_half_english (ch)) {
-        if (m_props.modeFullWidth ()) {
+    if (is_half_english (keyval)) {
+        if (m_props.modeFullWidth () || modifiers & IBUS_SHIFT_MASK) {
             String choice;
-            assert (half_english_to_full_english (ch, choice));
+            assert (half_english_to_full_english (keyval, choice));
 
             String lookup;
             int ch = find_lookup_key (choice);
@@ -1000,7 +1000,7 @@ PhoneticEditor::insertEnglish (guint ch)
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            lookup, choice);
         } else {
-            String choice = (gchar) ch;
+            String choice = (gchar) keyval;
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            "", choice);
         }
@@ -1012,7 +1012,7 @@ PhoneticEditor::insertEnglish (guint ch)
 }
 
 gboolean
-PhoneticEditor::insertNumbers (guint ch)
+PhoneticEditor::insertNumbers (guint keyval, guint keycode, guint modifiers)
 {
     /* for input pad numbers. */
     static const guint keyvals[] = {IBUS_KP_Delete, IBUS_KP_Insert,
@@ -1035,7 +1035,7 @@ PhoneticEditor::insertNumbers (guint ch)
         return FALSE;
 
     for (size_t i = 0; i < G_N_ELEMENTS (keyvals); ++i) {
-        if (keyvals[i] == ch) {
+        if (keyvals[i] == keyval) {
             String choice;
             choice += numbers[i];
 
