@@ -134,6 +134,12 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         }
     }
 
+    if (modifiers == IBUS_SHIFT_MASK && keyval == IBUS_space) {
+        m_props.toggleModeFullWidth ();
+        m_prev_pressed_key = keyval;
+        return TRUE;
+    }
+
     if (m_props.modeChinese ()) {
         retval = m_editors[m_input_mode]->processKeyEvent
             (keyval, keycode, modifiers);
@@ -145,12 +151,6 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 
     /* store ignored key event by editors */
     m_prev_pressed_key = retval ? IBUS_VoidSymbol : keyval;
-
-    if (modifiers == IBUS_SHIFT_MASK && keyval == IBUS_space) {
-        m_props.toggleModeFullWidth ();
-        m_prev_pressed_key = keyval;
-        return TRUE;
-    }
 
     return retval;
 }
