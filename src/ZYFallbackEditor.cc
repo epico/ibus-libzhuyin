@@ -27,7 +27,7 @@
 namespace ZY {
 
 inline gboolean
-FallbackEditor::processPunct (guint keyval, guint keycode, guint modifiers)
+FallbackEditor::processSymbol (guint keyval, guint keycode, guint modifiers)
 {
     guint cmshm_modifiers = cmshm_filter (modifiers);
 
@@ -39,44 +39,19 @@ FallbackEditor::processPunct (guint keyval, guint keycode, guint modifiers)
     if (!m_props.modeChinese ()) {
 
         /* Punctuation character */
-        if (is_half_punct (keyval)) {
+        if (is_full_width_symbol (keyval)) {
             if(G_UNLIKELY (m_props.modeFullWidth ())) {
-                String punct;
-                half_punct_to_full_punct (keyval, punct);
-                commit (punct);
+                String symbol;
+                convert_full_width_symbol (keyval, symbol);
+                commit (symbol);
             } else {
-                commit (keyval);
-            }
-            return TRUE;
-        }
-
-    } else {
-        /* Chinese mode, handled by ZhuyinEditor or PinyinEditor. */
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
-inline gboolean
-FallbackEditor::processEnglish (guint keyval, guint keycode, guint modifiers) {
-    guint cmshm_modifiers = cmshm_filter (modifiers);
-
-    /* check ctrl, alt, hyper, supper masks */
-    if (cmshm_modifiers != 0)
-        return FALSE;
-
-    /* English mode */
-    if (!m_props.modeChinese ()) {
-
-        /* English character */
-        if (is_half_english (keyval)) {
-            if (G_UNLIKELY (m_props.modeFullWidth ())) {
-                String english;
-                half_english_to_full_english (keyval, english);
-                commit (english);
-            } else {
-                commit (keyval);
+                if (is_special_symbol (keyval)) {
+                    String symbol;
+                    convert_special_symbol (keyval, symbol);
+                    commit (symbol);
+                } else {
+                    commit (keyval);
+                }
             }
             return TRUE;
         }
@@ -109,7 +84,7 @@ FallbackEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         case IBUS_a ... IBUS_z:
         case IBUS_A ... IBUS_Z:
             if (modifiers == 0) {
-                retval = processEnglish (keyval, keycode, modifiers);
+                retval = processSymbol (keyval, keycode, modifiers);
             }
             break;
         /* punct */
@@ -117,36 +92,36 @@ FallbackEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         case IBUS_colon ... IBUS_at:
         case IBUS_bracketleft ... IBUS_quoteleft:
         case IBUS_braceleft ... IBUS_asciitilde:
-            retval = processPunct (keyval, keycode, modifiers);
+            retval = processSymbol (keyval, keycode, modifiers);
             break;
         case IBUS_KP_Equal:
-            retval = processPunct ('=', keycode, modifiers);
+            retval = processSymbol ('=', keycode, modifiers);
             break;
         case IBUS_KP_Multiply:
-            retval = processPunct ('*', keycode, modifiers);
+            retval = processSymbol ('*', keycode, modifiers);
             break;
         case IBUS_KP_Add:
-            retval = processPunct ('+', keycode, modifiers);
+            retval = processSymbol ('+', keycode, modifiers);
             break;
         #if 0
         case IBUS_KP_Separator:
-            retval = processPunct (IBUS_separator, keycode, modifiers);
+            retval = processSymbol (IBUS_separator, keycode, modifiers);
             break;
         #endif
         case IBUS_KP_Subtract:
-            retval = processPunct ('-', keycode, modifiers);
+            retval = processSymbol ('-', keycode, modifiers);
             break;
         case IBUS_KP_Decimal:
-            retval = processPunct ('.', keycode, modifiers);
+            retval = processSymbol ('.', keycode, modifiers);
             break;
         case IBUS_KP_Divide:
-            retval = processPunct ('/', keycode, modifiers);
+            retval = processSymbol ('/', keycode, modifiers);
             break;
         /* space */
         case IBUS_KP_Space:
             keyval = IBUS_space;
         case IBUS_space:
-            retval = processEnglish (keyval, keycode, modifiers);
+            retval = processSymbol (keyval, keycode, modifiers);
             break;
         /* others */
         default:

@@ -47,8 +47,6 @@ public:
     void candidateClicked (guint index, guint button, guint state);
 
 private:
-    gboolean processPunct (guint keyval, guint keycode, guint modifiers);
-
     void showSetupDialog (void);
     void connectEditorSignals (EditorPtr editor);
 

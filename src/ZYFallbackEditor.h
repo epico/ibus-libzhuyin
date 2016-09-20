@@ -67,8 +67,7 @@ private:
         commit ((const gchar *)str);
     }
 
-    gboolean processPunct (guint keyval, guint keycode, guint modifiers);
-    gboolean processEnglish (guint keyval, guint keycode, guint modifiers);
+    gboolean processSymbol (guint keyval, guint keycode, guint modifiers);
 
 private:
     gboolean m_quote;
