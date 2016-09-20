@@ -149,14 +149,14 @@ PhoneticEditor::processSpace (guint keyval, guint keycode,
             return FALSE;
 
         if (m_text.empty ()) {
-            assert (is_half_english (' '));
+            assert (is_special_symbol (' '));
             if (m_props.modeFullWidth ()) {
-                String english;
-                half_english_to_full_english (keyval, english);
-                commit (english);
+                String symbol;
+                convert_special_symbol (keyval, symbol);
+                commit (symbol);
             } else {
-                String english = ' ';
-                commit (english);
+                String symbol = ' ';
+                commit (symbol);
             }
             return TRUE;
         }
@@ -956,13 +956,13 @@ PhoneticEditor::getZhuyinCursor (void)
 }
 
 gboolean
-PhoneticEditor::insertPunct (guint keyval, guint keycode, guint modifiers)
+PhoneticEditor::insertSymbol (guint keyval, guint keycode, guint modifiers)
 {
-    /* for punctuations. */
-    if (is_half_punct (keyval)) {
+    /* for symbols. */
+    if (is_full_width_symbol (keyval)) {
         if (m_props.modeFullWidth () || modifiers & IBUS_SHIFT_MASK) {
             String choice;
-            assert (half_punct_to_full_punct (keyval, choice));
+            assert (convert_full_width_symbol (keyval, choice));
 
             String lookup;
             int ch = find_lookup_key (choice);
@@ -973,34 +973,9 @@ PhoneticEditor::insertPunct (guint keyval, guint keycode, guint modifiers)
                            lookup, choice);
         } else {
             String choice = (gchar) keyval;
-            insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
-                           "", choice);
-        }
+            if (is_special_symbol (keyval))
+                convert_special_symbol (keyval, choice);
 
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
-gboolean
-PhoneticEditor::insertEnglish (guint keyval, guint keycode, guint modifiers)
-{
-    /* for English. */
-    if (is_half_english (keyval)) {
-        if (m_props.modeFullWidth () || modifiers & IBUS_SHIFT_MASK) {
-            String choice;
-            assert (half_english_to_full_english (keyval, choice));
-
-            String lookup;
-            int ch = find_lookup_key (choice);
-            if (ch != 0)
-                lookup = (gchar) ch;
-
-            insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
-                           lookup, choice);
-        } else {
-            String choice = (gchar) keyval;
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            "", choice);
         }

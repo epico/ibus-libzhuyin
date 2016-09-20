@@ -259,13 +259,7 @@ ZhuyinEditor::insert (guint keyval, guint keycode, guint modifiers)
         return TRUE;
     }
 
-    if (insertPunct (keyval, keycode, modifiers)) {
-        updateZhuyin ();
-        update ();
-        return TRUE;
-    }
-
-    if (insertEnglish (keyval, keycode, modifiers)) {
+    if (insertSymbol (keyval, keycode, modifiers)) {
         updateZhuyin ();
         update ();
         return TRUE;
