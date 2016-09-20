@@ -956,7 +956,7 @@ PhoneticEditor::getZhuyinCursor (void)
 }
 
 gboolean
-PhoneticEditor::insertSymbol (guint keyval, guint keycode, guint modifiers)
+PhoneticEditor::insertSymbol (guint keyval)
 {
     /* for symbols. */
     if (is_full_width_symbol (keyval)) {
@@ -987,7 +987,7 @@ PhoneticEditor::insertSymbol (guint keyval, guint keycode, guint modifiers)
 }
 
 gboolean
-PhoneticEditor::insertNumbers (guint keyval, guint keycode, guint modifiers)
+PhoneticEditor::insertNumbers (guint keyval)
 {
     /* for input pad numbers. */
     static const guint keyvals[] = {IBUS_KP_Delete, IBUS_KP_Insert,
