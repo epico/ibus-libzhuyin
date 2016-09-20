@@ -37,16 +37,16 @@ int
 get_choice_list (const gint key, gchar ** & choices);
 
 bool
-is_half_punct (const gint key);
+is_special_symbol (const gint key);
 
 bool
-half_punct_to_full_punct (const gint key, String & punct);
+convert_special_symbol (const gint key, String & punct);
 
 bool
-is_half_english (const gint key);
+is_full_width_symbol (const gint key);
 
 bool
-half_english_to_full_english (const gint key, String & english);
+convert_full_width_symbol (const gint key, String & english);
 
 #define BUILTIN_SYMBOL_TYPE "builtin"
 #define BOPOMOFO_SYMBOL_TYPE "bopomofo"

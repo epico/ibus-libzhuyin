@@ -241,14 +241,14 @@ get_choice_list (const gint key, gchar ** & choices)
 }
 
 bool
-is_half_punct (const gint key)
+is_special_symbol (const gint key)
 {
     String punct;
-    return half_punct_to_full_punct (key, punct);
+    return convert_special_symbol (key, punct);
 }
 
 bool
-half_punct_to_full_punct (const gint key, String & punct)
+convert_special_symbol (const gint key, String & punct)
 {
     punct = "";
 
@@ -300,14 +300,14 @@ half_punct_to_full_punct (const gint key, String & punct)
 }
 
 bool
-is_half_english (const gint key)
+is_full_width_symbol (const gint key)
 {
     String english;
-    return half_english_to_full_english (key, english);
+    return convert_full_width_symbol (key, english);
 }
 
 bool
-half_english_to_full_english (const gint key, String & english)
+convert_full_width_symbol (const gint key, String & english)
 {
     english = "";
 
@@ -371,7 +371,7 @@ half_english_to_full_english (const gint key, String & english)
         }
     }
 
-    return false;
+    return convert_special_symbol (key, english);
 }
 
 };
