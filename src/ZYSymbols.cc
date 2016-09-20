@@ -243,14 +243,14 @@ get_choice_list (const gint key, gchar ** & choices)
 bool
 is_special_symbol (const gint key)
 {
-    String punct;
-    return convert_special_symbol (key, punct);
+    String symbol;
+    return convert_special_symbol (key, symbol);
 }
 
 bool
-convert_special_symbol (const gint key, String & punct)
+convert_special_symbol (const gint key, String & symbol)
 {
-    punct = "";
+    symbol = "";
 
     static const char keybuf[] = {
         '[', ']', '{', '}', '\'','<', ':', '\"', '>',
@@ -291,7 +291,7 @@ convert_special_symbol (const gint key, String & punct)
     assert(G_N_ELEMENTS (keybuf) == G_N_ELEMENTS (chibuf));
     for (size_t i = 0; i < G_N_ELEMENTS (keybuf); ++i) {
         if (key == keybuf[i]) {
-            punct = chibuf[i];
+            symbol = chibuf[i];
             return true;
         }
     }
@@ -302,14 +302,14 @@ convert_special_symbol (const gint key, String & punct)
 bool
 is_full_width_symbol (const gint key)
 {
-    String english;
-    return convert_full_width_symbol (key, english);
+    String symbol;
+    return convert_full_width_symbol (key, symbol);
 }
 
 bool
-convert_full_width_symbol (const gint key, String & english)
+convert_full_width_symbol (const gint key, String & symbol)
 {
-    english = "";
+    symbol = "";
 
     static char keybuf[] = {
         '0', '1', '2', '3',  '4',  '5', '6', '7', '8', '9',
@@ -366,12 +366,12 @@ convert_full_width_symbol (const gint key, String & english)
     assert(G_N_ELEMENTS (keybuf) == G_N_ELEMENTS (chibuf));
     for (size_t i = 0; i < G_N_ELEMENTS (keybuf); ++i) {
         if (key == keybuf[i]) {
-            english = chibuf[i];
+            symbol = chibuf[i];
             return true;
         }
     }
 
-    return convert_special_symbol (key, english);
+    return convert_special_symbol (key, symbol);
 }
 
 };
