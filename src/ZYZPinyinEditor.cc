@@ -199,9 +199,9 @@ gboolean
 PinyinEditor::insert (guint keyval, guint keycode, guint modifiers)
 {
     /* let client applications to handle shortcut key event */
-    modifiers = scmshm_filter (modifiers);
+    modifiers = cmshm_filter (modifiers);
 
-    if (cmshm_filter (modifiers) != 0 && m_text.empty ())
+    if (modifiers != 0 && m_text.empty ())
         return FALSE;
 
     if (IS_PINYIN (keyval)) {

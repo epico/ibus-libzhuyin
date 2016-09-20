@@ -960,7 +960,7 @@ PhoneticEditor::insertSymbol (guint keyval, guint keycode, guint modifiers)
 {
     /* for symbols. */
     if (is_full_width_symbol (keyval)) {
-        if (m_props.modeFullWidth () || modifiers & IBUS_SHIFT_MASK) {
+        if (m_props.modeFullWidth ()) {
             String choice;
             assert (convert_full_width_symbol (keyval, choice));
 
