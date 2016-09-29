@@ -1,3 +1,7 @@
+version 1.7.9
+* fix issue 31 - full width punctuation input with wrong symbol
+* fix issue 32 - full/half width shortcut key switch with extra space output
+
 version 1.7.8
 * combine English/Punctuation modes into one mode.
 
