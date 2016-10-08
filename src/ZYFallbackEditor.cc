@@ -45,13 +45,7 @@ FallbackEditor::processSymbol (guint keyval, guint keycode, guint modifiers)
                 convert_full_width_symbol (keyval, symbol);
                 commit (symbol);
             } else {
-                if (is_special_symbol (keyval)) {
-                    String symbol;
-                    convert_special_symbol (keyval, symbol);
-                    commit (symbol);
-                } else {
-                    commit (keyval);
-                }
+                commit (keyval);
             }
             return TRUE;
         }
