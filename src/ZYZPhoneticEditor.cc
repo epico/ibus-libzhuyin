@@ -962,7 +962,7 @@ PhoneticEditor::insertSymbol (guint keyval)
     if (is_full_width_symbol (keyval)) {
 
         if (is_special_symbol (keyval)) {
-            String choice = (gchar) keyval;
+            String choice;
             assert (convert_special_symbol (keyval, choice));
 
             String lookup;
