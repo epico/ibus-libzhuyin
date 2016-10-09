@@ -960,6 +960,21 @@ PhoneticEditor::insertSymbol (guint keyval)
 {
     /* for symbols. */
     if (is_full_width_symbol (keyval)) {
+
+        if (is_special_symbol (keyval)) {
+            String choice = (gchar) keyval;
+            assert (convert_special_symbol (keyval, choice));
+
+            String lookup;
+            int ch = find_lookup_key (choice);
+            if (ch != 0)
+                lookup = (gchar) ch;
+
+            insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
+                           lookup, choice);
+            return TRUE;
+        }
+
         if (m_props.modeFullWidth ()) {
             String choice;
             assert (convert_full_width_symbol (keyval, choice));
@@ -973,9 +988,6 @@ PhoneticEditor::insertSymbol (guint keyval)
                            lookup, choice);
         } else {
             String choice = (gchar) keyval;
-            if (is_special_symbol (keyval))
-                convert_special_symbol (keyval, choice);
-
             insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                            "", choice);
         }
