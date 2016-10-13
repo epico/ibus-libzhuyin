@@ -1,3 +1,6 @@
+version 1.7.10
+* fix issue 33 - fixes full/half width symbol input problem
+
 version 1.7.9
 * fix issue 31 - full width punctuation input with wrong symbol
 * fix issue 32 - full/half width shortcut key switch with extra space output
