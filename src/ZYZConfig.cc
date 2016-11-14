@@ -27,7 +27,7 @@
 namespace ZY {
 
 const gchar * const CONFIG_FUZZY_ZHUYIN              = "fuzzyzhuyin";
-const gchar * const CONFIG_ORIENTATION               = "LookupTableOrientation";
+const gchar * const CONFIG_ORIENTATION               = "lookuptableorientation";
 const gchar * const CONFIG_PAGE_SIZE                 = "candidatenum";
 
 const gchar * const CONFIG_INIT_CHINESE              = "chinesemode";
