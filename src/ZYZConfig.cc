@@ -26,25 +26,25 @@
 
 namespace ZY {
 
-const gchar * const CONFIG_FUZZY_ZHUYIN              = "fuzzyzhuyin";
-const gchar * const CONFIG_ORIENTATION               = "lookuptableorientation";
-const gchar * const CONFIG_PAGE_SIZE                 = "candidatenum";
+const gchar * const CONFIG_FUZZY_ZHUYIN              = "fuzzy-zhuyin";
+const gchar * const CONFIG_ORIENTATION               = "lookup-table-orientation";
+const gchar * const CONFIG_PAGE_SIZE                 = "candidate-num";
 
-const gchar * const CONFIG_INIT_CHINESE              = "chinesemode";
-const gchar * const CONFIG_INIT_FULL_WIDTH           = "fullhalfwidth";
-const gchar * const CONFIG_INIT_TRAD_CHINESE         = "traditionalchinese";
-const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "alwaysinputnum";
-const gchar * const CONFIG_SPACE_SHOW_CANDIDATES     = "spaceshowcandidates";
-const gchar * const CONFIG_CANDIDATES_AFTER_CURSOR   = "candidatesaftercursor";
+const gchar * const CONFIG_INIT_CHINESE              = "chinese-mode";
+const gchar * const CONFIG_INIT_FULL_WIDTH           = "full-half-width";
+const gchar * const CONFIG_INIT_TRAD_CHINESE         = "traditional-chinese";
+const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "always-input-num";
+const gchar * const CONFIG_SPACE_SHOW_CANDIDATES     = "space-show-candidates";
+const gchar * const CONFIG_CANDIDATES_AFTER_CURSOR   = "candidates-after-cursor";
 
-const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboardlayout";
-const gchar * const CONFIG_CANDIDATE_KEYS            = "candidatekeys";
+const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboard-layout";
+const gchar * const CONFIG_CANDIDATE_KEYS            = "candidate-keys";
 
-const gchar * const CONFIG_EASY_SYMBOL               = "easysymbol";
-const gchar * const CONFIG_USER_SYMBOL               = "usersymbol";
+const gchar * const CONFIG_EASY_SYMBOL               = "easy-symbol";
+const gchar * const CONFIG_USER_SYMBOL               = "user-symbol";
 
-const gchar * const CONFIG_IMPORT_DICTIONARY         = "importdictionary";
-const gchar * const CONFIG_CLEAR_USER_DATA           = "clearuserdata";
+const gchar * const CONFIG_IMPORT_DICTIONARY         = "import-dictionary";
+const gchar * const CONFIG_CLEAR_USER_DATA           = "clear-user-data";
 
 const zhuyin_option_t ZHUYIN_DEFAULT_OPTION =
     USE_TONE           |
@@ -127,16 +127,16 @@ static const struct {
     guint option;
 } fuzzy_zhuyin_options [] = {
     /* fuzzy pinyin */
-    { "fuzzyzhuyin_c_ch",       ZHUYIN_AMB_C_CH      },
-    { "fuzzyzhuyin_z_zh",       ZHUYIN_AMB_Z_ZH      },
-    { "fuzzyzhuyin_s_sh",       ZHUYIN_AMB_S_SH      },
-    { "fuzzyzhuyin_l_n",        ZHUYIN_AMB_L_N       },
-    { "fuzzyzhuyin_f_h",        ZHUYIN_AMB_F_H       },
-    { "fuzzyzhuyin_l_r",        ZHUYIN_AMB_L_R       },
-    { "fuzzyzhuyin_g_k",        ZHUYIN_AMB_G_K       },
-    { "fuzzyzhuyin_an_ang",     ZHUYIN_AMB_AN_ANG    },
-    { "fuzzyzhuyin_en_eng",     ZHUYIN_AMB_EN_ENG    },
-    { "fuzzyzhuyin_in_ing",     ZHUYIN_AMB_IN_ING    },
+    { "fuzzy-zhuyin-c-ch",       ZHUYIN_AMB_C_CH      },
+    { "fuzzy-zhuyin-z-zh",       ZHUYIN_AMB_Z_ZH      },
+    { "fuzzy-zhuyin-s-sh",       ZHUYIN_AMB_S_SH      },
+    { "fuzzy-zhuyin-l-n",        ZHUYIN_AMB_L_N       },
+    { "fuzzy-zhuyin-f-h",        ZHUYIN_AMB_F_H       },
+    { "fuzzy-zhuyin-l-r",        ZHUYIN_AMB_L_R       },
+    { "fuzzy-zhuyin-g-k",        ZHUYIN_AMB_G_K       },
+    { "fuzzy-zhuyin-an-ang",     ZHUYIN_AMB_AN_ANG    },
+    { "fuzzy-zhuyin-en-eng",     ZHUYIN_AMB_EN_ENG    },
+    { "fuzzy-zhuyin-in-ing",     ZHUYIN_AMB_IN_ING    },
 };
 
 void
