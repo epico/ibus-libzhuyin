@@ -94,12 +94,12 @@ class PreferencesWindow:
         self.__page_inputting.show()
 
         # init state
-        self.__chinese_mode = self.__builder.get_object("chinesemode")
-        self.__full_half_width = self.__builder.get_object("fullhalfwidth")
-        self.__traditional_chinese = self.__builder.get_object("traditionalchinese")
-        self.__always_input_num = self.__builder.get_object("alwaysinputnum")
-        self.__space_show_candidates = self.__builder.get_object("spaceshowcandidates")
-        self.__candidates_after_cursor = self.__builder.get_object("candidatesaftercursor")
+        self.__chinese_mode = self.__builder.get_object("chinese_mode")
+        self.__full_half_width = self.__builder.get_object("full_half_width")
+        self.__traditional_chinese = self.__builder.get_object("traditional_chinese")
+        self.__always_input_num = self.__builder.get_object("always_input_num")
+        self.__space_show_candidates = self.__builder.get_object("space_show_candidates")
+        self.__candidates_after_cursor = self.__builder.get_object("candidates_after_cursor")
 
         # read values
         self.__chinese_mode.set_active(self.__get_value("chinese-mode", True))
@@ -123,10 +123,10 @@ class PreferencesWindow:
         self.__page_keyboard.show()
 
         # init state
-        self.__keyboard_layout = self.__builder.get_object("keyboardlayout")
-        self.__candidate_keys = self.__builder.get_object("candidatekeys")
+        self.__keyboard_layout = self.__builder.get_object("keyboard_layout")
+        self.__candidate_keys = self.__builder.get_object("candidate_keys")
         self.__candidate_keys_entry = self.__candidate_keys.get_child()
-        self.__candidate_num = self.__builder.get_object("candidatenum")
+        self.__candidate_num = self.__builder.get_object("candidate_num")
 
         # read value
         self.__keyboard_layout.set_active(self.__get_value("keyboard-layout", 0))
@@ -156,18 +156,18 @@ class PreferencesWindow:
         self.__page_fuzzy_zhuyin.show()
 
         # fuzzy zhuyin
-        self.__fuzzy_zhuyin = self.__builder.get_object("fuzzyzhuyin")
+        self.__fuzzy_zhuyin = self.__builder.get_object("fuzzy_zhuyin")
         self.__fuzzy_zhuyin_widgets = [
-            ('fuzzyzhuyin_c_ch', 'fuzzy-zhuyin-c-ch', True),
-            ('fuzzyzhuyin_z_zh', 'fuzzy-zhuyin-z-zh', True),
-            ('fuzzyzhuyin_s_sh', 'fuzzy-zhuyin-s-sh', True),
-            ('fuzzyzhuyin_l_n', 'fuzzy-zhuyin-l-n', True),
-            ('fuzzyzhuyin_f_h', 'fuzzy-zhuyin-f-h', True),
-            ('fuzzyzhuyin_l_r', 'fuzzy-zhuyin-l-r', False),
-            ('fuzzyzhuyin_g_k', 'fuzzy-zhuyin-g-k', False),
-            ('fuzzyzhuyin_an_ang', 'fuzzy-zhuyin-an-ang', True),
-            ('fuzzyzhuyin_en_eng', 'fuzzy-zhuyin-en-eng', True),
-            ('fuzzyzhuyin_in_ing', 'fuzzy-zhuyin-in-ing', True),
+            ('fuzzy_zhuyin_c_ch', 'fuzzy-zhuyin-c-ch', True),
+            ('fuzzy_zhuyin_z_zh', 'fuzzy-zhuyin-z-zh', True),
+            ('fuzzy_zhuyin_s_sh', 'fuzzy-zhuyin-s-sh', True),
+            ('fuzzy_zhuyin_l_n', 'fuzzy-zhuyin-l-n', True),
+            ('fuzzy_zhuyin_f_h', 'fuzzy-zhuyin-f-h', True),
+            ('fuzzy_zhuyin_l_r', 'fuzzy-zhuyin-l-r', False),
+            ('fuzzy_zhuyin_g_k', 'fuzzy-zhuyin-g-k', False),
+            ('fuzzy_zhuyin_an_ang', 'fuzzy-zhuyin-an-ang', True),
+            ('fuzzy_zhuyin_en_eng', 'fuzzy-zhuyin-en-eng', True),
+            ('fuzzy_zhuyin_in_ing', 'fuzzy-zhuyin-in-ing', True),
         ]
 
         def __fuzzy_zhuyin_toggled_cb(widget):
@@ -196,14 +196,14 @@ class PreferencesWindow:
 
         # init state
         self.__box_user_symbol = self.__builder.get_object("boxUserSymbol")
-        self.__user_symbol = self.__builder.get_object("usersymbol")
-        self.__edit_user_symbol = self.__builder.get_object("editusersymbol")
+        self.__user_symbol = self.__builder.get_object("user_symbol")
+        self.__edit_user_symbol = self.__builder.get_object("edit_user_symbol")
         self.__box_easy_symbol = self.__builder.get_object("boxEasySymbol")
-        self.__easy_symbol = self.__builder.get_object("easysymbol")
-        self.__edit_easy_symbol = self.__builder.get_object("editeasysymbol")
-        self.__import_dictionary = self.__builder.get_object("importdictionary")
-        self.__clear_user_data = self.__builder.get_object("clearuserdata")
-        self.__clear_all_data = self.__builder.get_object("clearalldata")
+        self.__easy_symbol = self.__builder.get_object("easy_symbol")
+        self.__edit_easy_symbol = self.__builder.get_object("edit_easy_symbol")
+        self.__import_dictionary = self.__builder.get_object("import_dictionary")
+        self.__clear_user_data = self.__builder.get_object("clear_user_data")
+        self.__clear_all_data = self.__builder.get_object("clear_all_data")
 
         # check file
         path = os.path.join(pkgdatadir, 'usersymbol.txt')
@@ -271,22 +271,22 @@ class PreferencesWindow:
         # page About
         self.__page_about.show()
 
-        self.__name_version = self.__builder.get_object("nameversion")
+        self.__name_version = self.__builder.get_object("name_version")
         self.__name_version.set_markup(_("<big><b>New Zhuyin %s</b></big>") % config.get_version())
 
 
     def __update_fuzzy_zhuyin(self):
         options = [
-            ("fuzzyzhuyin_c_ch", "ㄘ <=> ㄔ"),
-            ("fuzzyzhuyin_z_zh", "ㄗ <=> ㄓ"),
-            ("fuzzyzhuyin_s_sh", "ㄙ <=> ㄕ"),
-            ("fuzzyzhuyin_l_n", "ㄌ <=> ㄋ"),
-            ("fuzzyzhuyin_f_h", "ㄈ <=> ㄏ"),
-            ("fuzzyzhuyin_l_r", "ㄌ <=> ㄖ"),
-            ("fuzzyzhuyin_g_k", "ㄍ <=> ㄎ"),
-            ("fuzzyzhuyin_an_ang", "ㄢ <=> ㄤ"),
-            ("fuzzyzhuyin_en_eng", "ㄣ <=> ㄥ"),
-            ("fuzzyzhuyin_in_ing", "ㄧㄣ <=> ㄧㄥ"),
+            ("fuzzy_zhuyin_c_ch", "ㄘ <=> ㄔ"),
+            ("fuzzy_zhuyin_z_zh", "ㄗ <=> ㄓ"),
+            ("fuzzy_zhuyin_s_sh", "ㄙ <=> ㄕ"),
+            ("fuzzy_zhuyin_l_n", "ㄌ <=> ㄋ"),
+            ("fuzzy_zhuyin_f_h", "ㄈ <=> ㄏ"),
+            ("fuzzy_zhuyin_l_r", "ㄌ <=> ㄖ"),
+            ("fuzzy_zhuyin_g_k", "ㄍ <=> ㄎ"),
+            ("fuzzy_zhuyin_an_ang", "ㄢ <=> ㄤ"),
+            ("fuzzy_zhuyin_en_eng", "ㄣ <=> ㄥ"),
+            ("fuzzy_zhuyin_in_ing", "ㄧㄣ <=> ㄧㄥ"),
         ]
 
         for name, label in options:
