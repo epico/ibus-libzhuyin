@@ -42,17 +42,30 @@ from gi.repository import IBus
 
 import config
 
+DOMAINNAME = 'ibus-libzhuyin'
 locale.setlocale(locale.LC_ALL, "")
 localedir = os.getenv("IBUS_LOCALEDIR")
 pkgdatadir = os.getenv("IBUS_PKGDATADIR") or "."
-gettext.install('ibus-libzhuyin', localedir)
+
+# Python's locale module doesn't provide all methods on some
+# operating systems like FreeBSD
+try:
+    locale.bindtextdomain(DOMAINNAME, localedir)
+    locale.bind_textdomain_codeset(DOMAINNAME, 'UTF-8')
+except AttributeError:
+    pass
+
+gettext.bindtextdomain(DOMAINNAME, localedir)
+gettext.bind_textdomain_codeset(DOMAINNAME, 'UTF-8')
+
+gettext.install(DOMAINNAME, localedir)
 
 class PreferencesWindow:
     def __init__(self, engine, parent=None):
         self.__bus = IBus.Bus()
         self.__config = self.__bus.get_config()
         self.__builder = Gtk.Builder()
-        self.__builder.set_translation_domain("ibus-libzhuyin")
+        self.__builder.set_translation_domain(DOMAINNAME)
         self.__builder.add_from_file("ibus-libzhuyin-preferences.ui")
         self.__window = self.__builder.get_object("window")
         self.__init_pages()
