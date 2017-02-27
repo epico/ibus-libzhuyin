@@ -115,20 +115,20 @@ class PreferencesWindow:
         self.__candidates_after_cursor = self.__builder.get_object("candidates_after_cursor")
 
         # read values
-        self.__chinese_mode.set_active(self.__get_value("chinese-mode", True))
-        self.__full_half_width.set_active(self.__get_value("full-half-width", False))
-        self.__traditional_chinese.set_active(self.__get_value("traditional-chinese", True))
-        self.__always_input_num.set_active(self.__get_value("always-input-num", False))
-        self.__space_show_candidates.set_active(self.__get_value("space-show-candidates", False))
-        self.__candidates_after_cursor.set_active(self.__get_value("candidates-after-cursor", True))
+        self.__chinese_mode.set_active(self.__get_value("chinese_mode", True))
+        self.__full_half_width.set_active(self.__get_value("full_half_width", False))
+        self.__traditional_chinese.set_active(self.__get_value("traditional_chinese", True))
+        self.__always_input_num.set_active(self.__get_value("always_input_num", False))
+        self.__space_show_candidates.set_active(self.__get_value("space_show_candidates", False))
+        self.__candidates_after_cursor.set_active(self.__get_value("candidates_after_cursor", True))
 
         # connect signals
-        self.__chinese_mode.connect("toggled", self.__toggled_cb, "chinese-mode")
-        self.__full_half_width.connect("toggled", self.__toggled_cb, "full-half-width")
-        self.__traditional_chinese.connect("toggled", self.__toggled_cb, "traditional-chinese")
-        self.__always_input_num.connect("toggled", self.__toggled_cb, "always-input-num")
-        self.__space_show_candidates.connect("toggled", self.__toggled_cb, "space-show-candidates")
-        self.__candidates_after_cursor.connect("toggled", self.__toggled_cb, "candidates-after-cursor")
+        self.__chinese_mode.connect("toggled", self.__toggled_cb, "chinese_mode")
+        self.__full_half_width.connect("toggled", self.__toggled_cb, "full_half_width")
+        self.__traditional_chinese.connect("toggled", self.__toggled_cb, "traditional_chinese")
+        self.__always_input_num.connect("toggled", self.__toggled_cb, "always_input_num")
+        self.__space_show_candidates.connect("toggled", self.__toggled_cb, "space_show_candidates")
+        self.__candidates_after_cursor.connect("toggled", self.__toggled_cb, "candidates_after_cursor")
 
 
     def __init_keyboard(self):
@@ -142,14 +142,14 @@ class PreferencesWindow:
         self.__candidate_num = self.__builder.get_object("candidate_num")
 
         # read value
-        self.__keyboard_layout.set_active(self.__get_value("keyboard-layout", 0))
-        self.__candidate_keys_entry.set_text(self.__get_value("candidate-keys", "1234567890"))
-        self.__candidate_num.set_value(self.__get_value("candidate-num", 10))
+        self.__keyboard_layout.set_active(self.__get_value("keyboard_layout", 0))
+        self.__candidate_keys_entry.set_text(self.__get_value("candidate_keys", "1234567890"))
+        self.__candidate_num.set_value(self.__get_value("candidate_num", 10))
 
         # connect signals
-        self.__keyboard_layout.connect("changed", self.__keyboard_layout_cb, "keyboard-layout")
-        self.__candidate_keys_entry.connect("changed", self.__candidate_keys_entry_cb, "candidate-keys")
-        self.__candidate_num.connect("value-changed", self.__candidate_num_cb, "candidate-num")
+        self.__keyboard_layout.connect("changed", self.__keyboard_layout_cb, "keyboard_layout")
+        self.__candidate_keys_entry.connect("changed", self.__candidate_keys_entry_cb, "candidate_keys")
+        self.__candidate_num.connect("value-changed", self.__candidate_num_cb, "candidate_num")
 
 
     def __keyboard_layout_cb(self, widget, name):
@@ -171,16 +171,16 @@ class PreferencesWindow:
         # fuzzy zhuyin
         self.__fuzzy_zhuyin = self.__builder.get_object("fuzzy_zhuyin")
         self.__fuzzy_zhuyin_widgets = [
-            ('fuzzy_zhuyin_c_ch', 'fuzzy-zhuyin-c-ch', True),
-            ('fuzzy_zhuyin_z_zh', 'fuzzy-zhuyin-z-zh', True),
-            ('fuzzy_zhuyin_s_sh', 'fuzzy-zhuyin-s-sh', True),
-            ('fuzzy_zhuyin_l_n', 'fuzzy-zhuyin-l-n', True),
-            ('fuzzy_zhuyin_f_h', 'fuzzy-zhuyin-f-h', True),
-            ('fuzzy_zhuyin_l_r', 'fuzzy-zhuyin-l-r', False),
-            ('fuzzy_zhuyin_g_k', 'fuzzy-zhuyin-g-k', False),
-            ('fuzzy_zhuyin_an_ang', 'fuzzy-zhuyin-an-ang', True),
-            ('fuzzy_zhuyin_en_eng', 'fuzzy-zhuyin-en-eng', True),
-            ('fuzzy_zhuyin_in_ing', 'fuzzy-zhuyin-in-ing', True),
+            ('fuzzy_zhuyin_c_ch', 'fuzzy_zhuyin_c_ch', True),
+            ('fuzzy_zhuyin_z_zh', 'fuzzy_zhuyin_z_zh', True),
+            ('fuzzy_zhuyin_s_sh', 'fuzzy_zhuyin_s_sh', True),
+            ('fuzzy_zhuyin_l_n', 'fuzzy_zhuyin_l_n', True),
+            ('fuzzy_zhuyin_f_h', 'fuzzy_zhuyin_f_h', True),
+            ('fuzzy_zhuyin_l_r', 'fuzzy_zhuyin_l_r', False),
+            ('fuzzy_zhuyin_g_k', 'fuzzy_zhuyin_g_k', False),
+            ('fuzzy_zhuyin_an_ang', 'fuzzy_zhuyin_an_ang', True),
+            ('fuzzy_zhuyin_en_eng', 'fuzzy_zhuyin_en_eng', True),
+            ('fuzzy_zhuyin_in_ing', 'fuzzy_zhuyin_in_ing', True),
         ]
 
         def __fuzzy_zhuyin_toggled_cb(widget):
@@ -192,12 +192,12 @@ class PreferencesWindow:
         self.__fuzzy_zhuyin.connect("toggled", __fuzzy_zhuyin_toggled_cb)
 
         # init value
-        self.__fuzzy_zhuyin.set_active(self.__get_value("fuzzy-zhuyin", False))
+        self.__fuzzy_zhuyin.set_active(self.__get_value("fuzzy_zhuyin", False))
         for name, keyname, defval in self.__fuzzy_zhuyin_widgets:
             widget = self.__builder.get_object(name)
             widget.set_active(self.__get_value(keyname, defval))
 
-        self.__fuzzy_zhuyin.connect("toggled", self.__toggled_cb, "fuzzy-zhuyin")
+        self.__fuzzy_zhuyin.connect("toggled", self.__toggled_cb, "fuzzy_zhuyin")
         for name, keyname, defval in self.__fuzzy_zhuyin_widgets:
             widget = self.__builder.get_object(name)
             widget.connect("toggled", self.__toggled_cb, keyname)
@@ -228,17 +228,17 @@ class PreferencesWindow:
             self.__box_easy_symbol.hide()
 
         # connect signals
-        self.__user_symbol.connect("toggled", self.__enable_symbol_cb, "user-symbol", self.__edit_user_symbol)
+        self.__user_symbol.connect("toggled", self.__enable_symbol_cb, "user_symbol", self.__edit_user_symbol)
         self.__edit_user_symbol.connect("clicked", self.__edit_symbol_cb, "usersymbol.txt")
-        self.__easy_symbol.connect("toggled", self.__enable_symbol_cb, "easy-symbol", self.__edit_easy_symbol)
+        self.__easy_symbol.connect("toggled", self.__enable_symbol_cb, "easy_symbol", self.__edit_easy_symbol)
         self.__edit_easy_symbol.connect("clicked", self.__edit_symbol_cb, "easysymbol.txt")
         self.__import_dictionary.connect("clicked", self.__import_dictionary_cb)
         self.__clear_user_data.connect("clicked", self.__clear_user_data_cb, "user")
         self.__clear_all_data.connect("clicked", self.__clear_user_data_cb, "all")
 
         # read value
-        self.__user_symbol.set_active(self.__get_value("user-symbol", True))
-        self.__easy_symbol.set_active(self.__get_value("easy-symbol", True))
+        self.__user_symbol.set_active(self.__get_value("user_symbol", True))
+        self.__easy_symbol.set_active(self.__get_value("easy_symbol", True))
 
 
     def __enable_symbol_cb(self, widget, name, editbutton):
@@ -271,13 +271,13 @@ class PreferencesWindow:
 
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
-            self.__set_value("import-dictionary", dialog.get_filename())
+            self.__set_value("import_dictionary", dialog.get_filename())
 
         dialog.destroy()
 
 
     def __clear_user_data_cb(self, widget, name):
-        self.__set_value("clear-user-data", name)
+        self.__set_value("clear_user_data", name)
 
 
     def __init_about(self):
