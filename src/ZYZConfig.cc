@@ -87,7 +87,9 @@ ZhuyinConfig::initDefaultValues (void)
     m_orientation = IBUS_ORIENTATION_VERTICAL;
     m_page_size = 10;
 
-    m_keyboard_layout = CHEWING_DEFAULT;
+    m_is_zhuyin = TRUE;
+    m_zhuyin_scheme = ZHUYIN_DEFAULT;
+    m_pinyin_scheme = FULL_PINYIN_DEFAULT;
 
     m_init_chinese = TRUE;
     m_init_full_width = FALSE;
@@ -108,18 +110,24 @@ static const struct {
     gint layout;
     ZhuyinScheme scheme;
 } zhuyin_schemes [] = {
-    {0, CHEWING_STANDARD},
-    {1, CHEWING_HSU},
-    {2, CHEWING_IBM},
-    {3, CHEWING_GINYIEH},
-    {4, CHEWING_ETEN},
-    {5, CHEWING_ETEN26},
-    {6, CHEWING_STANDARD_DVORAK},
-    {7, CHEWING_HSU_DVORAK},
-    {8, CHEWING_DACHEN_CP26},
+    {0, ZHUYIN_STANDARD},
+    {1, ZHUYIN_HSU},
+    {2, ZHUYIN_IBM},
+    {3, ZHUYIN_GINYIEH},
+    {4, ZHUYIN_ETEN},
+    {5, ZHUYIN_ETEN26},
+    {6, ZHUYIN_STANDARD_DVORAK},
+    {7, ZHUYIN_HSU_DVORAK},
+    {8, ZHUYIN_DACHEN_CP26},
+};
+
+static const struct {
+    gint layout;
+    FullPinyinScheme scheme;
+} pinyin_schemes [] = {
     {9, FULL_PINYIN_HANYU},
     {10, FULL_PINYIN_LUOMA},
-    {11, FULL_PINYIN_SECONDARY_BOPOMOFO},
+    {11, FULL_PINYIN_SECONDARY_ZHUYIN},
 };
 
 static const struct {
@@ -190,11 +198,22 @@ ZhuyinConfig::readDefaultValues (void)
     m_candidates_after_cursor = read (CONFIG_CANDIDATES_AFTER_CURSOR, true);
 
     gint layout = read (CONFIG_KEYBOARD_LAYOUT, 0);
-    m_keyboard_layout = CHEWING_DEFAULT;
+
+    m_is_zhuyin = TRUE;
+    m_zhuyin_scheme = ZHUYIN_DEFAULT;
+    m_pinyin_scheme = FULL_PINYIN_DEFAULT;
+
+    for (guint i = 0; i < G_N_ELEMENTS (pinyin_schemes); ++i) {
+        if (pinyin_schemes[i].layout == layout) {
+            m_is_zhuyin = FALSE;
+            m_pinyin_scheme = pinyin_schemes[i].scheme;
+        }
+    }
 
     for (guint i = 0; i < G_N_ELEMENTS (zhuyin_schemes); ++i) {
         if (zhuyin_schemes[i].layout == layout) {
-            m_keyboard_layout = zhuyin_schemes[i].scheme;
+            m_is_zhuyin = TRUE;
+            m_zhuyin_scheme = zhuyin_schemes[i].scheme;
         }
     }
 
@@ -247,12 +266,23 @@ ZhuyinConfig::valueChanged (const std::string &section,
     else if (CONFIG_CANDIDATES_AFTER_CURSOR == name)
         m_candidates_after_cursor = normalizeGVariant (value, true);
     else if (CONFIG_KEYBOARD_LAYOUT == name) {
-        gint layout = normalizeGVariant (value, 0);
-        m_keyboard_layout = CHEWING_DEFAULT;
+        gint layout = read (CONFIG_KEYBOARD_LAYOUT, 0);
+
+        m_is_zhuyin = TRUE;
+        m_zhuyin_scheme = ZHUYIN_DEFAULT;
+        m_pinyin_scheme = FULL_PINYIN_DEFAULT;
+
+        for (guint i = 0; i < G_N_ELEMENTS (pinyin_schemes); ++i) {
+            if (pinyin_schemes[i].layout == layout) {
+                m_is_zhuyin = FALSE;
+                m_pinyin_scheme = pinyin_schemes[i].scheme;
+            }
+        }
 
         for (guint i = 0; i < G_N_ELEMENTS (zhuyin_schemes); ++i) {
             if (zhuyin_schemes[i].layout == layout) {
-                m_keyboard_layout = zhuyin_schemes[i].scheme;
+                m_is_zhuyin = TRUE;
+                m_zhuyin_scheme = zhuyin_schemes[i].scheme;
             }
         }
     } else if (CONFIG_CANDIDATE_KEYS == name) {

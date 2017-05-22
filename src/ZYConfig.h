@@ -44,7 +44,9 @@ public:
     zhuyin_option_t option (void) const         { return m_option & m_option_mask; }
     guint orientation (void) const              { return m_orientation; }
     guint pageSize (void) const                 { return m_page_size; }
-    ZhuyinScheme keyboardLayout (void) const    { return m_keyboard_layout; }
+    gboolean isZhuyin(void) const               { return m_is_zhuyin; }
+    ZhuyinScheme zhuyinScheme (void) const      { return m_zhuyin_scheme; }
+    FullPinyinScheme pinyinScheme (void) const  { return m_pinyin_scheme; }
     gboolean initChinese (void) const           { return m_init_chinese; }
     gboolean initFullWidth (void) const         { return m_init_full_width; }
     gboolean initTradChinese (void) const       { return m_init_trad_chinese; }
@@ -81,7 +83,9 @@ protected:
     gint m_orientation;
     guint m_page_size;
 
-    ZhuyinScheme m_keyboard_layout;
+    gboolean m_is_zhuyin;
+    ZhuyinScheme m_zhuyin_scheme;
+    FullPinyinScheme m_pinyin_scheme;
 
     gboolean m_init_chinese;
     gboolean m_init_full_width;

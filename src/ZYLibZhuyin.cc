@@ -78,17 +78,12 @@ LibZhuyinBackEnd::setZhuyinOptions (Config *config)
     if (NULL == m_zhuyin_context)
         return FALSE;
 
-    ZhuyinScheme scheme = config->keyboardLayout ();
-    switch (scheme) {
-    case CHEWING_STANDARD ... CHEWING_DACHEN_CP26:
-        zhuyin_set_chewing_scheme (m_zhuyin_context, scheme);
-        break;
-    case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
-        zhuyin_set_full_pinyin_scheme (m_zhuyin_context, scheme);
-        break;
-    default:
-        assert (FALSE);
-    }
+    if (config->isZhuyin ())
+        zhuyin_set_chewing_scheme (m_zhuyin_context,
+                                   config->zhuyinScheme ());
+    else
+        zhuyin_set_full_pinyin_scheme (m_zhuyin_context,
+                                       config->pinyinScheme ());
 
     zhuyin_option_t options = config->option ();
     zhuyin_set_options (m_zhuyin_context, options);

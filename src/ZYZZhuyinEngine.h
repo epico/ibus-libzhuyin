@@ -63,7 +63,7 @@ private:
         MODE_LAST,
     } m_input_mode;
 
-    ZhuyinScheme m_zhuyin_scheme;
+    gboolean m_is_zhuyin;
 
     EditorPtr m_editors[MODE_LAST];
     EditorPtr m_fallback_editor;

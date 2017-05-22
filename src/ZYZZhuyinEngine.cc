@@ -43,20 +43,14 @@ ZhuyinEngine::ZhuyinEngine (IBusEngine *engine)
 {
     gint i;
 
-    m_zhuyin_scheme = ZhuyinConfig::instance ().keyboardLayout ();
+    Config *config = &ZhuyinConfig::instance ();
 
-    switch (m_zhuyin_scheme) {
-    case CHEWING_STANDARD ... CHEWING_DACHEN_CP26:
+    if (config->isZhuyin ())
         m_editors[MODE_INIT].reset
             (new ZhuyinEditor (m_props, ZhuyinConfig::instance ()));
-        break;
-    case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
+    else
         m_editors[MODE_INIT].reset
             (new PinyinEditor (m_props, ZhuyinConfig::instance ()));
-        break;
-    default:
-        assert (FALSE);
-    }
 
     m_editors[MODE_RAW].reset
         (new RawEditor (m_props, ZhuyinConfig::instance ()));
@@ -158,24 +152,21 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 void
 ZhuyinEngine::focusIn (void)
 {
-    /* TODO: check memory leak here.*/
-    const ZhuyinScheme scheme = ZhuyinConfig::instance ().keyboardLayout ();
-    if (scheme != m_zhuyin_scheme) {
-        switch (scheme) {
-        case CHEWING_STANDARD ... CHEWING_DACHEN_CP26:
+    Config *config = &ZhuyinConfig::instance ();
+
+    gboolean is_zhuyin = config->isZhuyin ();
+    if (is_zhuyin != m_is_zhuyin) {
+        if (config->isZhuyin ()) {
             m_editors[MODE_INIT].reset
                 (new ZhuyinEditor (m_props, ZhuyinConfig::instance ()));
             connectEditorSignals (m_editors[MODE_INIT]);
-            break;
-        case FULL_PINYIN_HANYU ... FULL_PINYIN_SECONDARY_BOPOMOFO:
+        } else {
             m_editors[MODE_INIT].reset
                 (new PinyinEditor (m_props, ZhuyinConfig::instance ()));
             connectEditorSignals (m_editors[MODE_INIT]);
-            break;
-        default:
-            assert (FALSE);
         }
-        m_zhuyin_scheme = scheme;
+
+        m_is_zhuyin = is_zhuyin;
     }
 
     registerProperties (m_props.properties ());
