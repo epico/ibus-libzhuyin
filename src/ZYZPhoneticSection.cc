@@ -44,9 +44,8 @@ PhoneticSection::initCandidates (zhuyin_instance_t * instance,
     m_instance = instance;
     m_cursor = cursor;
 
-    guint16 offset = 0;
-    zhuyin_get_zhuyin_key_rest_offset
-        (instance, cursor, &offset);
+    size_t offset = 0;
+    zhuyin_get_zhuyin_offset (instance, cursor, &offset);
 
     if (m_editor.m_config.candidatesAfterCursor ())
         zhuyin_guess_candidates_after_cursor (m_instance, offset);
@@ -102,9 +101,6 @@ PhoneticSection::fillLookupTableByPage ()
 int
 PhoneticSection::selectCandidate (guint index)
 {
-    guint16 prev_pos = m_cursor, cur_pos = 0;
-    ChewingKeyRest * key_rest = NULL;
-
     guint len = 0;
     zhuyin_get_n_candidate (m_instance, &len);
 
@@ -114,25 +110,13 @@ PhoneticSection::selectCandidate (guint index)
     lookup_candidate_t * candidate = NULL;
     zhuyin_get_candidate (m_instance, index, &candidate);
 
-    guint16 offset = 0;
-    zhuyin_get_zhuyin_key_rest_offset
-        (m_instance, m_cursor, &offset);
+    size_t offset = 0;
+    zhuyin_get_zhuyin_offset (m_instance, m_cursor, &offset);
 
     offset = zhuyin_choose_candidate
         (m_instance, offset, candidate);
 
-    zhuyin_get_n_zhuyin (m_instance, &len);
-
-    if (offset < len) {
-        zhuyin_get_zhuyin_key_rest (m_instance, offset, &key_rest);
-        zhuyin_get_zhuyin_key_rest_positions
-            (m_instance, key_rest, &cur_pos, NULL);
-    } else {
-        assert (offset == len);
-        cur_pos = zhuyin_get_parsed_input_length (m_instance);
-    }
-
-    return cur_pos - prev_pos;
+    return offset - m_cursor;
 }
 
 };

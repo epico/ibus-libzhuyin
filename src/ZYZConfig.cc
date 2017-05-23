@@ -266,7 +266,7 @@ ZhuyinConfig::valueChanged (const std::string &section,
     else if (CONFIG_CANDIDATES_AFTER_CURSOR == name)
         m_candidates_after_cursor = normalizeGVariant (value, true);
     else if (CONFIG_KEYBOARD_LAYOUT == name) {
-        gint layout = read (CONFIG_KEYBOARD_LAYOUT, 0);
+        gint layout = normalizeGVariant (value, 0);
 
         m_is_zhuyin = TRUE;
         m_zhuyin_scheme = ZHUYIN_DEFAULT;

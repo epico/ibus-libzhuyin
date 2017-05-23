@@ -701,20 +701,15 @@ PhoneticEditor::getCursorLeft (void)
 
         /* only when in parsed phonetic section, need adjustments.  */
         if (cursor < parsed_len) {
-            guint16 offset = 0;
-            zhuyin_get_zhuyin_key_rest_offset (instance, cursor, &offset);
+            size_t offset = 0;
+            zhuyin_get_zhuyin_offset (m_instance, cursor, &offset);
 
-            /* move to the begin of current syllable. */
-            ChewingKeyRest * key_rest = NULL;
-            zhuyin_get_zhuyin_key_rest (instance, offset, &key_rest);
-
-            guint16 begin = 0;
-            zhuyin_get_zhuyin_key_rest_positions
-                (instance, key_rest, &begin, NULL);
+            size_t left = 0;
+            zhuyin_get_left_zhuyin_offset(m_instance, offset, &left);
 
             /* align to the begin of chewing key. */
             /* restore cursor variable. */
-            return m_cursor - (cursor + 1 - begin);
+            return m_cursor - cursor + left;
         }
     }
 
@@ -750,29 +745,13 @@ PhoneticEditor::getCursorRight (void)
 
         /* when in parsed phonetic section, need adjustments.  */
         if (cursor < parsed_len) {
-            guint16 offset = 0;
-            zhuyin_get_zhuyin_key_rest_offset (instance, cursor, &offset);
-            offset ++;
+            size_t offset = 0;
+            zhuyin_get_zhuyin_offset (m_instance, cursor, &offset);
 
-            guint len = 0;
-            zhuyin_get_n_zhuyin (instance, &len);
+            size_t right = 0;
+            zhuyin_get_right_zhuyin_offset(m_instance, offset, &right);
 
-            if (offset < len) {
-                /* move to the begin of next syllable. */
-                ChewingKeyRest * key_rest = NULL;
-                zhuyin_get_zhuyin_key_rest (instance, offset, &key_rest);
-
-                guint16 begin = 0;
-                zhuyin_get_zhuyin_key_rest_positions
-                (instance, key_rest, &begin, NULL);
-
-                /* align to the begin of chewing key. */
-                return m_cursor + (begin - cursor);
-            } else {
-                assert (offset == len);
-                /* align to the end of parsed phonetic section. */
-                return m_cursor + (parsed_len - cursor);
-            }
+            return m_cursor - cursor + right;
         }
     }
 
@@ -912,17 +891,17 @@ PhoneticEditor::getZhuyinCursor (void)
 
             assert (parsed_len <= section_len);
 
+            gchar * sentence = NULL;
+            zhuyin_get_sentence (instance, &sentence);
             if (cursor >= parsed_len) {
                 cursor -= parsed_len;
-                guint len = 0;
-                zhuyin_get_n_zhuyin (instance, &len);
-                zhuyin_cursor += len;
+                zhuyin_cursor += g_utf8_strlen (sentence, -1);
             } else {
-                guint16 inner_cursor = 0;
-                zhuyin_get_zhuyin_key_rest_offset
-                    (instance, cursor, &inner_cursor);
+                size_t length = 0;
+                zhuyin_get_character_offset
+                    (instance, sentence, cursor, &length);
+                zhuyin_cursor += length;
 
-                zhuyin_cursor += inner_cursor;
                 cursor = 0;
             }
 
@@ -937,6 +916,8 @@ PhoneticEditor::getZhuyinCursor (void)
                 zhuyin_cursor += cursor;
                 cursor = 0;
             }
+
+            g_free (sentence);
 
             ++ index;
         }
