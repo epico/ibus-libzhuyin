@@ -90,18 +90,6 @@ PinyinEditor::updateZhuyin (void)
             zhuyin_instance_t * instance = m_instances[index];
             size_t len = zhuyin_parse_more_full_pinyins
                 (instance, section.c_str ());
-            bool valid = zhuyin_valid_zhuyin_keys (instance);
-            if (!valid) {
-                size_t valid_len = zhuyin_get_parsed_input_length (instance);
-
-                const gchar * str = NULL;
-                zhuyin_get_raw_user_input (instance, &str);
-                section = str;
-
-                /* hack here: usually only one zhuyin key will have problem,
-                   so it is safe to just move the cursor. */
-                m_cursor -= len - valid_len;
-            }
             zhuyin_guess_sentence (instance);
 
             new_text += section;
