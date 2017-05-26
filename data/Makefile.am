@@ -23,6 +23,7 @@ APPDATA_XML = libzhuyin.appdata.xml
 
 SUBDIRS = \
         icons \
+        model \
         $(NULL)
 
 appdatadir = @datadir@/appdata

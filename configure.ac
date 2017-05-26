@@ -62,10 +62,6 @@ PKG_CHECK_MODULES(LIBZHUYIN, [
     libzhuyin >= 1.0.91
 ], [enable_libzhuyin=yes])
 
-LIBZHUYIN_DATADIR=`$PKG_CONFIG --variable=pkgdatadir libzhuyin`
-
-AC_SUBST(LIBZHUYIN_DATADIR)
-
 # check opencc
 PKG_CHECK_MODULES(OPENCC, [opencc >= 1.0.0], [enable_opencc=yes])
 
@@ -123,6 +119,7 @@ setup/ibus-setup-libzhuyin
 ibus-libzhuyin.spec
 data/Makefile
 data/icons/Makefile
+data/model/Makefile
 ])
 
 AC_OUTPUT

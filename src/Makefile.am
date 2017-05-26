@@ -101,7 +101,7 @@ ibus_engine_libzhuyin_CXXFLAGS = \
         -DGETTEXT_PACKAGE=\"@GETTEXT_PACKAGE@\" \
         -DPKGDATADIR=\"$(pkgdatadir)\" \
         -DLIBEXECDIR=\"$(libexecdir)\" \
-        -DLIBZHUYIN_DATADIR=\"@LIBZHUYIN_DATADIR@\/data\" \
+        -DMODEL_DATADIR=\"$(libdir)\/ibus-libzhuyin\/data\" \
         $(NULL)
 
 if HAVE_BOOST

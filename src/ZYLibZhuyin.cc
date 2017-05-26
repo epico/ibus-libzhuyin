@@ -63,7 +63,7 @@ LibZhuyinBackEnd::initZhuyinContext (Config *config)
     if (retval) {
         g_free (userdir); userdir = NULL;
     }
-    context = zhuyin_init (LIBZHUYIN_DATADIR, userdir);
+    context = zhuyin_init (MODEL_DATADIR, userdir);
     g_free (userdir);
 
     /* load user phrase library. */
