@@ -14,12 +14,11 @@ BuildRequires:  pkgconfig
 BuildRequires:  sqlite-devel
 BuildRequires:  opencc-devel
 BuildRequires:  ibus-devel >= 1.3
-BuildRequires:  libzhuyin-devel >= 0.9.93
+BuildRequires:  libpinyin-devel >= 2.0.91
 
 # Requires(post): sqlite
 
 Requires:   ibus >= 1.3.0
-Requires:   libzhuyin-data >= 0.9.93
 
 %description
 It includes a Chinese Zhuyin (Bopomofo) input method based on libzhuyin for IBus.
@@ -55,6 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/@PACKAGE@
 %dir %{_datadir}/@PACKAGE@/db
 %{_datadir}/ibus/component/*
+%{_libdir}/ibus-libzhuyin/
 
 %changelog
 * Fri Jun 01 2012  Peng Wu <pwu@redhat.com> - @VERSION@-1
