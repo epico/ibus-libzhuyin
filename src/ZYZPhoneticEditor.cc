@@ -895,7 +895,8 @@ PhoneticEditor::getZhuyinCursor (void)
             zhuyin_get_sentence (instance, &sentence);
             if (cursor >= parsed_len) {
                 cursor -= parsed_len;
-                zhuyin_cursor += g_utf8_strlen (sentence, -1);
+                if (sentence)
+                    zhuyin_cursor += g_utf8_strlen (sentence, -1);
             } else {
                 size_t length = 0;
                 zhuyin_get_character_offset
