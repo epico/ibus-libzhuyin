@@ -70,8 +70,6 @@ ZhuyinEditor::reset (void)
 void
 ZhuyinEditor::updateZhuyin (void)
 {
-    static const char * tones[] = {" ", "ˊ", "ˇ", "ˋ", "˙", NULL};
-
     const String & enhanced_text = m_text;
     const size_t text_len = get_enhanced_text_length (enhanced_text);
     String new_text;
@@ -97,41 +95,6 @@ ZhuyinEditor::updateZhuyin (void)
             new_text += section;
             append_offset += section.length ();
 
-#if 0
-            /* check whether the last character is tone,
-               if not part of parsed chewing input,
-               turn the tone into symbol. */
-            if (m_cursor == text_len && end_pos == m_text.size ()) {
-
-                /* check tone symbol. */
-                const char tone = section[section.size () - 1];
-                gchar ** symbols = NULL;
-                zhuyin_in_chewing_keyboard (instance, tone, &symbols);
-
-                gboolean is_tone = FALSE;
-                /* TODO: use g_strv_contains in future. */
-                if (1 == g_strv_length (symbols)) {
-                    for (const char ** strs = tones; *strs != NULL; ++strs) {
-                        if (g_str_equal (*strs, symbols[0])) {
-                            is_tone = TRUE;
-                            break;
-                        }
-                    }
-                }
-
-                if (is_tone && section.size () > len) {
-                    erase_input_sequence (new_text, append_offset - 1, 1);
-                    insert_symbol (new_text, append_offset - 1,
-                                   BUILTIN_SYMBOL_TYPE,
-                                   "", symbols[0]);
-                    /* as we changed the last space character,
-                       reached the end of user input, exit the loop. */
-                    g_strfreev (symbols);
-                    break;
-                }
-                g_strfreev (symbols);
-            }
-#endif
             ++index;
         }
 
