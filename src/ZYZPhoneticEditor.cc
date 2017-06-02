@@ -198,6 +198,7 @@ PhoneticEditor::processCommit (guint keyval, guint keycode,
         return FALSE;
 
     commit ();
+    update ();
     return TRUE;
 }
 
