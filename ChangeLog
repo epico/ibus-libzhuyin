@@ -1,3 +1,6 @@
+version 1.7.91
+* merge libzhuyin data
+
 version 1.7.10
 * fix issue 33 - fixes full/half width symbol input problem
 
