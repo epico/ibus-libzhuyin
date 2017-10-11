@@ -5,7 +5,7 @@ New Zhuyin engine based on libzhuyin for IBus
 ## Description
 It includes a Chinese Zhuyin (Bopomofo) input method based on libzhuyin for IBus.
 
-## Developmnet
+## Development
 
 ```
 # dnf install ibus ibus-devel libpinyin libpinyin-devel opencc opencc-devel
