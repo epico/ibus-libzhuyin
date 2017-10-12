@@ -192,7 +192,7 @@ PhoneticEditor::processCommit (guint keyval, guint keycode,
         return FALSE;
 
     if (cmshm_filter (modifiers) != 0)
-        return TRUE;
+        return FALSE;
 
     if (!m_text)
         return FALSE;

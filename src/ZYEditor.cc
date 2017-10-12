@@ -44,7 +44,7 @@ Editor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
                   IBUS_META_MASK);
     /* ignore key events with some masks */
     if (modifiers != 0)
-        return TRUE;
+        return FALSE;
 
     if (keyval >= IBUS_exclam && keyval <= IBUS_asciitilde) {
         /* char key */
