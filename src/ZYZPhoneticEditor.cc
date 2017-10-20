@@ -984,13 +984,21 @@ PhoneticEditor::insertSymbol (guint keyval)
 gboolean
 PhoneticEditor::insertNumbers (guint keyval)
 {
-    /* for input pad numbers. */
-    static const guint keyvals[] = {IBUS_KP_Delete, IBUS_KP_Insert,
-                                    IBUS_KP_End, IBUS_KP_Down,
-                                    IBUS_KP_Next, IBUS_KP_Left,
-                                    IBUS_KP_Begin, IBUS_KP_Right,
-                                    IBUS_KP_Home, IBUS_KP_Up,
-                                    IBUS_KP_Prior};
+    /* for input pad numbers with num lock on. */
+    static const guint num_lock_on[] = {IBUS_KP_Decimal, IBUS_KP_0,
+                                        IBUS_KP_1, IBUS_KP_2,
+                                        IBUS_KP_3, IBUS_KP_4,
+                                        IBUS_KP_5, IBUS_KP_6,
+                                        IBUS_KP_7, IBUS_KP_8,
+                                        IBUS_KP_9};
+
+    /* for input pad numbers with num lock off. */
+    static const guint num_lock_off[] = {IBUS_KP_Delete, IBUS_KP_Insert,
+                                         IBUS_KP_End, IBUS_KP_Down,
+                                         IBUS_KP_Next, IBUS_KP_Left,
+                                         IBUS_KP_Begin, IBUS_KP_Right,
+                                         IBUS_KP_Home, IBUS_KP_Up,
+                                         IBUS_KP_Prior};
 
     static const char numbers[] = {'.', '0',
                                    '1', '2',
@@ -999,13 +1007,12 @@ PhoneticEditor::insertNumbers (guint keyval)
                                    '7', '8',
                                    '9'};
 
-    assert (G_N_ELEMENTS (keyvals) == G_N_ELEMENTS (numbers));
+    assert (G_N_ELEMENTS (num_lock_on) == G_N_ELEMENTS (numbers));
+    assert (G_N_ELEMENTS (num_lock_off) == G_N_ELEMENTS (numbers));
 
-    if (!m_config.alwaysInputNumbers ())
-        return FALSE;
-
-    for (size_t i = 0; i < G_N_ELEMENTS (keyvals); ++i) {
-        if (keyvals[i] == keyval) {
+    for (size_t i = 0; i < G_N_ELEMENTS (numbers); ++i) {
+        if (num_lock_on[i] == keyval ||
+            (m_config.alwaysInputNumbers () && num_lock_off[i] == keyval)) {
             String choice;
             choice += numbers[i];
 
