@@ -1,3 +1,7 @@
+version 1.8.1
+* fixes application shortcut issue
+* fixes numpad issue
+
 version 1.8.0
 * bump version
 
