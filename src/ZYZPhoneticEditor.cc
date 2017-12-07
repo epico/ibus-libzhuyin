@@ -710,7 +710,7 @@ PhoneticEditor::getCursorLeft (void)
 
             /* align to the begin of chewing key. */
             /* restore cursor variable. */
-            return m_cursor - cursor + left;
+            return m_cursor - (cursor + 1) + left;
         }
     }
 
