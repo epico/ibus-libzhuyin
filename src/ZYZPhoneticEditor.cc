@@ -703,10 +703,10 @@ PhoneticEditor::getCursorLeft (void)
         /* only when in parsed phonetic section, need adjustments.  */
         if (cursor < parsed_len) {
             size_t offset = 0;
-            zhuyin_get_zhuyin_offset (m_instance, cursor, &offset);
+            zhuyin_get_zhuyin_offset (instance, cursor, &offset);
 
             size_t left = 0;
-            zhuyin_get_left_zhuyin_offset(m_instance, offset, &left);
+            zhuyin_get_left_zhuyin_offset(instance, offset, &left);
 
             /* align to the begin of chewing key. */
             /* restore cursor variable. */
@@ -747,10 +747,10 @@ PhoneticEditor::getCursorRight (void)
         /* when in parsed phonetic section, need adjustments.  */
         if (cursor < parsed_len) {
             size_t offset = 0;
-            zhuyin_get_zhuyin_offset (m_instance, cursor, &offset);
+            zhuyin_get_zhuyin_offset (instance, cursor, &offset);
 
             size_t right = 0;
-            zhuyin_get_right_zhuyin_offset(m_instance, offset, &right);
+            zhuyin_get_right_zhuyin_offset(instance, offset, &right);
 
             return m_cursor - cursor + right;
         }
