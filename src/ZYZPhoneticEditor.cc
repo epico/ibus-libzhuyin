@@ -705,6 +705,10 @@ PhoneticEditor::getCursorLeft (void)
             size_t offset = 0;
             zhuyin_get_zhuyin_offset (instance, cursor, &offset);
 
+	    /* cursor moved already */
+	    if (cursor != offset)
+	      return m_cursor - (cursor + 1) + offset;
+
             size_t left = 0;
             zhuyin_get_left_zhuyin_offset(instance, offset, &left);
 
