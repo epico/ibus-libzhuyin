@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-05 13:57+0800\n"
+"POT-Creation-Date: 2018-01-03 15:33+0800\n"
 "PO-Revision-Date: 2015-05-13 16:00+0800\n"
 "Last-Translator: Peng Huang <shawn.p.huang@gmail.com>\n"
 "Language-Team: Peng Huang <shawn.p.huang@gmail.com>\n"
@@ -92,11 +92,11 @@ msgstr "新注音 （調試）"
 msgid "New Zhuyin input method (debug)"
 msgstr "新注音輸入法（調試）"
 
-#: ../setup/main.py:249
+#: ../setup/main.py:262
 msgid "Please choose a file"
 msgstr "請選擇文件"
 
-#: ../setup/main.py:275
+#: ../setup/main.py:288
 #, python-format
 msgid "<big><b>New Zhuyin %s</b></big>"
 msgstr "<big><b>IBus 新注音 %s</b></big>"
