@@ -27,6 +27,7 @@
 			<rank>99</rank>
 			<symbol>&#x3105;</symbol>
 			<setup>${libexecdir}/ibus-setup-libzhuyin zhuyin</setup>
+			<textdomain>ibus-libzhuyin</textdomain>
 		</engine>
 	</engines>
 </component>
