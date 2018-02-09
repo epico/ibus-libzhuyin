@@ -20,14 +20,6 @@
 
 SUBDIRS = src setup data po
 
-dist_doc_DATA = \
-	README \
-	COPYING \
-	AUTHORS \
-	ChangeLog \
-	INSTALL \
-	NEWS
-
 ACLOCAL_AMFLAGS = -I m4
 
 # Remove doc directory on uninstall
