@@ -21,6 +21,10 @@
 
 APPDATA_XML = libzhuyin.appdata.xml
 
+gsettings_SCHEMAS = com.github.libzhuyin.ibus-libzhuyin.gschema.xml
+
+@GSETTINGS_RULES@
+
 SUBDIRS = \
         icons \
         model \
@@ -58,6 +62,7 @@ EXTRA_DIST = \
         $(desktop_in_in_files) \
         $(symbols_DATA) \
         $(APPDATA_XML) \
+        $(gsettings_SCHEMAS) \
         $(NULL)
 
 DISTCLEANFILES = \

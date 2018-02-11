@@ -108,6 +108,11 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 
 AM_GLIB_GNU_GETTEXT([external])
 
+# Checks for GSettings.
+PKG_CHECK_MODULES(GIO2, [gio-2.0 >= 2.26.0])
+
+GLIB_GSETTINGS
+
 # OUTPUT files
 AC_CONFIG_FILES([ po/Makefile.in
 Makefile
