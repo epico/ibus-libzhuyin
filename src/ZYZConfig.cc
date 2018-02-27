@@ -24,27 +24,29 @@
 #include "ZYLibZhuyin.h"
 #include <string.h>
 
+#define USE_G_SETTINGS_LIST_CHILDREN 1
+
 namespace ZY {
 
-const gchar * const CONFIG_FUZZY_ZHUYIN              = "fuzzy_zhuyin";
-const gchar * const CONFIG_ORIENTATION               = "lookup_table_orientation";
-const gchar * const CONFIG_PAGE_SIZE                 = "candidate_num";
+const gchar * const CONFIG_FUZZY_ZHUYIN              = "fuzzy-zhuyin";
+const gchar * const CONFIG_ORIENTATION               = "lookup-table-orientation";
+const gchar * const CONFIG_PAGE_SIZE                 = "candidate-num";
 
-const gchar * const CONFIG_INIT_CHINESE              = "chinese_mode";
-const gchar * const CONFIG_INIT_FULL_WIDTH           = "full_half_width";
-const gchar * const CONFIG_INIT_TRAD_CHINESE         = "traditional_chinese";
-const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "always_input_num";
-const gchar * const CONFIG_SPACE_SHOW_CANDIDATES     = "space_show_candidates";
-const gchar * const CONFIG_CANDIDATES_AFTER_CURSOR   = "candidates_after_cursor";
+const gchar * const CONFIG_INIT_CHINESE              = "chinese-mode";
+const gchar * const CONFIG_INIT_FULL_WIDTH           = "full-half-width";
+const gchar * const CONFIG_INIT_TRAD_CHINESE         = "traditional-chinese";
+const gchar * const CONFIG_ALWAYS_INPUT_NUMBERS      = "always-input-num";
+const gchar * const CONFIG_SPACE_SHOW_CANDIDATES     = "space-show-candidates";
+const gchar * const CONFIG_CANDIDATES_AFTER_CURSOR   = "candidates-after-cursor";
 
-const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboard_layout";
-const gchar * const CONFIG_CANDIDATE_KEYS            = "candidate_keys";
+const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboard-layout";
+const gchar * const CONFIG_CANDIDATE_KEYS            = "candidate-keys";
 
-const gchar * const CONFIG_EASY_SYMBOL               = "easy_symbol";
-const gchar * const CONFIG_USER_SYMBOL               = "user_symbol";
+const gchar * const CONFIG_EASY_SYMBOL               = "easy-symbol";
+const gchar * const CONFIG_USER_SYMBOL               = "user-symbol";
 
-const gchar * const CONFIG_IMPORT_DICTIONARY         = "import_dictionary";
-const gchar * const CONFIG_CLEAR_USER_DATA           = "clear_user_data";
+const gchar * const CONFIG_IMPORT_DICTIONARY         = "import-dictionary";
+const gchar * const CONFIG_CLEAR_USER_DATA           = "clear-user-data";
 
 const zhuyin_option_t ZHUYIN_DEFAULT_OPTION =
     USE_TONE           |
@@ -54,12 +56,13 @@ const zhuyin_option_t ZHUYIN_DEFAULT_OPTION =
 
 std::unique_ptr<ZhuyinConfig> ZhuyinConfig::m_instance;
 
-ZhuyinConfig::ZhuyinConfig (Bus & bus)
-    : Config (bus, "zhuyin")
+ZhuyinConfig::ZhuyinConfig ()
+    : Config ("com.github.libzhuyin.ibus-libzhuyin")
 {
+    m_settings = g_settings_new (m_schema_id.c_str ());
     initDefaultValues ();
-    g_signal_connect (get<IBusConfig> (),
-                      "value-changed",
+    g_signal_connect (m_settings,
+                      "changed",
                       G_CALLBACK (valueChangedCallback),
                       this);
 
@@ -67,13 +70,15 @@ ZhuyinConfig::ZhuyinConfig (Bus & bus)
 
 ZhuyinConfig::~ZhuyinConfig (void)
 {
+    g_object_unref (m_settings);
+    m_settings = NULL;
 }
 
 void
-ZhuyinConfig::init (Bus & bus)
+ZhuyinConfig::init ()
 {
     if (m_instance.get () == NULL) {
-        m_instance.reset (new ZhuyinConfig (bus));
+        m_instance.reset (new ZhuyinConfig ());
         m_instance->readDefaultValues ();
     }
 }
@@ -135,16 +140,16 @@ static const struct {
     guint option;
 } fuzzy_zhuyin_options [] = {
     /* fuzzy pinyin */
-    { "fuzzy_zhuyin_c_ch",       ZHUYIN_AMB_C_CH      },
-    { "fuzzy_zhuyin_z_zh",       ZHUYIN_AMB_Z_ZH      },
-    { "fuzzy_zhuyin_s_sh",       ZHUYIN_AMB_S_SH      },
-    { "fuzzy_zhuyin_l_n",        ZHUYIN_AMB_L_N       },
-    { "fuzzy_zhuyin_f_h",        ZHUYIN_AMB_F_H       },
-    { "fuzzy_zhuyin_l_r",        ZHUYIN_AMB_L_R       },
-    { "fuzzy_zhuyin_g_k",        ZHUYIN_AMB_G_K       },
-    { "fuzzy_zhuyin_an_ang",     ZHUYIN_AMB_AN_ANG    },
-    { "fuzzy_zhuyin_en_eng",     ZHUYIN_AMB_EN_ENG    },
-    { "fuzzy_zhuyin_in_ing",     ZHUYIN_AMB_IN_ING    },
+    { "fuzzy-zhuyin-c-ch",       ZHUYIN_AMB_C_CH      },
+    { "fuzzy-zhuyin-z-zh",       ZHUYIN_AMB_Z_ZH      },
+    { "fuzzy-zhuyin-s-sh",       ZHUYIN_AMB_S_SH      },
+    { "fuzzy-zhuyin-l-n",        ZHUYIN_AMB_L_N       },
+    { "fuzzy-zhuyin-f-h",        ZHUYIN_AMB_F_H       },
+    { "fuzzy-zhuyin-l-r",        ZHUYIN_AMB_L_R       },
+    { "fuzzy-zhuyin-g-k",        ZHUYIN_AMB_G_K       },
+    { "fuzzy-zhuyin-an-ang",     ZHUYIN_AMB_AN_ANG    },
+    { "fuzzy-zhuyin-en-eng",     ZHUYIN_AMB_EN_ENG    },
+    { "fuzzy-zhuyin-in-ing",     ZHUYIN_AMB_IN_ING    },
 };
 
 void
@@ -153,15 +158,12 @@ ZhuyinConfig::readDefaultValues (void)
 #if defined(HAVE_IBUS_CONFIG_GET_VALUES)
     /* read all values together */
     initDefaultValues ();
-    GVariant *values =
-            ibus_config_get_values (get<IBusConfig> (), m_section.c_str ());
-    g_return_if_fail (values != NULL);
+    gchar **keys = g_settings_list_children (m_settings);
+    g_return_if_fail (keys != NULL);
 
-    GVariantIter iter;
-    gchar *name;
-    GVariant *value;
-    g_variant_iter_init (&iter, values);
-    while (g_variant_iter_next (&iter, "{sv}", &name, &value)) {
+    for (gchar **iter = keys; *iter != NULL; ++iter) {
+        gchar *name = *iter;
+
         /* skip signals here. */
         if (0 == strcmp(CONFIG_IMPORT_DICTIONARY, name))
             continue;
@@ -169,11 +171,12 @@ ZhuyinConfig::readDefaultValues (void)
         if (0 == strcmp(CONFIG_CLEAR_USER_DATA, name))
             continue;
 
-        valueChanged (m_section, name, value);
-        g_free (name);
+        GVariant *value = g_settings_get_value (m_settings, name);
+        valueChanged (m_schema_id, name, value);
         g_variant_unref (value);
     }
-    g_variant_unref (values);
+
+    g_strfreev (keys);
 #else
     /* others */
     m_orientation = read (CONFIG_ORIENTATION, IBUS_ORIENTATION_VERTICAL);
@@ -242,14 +245,14 @@ ZhuyinConfig::readDefaultValues (void)
 }
 
 gboolean
-ZhuyinConfig::valueChanged (const std::string &section,
+ZhuyinConfig::valueChanged (const std::string &schema_id,
                             const std::string &name,
                             GVariant          *value)
 {
-    if (m_section != section)
+    if (m_schema_id != schema_id)
         return FALSE;
 
-    if (Config::valueChanged (section, name, value))
+    if (Config::valueChanged (schema_id, name, value))
         return TRUE;
 
     /* init states */
@@ -341,18 +344,23 @@ ZhuyinConfig::valueChanged (const std::string &section,
 }
 
 void
-ZhuyinConfig::valueChangedCallback (IBusConfig   *config,
-                                    const gchar  *section,
+ZhuyinConfig::valueChangedCallback (GSettings    *settings,
                                     const gchar  *name,
-                                    GVariant     *value,
                                     ZhuyinConfig *self)
 {
-    if (self->m_section != section)
+    gchar * property = NULL;
+    g_object_get (settings, "schema-id", &property, NULL);
+    std::string schema_id (property);
+    g_free (property);
+
+    if (self->m_schema_id != schema_id)
         return;
 
-    self->valueChanged (section, name, value);
+    GVariant * value = g_settings_get_value (settings, name);
+    self->valueChanged (self->m_schema_id, name, value);
+    g_variant_unref (value);
 
-    if (self->m_section == "engine/zhuyin")
+    if (self->m_schema_id == "com.github.libzhuyin.ibus-libzhuyin")
         LibZhuyinBackEnd::instance ().setZhuyinOptions (self);
 }
 

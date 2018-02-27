@@ -90,7 +90,7 @@ start_component (void)
 
     LibZhuyinBackEnd::init ();
 
-    ZhuyinConfig::init (bus);
+    ZhuyinConfig::init ();
 
     g_signal_connect ((IBusBus *)bus, "disconnected", G_CALLBACK (ibus_disconnected_cb), NULL);
 

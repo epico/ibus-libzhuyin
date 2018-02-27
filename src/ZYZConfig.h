@@ -32,15 +32,13 @@
 
 namespace ZY {
 
-class Bus;
-
 class ZhuyinConfig : public Config {
 public:
-    static void init (Bus & bus);
+    static void init ();
     static ZhuyinConfig & instance (void) { return *m_instance; }
 
 protected:
-    ZhuyinConfig (Bus & bus);
+    ZhuyinConfig ();
 
 public:
     virtual ~ZhuyinConfig (void);
@@ -49,14 +47,12 @@ protected:
     void initDefaultValues (void);
 
     virtual void readDefaultValues (void);
-    virtual gboolean valueChanged (const std::string &section,
+    virtual gboolean valueChanged (const std::string &schema_id,
                                    const std::string &name,
                                    GVariant          *value);
 private:
-    static void valueChangedCallback (IBusConfig     *config,
-                                      const gchar    *section,
+    static void valueChangedCallback (GSettings      *settings,
                                       const gchar    *name,
-                                      GVariant       *value,
                                       ZhuyinConfig   *self);
 
 private:
