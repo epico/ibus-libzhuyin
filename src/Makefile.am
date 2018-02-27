@@ -97,7 +97,7 @@ ibus_engine_libzhuyin_SOURCES = \
 ibus_engine_libzhuyin_CXXFLAGS = \
         @IBUS_CFLAGS@ \
         @LIBZHUYIN_CFLAGS@ \
-	@OPENCC_CFLAGS@ \
+        @OPENCC_CFLAGS@ \
         -DGETTEXT_PACKAGE=\"@GETTEXT_PACKAGE@\" \
         -DPKGDATADIR=\"$(pkgdatadir)\" \
         -DLIBEXECDIR=\"$(libexecdir)\" \
@@ -117,7 +117,7 @@ endif
 ibus_engine_libzhuyin_LDADD = \
         @IBUS_LIBS@ \
         @LIBZHUYIN_LIBS@ \
-	@OPENCC_LIBS@ \
+        @OPENCC_LIBS@ \
         $(NULL)
 
 
