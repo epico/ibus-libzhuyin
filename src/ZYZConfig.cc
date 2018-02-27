@@ -155,7 +155,7 @@ static const struct {
 void
 ZhuyinConfig::readDefaultValues (void)
 {
-#if defined(HAVE_IBUS_CONFIG_GET_VALUES)
+#if USE_G_SETTINGS_LIST_CHILDREN
     /* read all values together */
     initDefaultValues ();
     gchar **keys = g_settings_list_children (m_settings);
@@ -234,7 +234,7 @@ ZhuyinConfig::readDefaultValues (void)
     /* read values */
     for (guint i = 0; i < G_N_ELEMENTS (fuzzy_zhuyin_options); i++) {
         if (read (fuzzy_zhuyin_options[i].name,
-                  (fuzzy_zhuyin_options[i].option & PINYIN_DEFAULT_OPTION) != 0)) {
+                  (fuzzy_zhuyin_options[i].option & ZHUYIN_DEFAULT_OPTION) != 0)) {
             m_option |= fuzzy_zhuyin_options[i].option;
         }
         else {

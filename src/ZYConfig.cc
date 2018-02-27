@@ -64,7 +64,7 @@ Config::readDefaultValues (void)
 {
 }
 
-inline bool
+bool
 Config::read (const gchar * name,
               bool          defval)
 {
@@ -78,7 +78,7 @@ Config::read (const gchar * name,
     return defval;
 }
 
-inline gint
+gint
 Config::read (const gchar * name,
               gint          defval)
 {
@@ -92,9 +92,9 @@ Config::read (const gchar * name,
     return defval;
 }
 
-inline std::string
+std::string
 Config::read (const gchar * name,
-              const gchar * defval)
+              const std::string &defval)
 {
     GVariant *value = NULL;
     if ((value = g_settings_get_value (m_settings, name)) != NULL) {

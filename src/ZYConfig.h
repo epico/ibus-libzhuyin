@@ -60,7 +60,7 @@ public:
 protected:
     bool read (const gchar * name, bool defval);
     gint read (const gchar * name, gint defval);
-    std::string read (const gchar * name, const gchar * defval);
+    std::string read (const gchar * name, const std::string &defval);
     void initDefaultValues (void);
 
     virtual void readDefaultValues (void);
