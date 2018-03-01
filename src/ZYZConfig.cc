@@ -24,12 +24,11 @@
 #include "ZYLibZhuyin.h"
 #include <string.h>
 
-#define USE_G_SETTINGS_LIST_CHILDREN 1
+#define USE_G_SETTINGS_LIST_CHILDREN 0
 
 namespace ZY {
 
 const gchar * const CONFIG_FUZZY_ZHUYIN              = "fuzzy-zhuyin";
-const gchar * const CONFIG_ORIENTATION               = "lookup-table-orientation";
 const gchar * const CONFIG_PAGE_SIZE                 = "candidate-num";
 
 const gchar * const CONFIG_INIT_CHINESE              = "chinese-mode";
@@ -179,12 +178,6 @@ ZhuyinConfig::readDefaultValues (void)
     g_strfreev (keys);
 #else
     /* others */
-    m_orientation = read (CONFIG_ORIENTATION, IBUS_ORIENTATION_VERTICAL);
-    if (m_orientation != IBUS_ORIENTATION_VERTICAL &&
-        m_orientation != IBUS_ORIENTATION_HORIZONTAL) {
-        m_orientation = IBUS_ORIENTATION_VERTICAL;
-        g_warn_if_reached ();
-    }
     m_page_size = read (CONFIG_PAGE_SIZE, 10);
     if (m_page_size > 10) {
         m_page_size = 10;
@@ -291,14 +284,6 @@ ZhuyinConfig::valueChanged (const std::string &schema_id,
     } else if (CONFIG_CANDIDATE_KEYS == name) {
         m_candidate_keys = normalizeGVariant (value, std::string ("1234567890"));
     } /* lookup table page size */
-    else if (CONFIG_ORIENTATION == name) {
-        m_orientation = normalizeGVariant (value, IBUS_ORIENTATION_VERTICAL);
-        if (m_orientation != IBUS_ORIENTATION_VERTICAL &&
-            m_orientation != IBUS_ORIENTATION_HORIZONTAL) {
-            m_orientation = IBUS_ORIENTATION_VERTICAL;
-            g_warn_if_reached ();
-        }
-    }
     else if (CONFIG_PAGE_SIZE == name) {
         m_page_size = normalizeGVariant (value, 10);
         if (m_page_size > 10) {
