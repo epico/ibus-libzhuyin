@@ -24,7 +24,7 @@
 #include "ZYLibZhuyin.h"
 #include <string.h>
 
-#define USE_G_SETTINGS_LIST_CHILDREN 0
+#define USE_G_SETTINGS_LIST_KEYS 0
 
 namespace ZY {
 
@@ -154,10 +154,10 @@ static const struct {
 void
 ZhuyinConfig::readDefaultValues (void)
 {
-#if USE_G_SETTINGS_LIST_CHILDREN
+#if USE_G_SETTINGS_LIST_KEYS
     /* read all values together */
     initDefaultValues ();
-    gchar **keys = g_settings_list_children (m_settings);
+    gchar **keys = g_settings_list_keys (m_settings);
     g_return_if_fail (keys != NULL);
 
     for (gchar **iter = keys; *iter != NULL; ++iter) {
