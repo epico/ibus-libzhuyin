@@ -94,7 +94,7 @@ Config::read (const gchar * name,
 
 std::string
 Config::read (const gchar * name,
-              const std::string &defval)
+              const gchar * defval)
 {
     GVariant *value = NULL;
     if ((value = g_settings_get_value (m_settings, name)) != NULL) {

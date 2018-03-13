@@ -213,7 +213,7 @@ ZhuyinConfig::readDefaultValues (void)
         }
     }
 
-    m_candidate_keys = read (CONFIG_CANDIDATE_KEYS, std::string ("1234567890"));
+    m_candidate_keys = read (CONFIG_CANDIDATE_KEYS, "1234567890");
 
     m_easy_symbol = read (CONFIG_EASY_SYMBOL, true);
     m_user_symbol = read (CONFIG_USER_SYMBOL, true);
