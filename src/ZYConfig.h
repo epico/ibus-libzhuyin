@@ -73,7 +73,7 @@ private:
                                       Config         *self);
 
 protected:
-    GSettings * m_settings;
+    GSettings *m_settings;
     std::string m_schema_id;
 
     zhuyin_option_t m_option;
