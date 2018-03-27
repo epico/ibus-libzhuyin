@@ -634,7 +634,7 @@ PhoneticEditor::selectCandidate (guint index)
                 lookup = (gchar) ch;
 
             assert (BUILTIN_SYMBOL_TYPE == symbols->getType ());
-            /* erase_input_sequence (m_text, m_cursor, 1); */
+            /* for user symbol, only need to insert symbol. */
             insert_symbol (m_text, m_cursor, symbols->getType (),
                            lookup, choice);
 
