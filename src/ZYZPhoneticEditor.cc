@@ -612,6 +612,7 @@ PhoneticEditor::selectCandidate (guint index)
         m_cursor += offset;
         m_input_state = STATE_INPUT;
 
+        updateZhuyin ();
         update ();
         return TRUE;
     }
@@ -633,13 +634,14 @@ PhoneticEditor::selectCandidate (guint index)
                 lookup = (gchar) ch;
 
             assert (BUILTIN_SYMBOL_TYPE == symbols->getType ());
-            erase_input_sequence (m_text, m_cursor, 1);
+            /* erase_input_sequence (m_text, m_cursor, 1); */
             insert_symbol (m_text, m_cursor, symbols->getType (),
                            lookup, choice);
 
             m_cursor += offset;
             m_input_state = STATE_INPUT;
 
+            updateZhuyin ();
             update ();
             return TRUE;
         }
