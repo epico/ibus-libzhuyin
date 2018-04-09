@@ -410,6 +410,7 @@ PhoneticEditor::processEasySymbolKey (guint keyval, guint keycode,
     insert_symbol (m_text, m_cursor++, BUILTIN_SYMBOL_TYPE,
                    lookup, symbol);
 
+    updateZhuyin ();
     update ();
     return TRUE;
 }
