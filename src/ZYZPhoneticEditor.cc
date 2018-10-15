@@ -161,9 +161,12 @@ PhoneticEditor::processSpace (guint keyval, guint keycode,
             return TRUE;
         }
 
+#if 0
         if (!m_config.spaceShowCandidates ()) {
             return insert (keyval, keycode, modifiers);
         }
+#endif
+        return FALSE;
     }
 
     if (STATE_CANDIDATE_SHOWN == m_input_state ||

@@ -228,7 +228,9 @@ PinyinEditor::processSpace (guint keyval, guint keycode, guint modifiers)
         if (cmshm_filter (modifiers) != 0)
             return FALSE;
 
-        if (m_config.spaceShowCandidates ()) {
+        if (!m_config.spaceShowCandidates ()) {
+            return insert (keyval, keycode, modifiers);
+        } else {
             /* use space to show candidates. */
             prepareCandidates ();
             update ();

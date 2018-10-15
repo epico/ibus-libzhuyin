@@ -242,31 +242,38 @@ ZhuyinEditor::processSpace (guint keyval, guint keycode, guint modifiers)
         if (cmshm_filter (modifiers) != 0)
             return FALSE;
 
+        size_t index = 0;
+        size_t start_pos = 0, end_pos = 0;
+
+        /* detect whether the space key is part of zhuyin input. */
+        insert_phonetic (new_text, m_cursor, ' ');
+
+        probe_section_start (new_text, m_cursor,
+                             cursor, index, start_pos);
+
+        section_t type = probe_section_quick (new_text, start_pos);
+
+        if (PHONETIC_SECTION == type) {
+            String section;
+            get_phonetic_section (new_text, start_pos, end_pos, section);
+
+            zhuyin_parse_more_chewings (m_instance, section.c_str ());
+            size_t parsed_len = zhuyin_get_parsed_input_length (m_instance);
+
+            /* part of the zhuyin string. */
+            if (cursor < parsed_len) {
+                return insert (keyval, keycode, modifiers);
+            } else if (!m_config.spaceShowCandidates ()) {
+                insertSymbol (keyval);
+
+                updateZhuyin ();
+                update ();
+                return TRUE;
+            }
+        }
+
         /* use space to show candidates. */
         if (m_config.spaceShowCandidates ()) {
-            size_t index = 0;
-            size_t start_pos = 0, end_pos = 0;
-
-            /* detect whether the space key is part of zhuyin input. */
-            insert_phonetic (new_text, m_cursor, ' ');
-
-            probe_section_start (new_text, m_cursor,
-                                 cursor, index, start_pos);
-
-            section_t type = probe_section_quick (new_text, start_pos);
-
-            if (PHONETIC_SECTION == type) {
-                String section;
-                get_phonetic_section (new_text, start_pos, end_pos, section);
-
-                zhuyin_parse_more_chewings (m_instance, section.c_str ());
-                size_t parsed_len = zhuyin_get_parsed_input_length (m_instance);
-
-                /* part of the zhuyin string. */
-                if (cursor < parsed_len)
-                    return insert (keyval, keycode, modifiers);
-            }
-
             prepareCandidates ();
             update ();
             return TRUE;
