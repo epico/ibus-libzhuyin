@@ -62,9 +62,6 @@ PKG_CHECK_MODULES(LIBZHUYIN, [
     libzhuyin >= 1.0.91
 ], [enable_libzhuyin=yes])
 
-# check opencc
-PKG_CHECK_MODULES(OPENCC, [opencc >= 1.0.0], [enable_opencc=yes])
-
 # check if ibus_config_get_values, which is available in ibus-1.3.99+ (git master)
 save_CFLAGS="$CFLAGS"
 save_LIBS="$LIBS"
@@ -100,6 +97,20 @@ if test x"$enable_boost" = x"yes"; then
     BOOST_FIND_HEADER([boost/signals2.hpp])
 fi
 AM_CONDITIONAL(HAVE_BOOST, test x"$enable_boost" = x"yes")
+
+# --enable-opencc
+AC_ARG_ENABLE(opencc,
+    AC_HELP_STRING([--enable-opencc],
+        [Use opencc for simplified and traditional Chinese conversion]),
+        [enable_opencc=$enableval],
+        [enable_opencc=no]
+)
+if test x"$enable_opencc" = x"yes"; then
+    # check opencc
+    PKG_CHECK_MODULES(OPENCC, [opencc >= 1.0.0], [
+        AC_DEFINE(HAVE_OPENCC, 1, [Define if found opencc])
+    ])
+fi
 
 # define GETTEXT_* variables
 GETTEXT_PACKAGE=ibus-libzhuyin
