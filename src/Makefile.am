@@ -134,6 +134,17 @@ CLEANFILES = \
         libzhuyin.xml \
         $(NULL)
 
+ZYTradSimpConverterTable.h:
+	$(AM_V_GEN) \
+	$(PYTHON) $(top_srcdir)/scripts/update-tradsimp-table.py > $@ || \
+		( $(RM) $@; exit 1 )
+
+update-tradsimp-table:
+	$(RM) ZhConversion.php ZhConversion.py ZYTradSimpConverterTable.h
+	$(MAKE) ZhConversion.php
+	$(MAKE) ZhConversion.py
+	$(MAKE) ZYTradSimpConverterTable.h
+
 libzhuyin.xml: libzhuyin.xml.in
 	$(AM_V_GEN) \
 	( \
@@ -142,3 +153,14 @@ libzhuyin.xml: libzhuyin.xml.in
 		s=`cat $<`; \
 		eval "echo \"$${s}\""; \
 	) > $@
+
+
+ZhConversion.php:
+	$(AM_V_GEN) \
+	curl https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/data/ZhConversion.php > $@ || \
+		( $(RM) $@; exit 1 )
+
+ZhConversion.py: ZhConversion.php
+	$(AM_V_GEN) \
+	php $(top_srcdir)/scripts/php_2_py.php > $@ || \
+		( $(RM) $@; exit 1 )
