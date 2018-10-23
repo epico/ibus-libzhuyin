@@ -25,12 +25,19 @@
 
 #include "ZYTradSimpConverter.h"
 
-#include <opencc.h>
+#ifdef HAVE_OPENCC
+#  include <opencc.h>
+#else
+#  include <cstring>
+#  include <cstdlib>
+#endif
 
 #include "ZYTypes.h"
 #include "ZYString.h"
 
 namespace ZY {
+
+#ifdef HAVE_OPENCC
 
 class opencc {
 public:
@@ -63,5 +70,95 @@ TradSimpConverter::tradToSimp (const gchar *in, String &out)
     static opencc cc;
     cc.convert (in, out);
 }
+
+#else
+
+static gint _xcmp (const gchar *p1, const gchar *p2, const gchar *str)
+{
+    for (;;) {
+        // both reach end
+        if (p1 == p2 && *str == '\0')
+            return 0;
+        // p1 reaches end
+        if (p1 == p2)
+            return -1;
+        // str reaches end
+        if (*str == '\0')
+            return 1;
+
+        if (*p1 < *str)
+            return -1;
+        if (*p1 > *str)
+            return 1;
+
+        p1 ++; str ++;
+    };
+}
+
+static gint _cmp (gconstpointer p1, gconstpointer p2)
+{
+    const gchar **pp = (const gchar **) p1;
+    const gchar **s2 = (const gchar **) p2;
+
+    return _xcmp (pp[0], pp[1], s2[0]);
+}
+
+#include "ZYTradSimpConverterTable.h"
+
+void
+TradSimpConverter::tradToSimp (const gchar *in, String &out)
+{
+    const gchar *pend;
+    const gchar *pp[2];
+    glong len;
+    glong begin;
+
+    if (!g_utf8_validate (in, -1 , NULL)) {
+        g_warning ("\%s\" is not an utf8 string!", in);
+        g_assert_not_reached ();
+    }
+
+    begin = 0;
+    pend = in + std::strlen (in);
+    len = g_utf8_strlen (in, -1);   // length in charactoers
+    pp[0] = in;
+
+    while (pp[0] != pend) {
+        glong slen  = std::min (len - begin, (glong) TRAD_TO_SIMP_MAX_LEN); // the length of sub string in character
+        pp[1] = g_utf8_offset_to_pointer (pp[0], slen);    // the end of sub string
+
+        for (;;) {
+            const gchar **result;
+            result = (const gchar **) std::bsearch (pp, trad_to_simp,
+                                            G_N_ELEMENTS (trad_to_simp), sizeof (trad_to_simp[0]),
+                                            _cmp);
+
+            if (result != NULL) {
+                // found item in table,
+                // append the trad to out and adjust pointers
+                out << result[1];
+                pp[0] = pp[1];
+                begin += slen;
+                break;
+            }
+
+            if (slen == 1) {
+                // if only one character left,
+                // append origin character to out and adjust pointers
+                out.append (pp[0], pp[1] - pp[0]);
+                pp[0] = pp[1];
+                begin += 1;
+                break;
+            }
+
+            // if more than on characters left,
+            // adjust pp[1] to previous character
+            pp[1] = g_utf8_prev_char (pp[1]);
+            slen--;
+        }
+    }
+}
+
+#endif
 
 };
