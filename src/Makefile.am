@@ -86,6 +86,7 @@ ibus_engine_libzhuyin_h_sources = \
 	ZYUtil.h \
 	ZYEngine.h \
 	ZYZZhuyinEngine.h \
+	ZYTradSimpConverterTable.h \
 	$(NULL)
 
 
