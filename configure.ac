@@ -59,7 +59,7 @@ PKG_CHECK_MODULES(IBUS, [
 
 # check libzhuyin
 PKG_CHECK_MODULES(LIBZHUYIN, [
-    libzhuyin >= 1.0.91
+    libzhuyin >= 2.2.0
 ], [enable_libzhuyin=yes])
 
 # check if ibus_config_get_values, which is available in ibus-1.3.99+ (git master)
