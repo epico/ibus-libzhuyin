@@ -948,8 +948,9 @@ PhoneticEditor::insertSymbol (guint keyval)
     if (is_full_width_symbol (keyval)) {
 
         if (is_special_symbol (keyval)) {
-            String choice;
-            assert (convert_special_symbol (keyval, choice));
+            String choice = keyval;
+            if (m_props.modeFullWidth ())
+                assert (convert_special_symbol (keyval, choice));
 
             String lookup;
             int ch = find_lookup_key (choice);
