@@ -46,6 +46,7 @@ public:
     gboolean isZhuyin(void) const               { return m_is_zhuyin; }
     ZhuyinScheme zhuyinScheme (void) const      { return m_zhuyin_scheme; }
     FullPinyinScheme pinyinScheme (void) const  { return m_pinyin_scheme; }
+    gboolean needTone (void) const              { return m_need_tone; }
     gboolean initChinese (void) const           { return m_init_chinese; }
     gboolean initFullWidth (void) const         { return m_init_full_width; }
     gboolean initTradChinese (void) const       { return m_init_trad_chinese; }
@@ -85,6 +86,7 @@ protected:
     gboolean m_is_zhuyin;
     ZhuyinScheme m_zhuyin_scheme;
     FullPinyinScheme m_pinyin_scheme;
+    gboolean m_need_tone;
 
     gboolean m_init_chinese;
     gboolean m_init_full_width;

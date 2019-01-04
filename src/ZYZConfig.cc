@@ -39,6 +39,7 @@ const gchar * const CONFIG_SPACE_SHOW_CANDIDATES     = "space-show-candidates";
 const gchar * const CONFIG_CANDIDATES_AFTER_CURSOR   = "candidates-after-cursor";
 
 const gchar * const CONFIG_KEYBOARD_LAYOUT           = "keyboard-layout";
+const gchar * const CONFIG_NEED_TONE                 = "need-tone";
 const gchar * const CONFIG_CANDIDATE_KEYS            = "candidate-keys";
 
 const gchar * const CONFIG_EASY_SYMBOL               = "easy-symbol";
@@ -49,7 +50,6 @@ const gchar * const CONFIG_CLEAR_USER_DATA           = "clear-user-data";
 
 const zhuyin_option_t ZHUYIN_DEFAULT_OPTION =
     USE_TONE           |
-    FORCE_TONE         |
     ZHUYIN_CORRECT_ALL |
     0;
 
@@ -86,7 +86,7 @@ void
 ZhuyinConfig::initDefaultValues (void)
 {
     m_option = ZHUYIN_DEFAULT_OPTION;
-    m_option_mask = USE_TONE | FORCE_TONE | ZHUYIN_CORRECT_ALL;
+    m_option_mask = USE_TONE | ZHUYIN_CORRECT_ALL;
 
     m_orientation = IBUS_ORIENTATION_VERTICAL;
     m_page_size = 10;
@@ -94,6 +94,7 @@ ZhuyinConfig::initDefaultValues (void)
     m_is_zhuyin = TRUE;
     m_zhuyin_scheme = ZHUYIN_DEFAULT;
     m_pinyin_scheme = FULL_PINYIN_DEFAULT;
+    m_need_tone = TRUE;
 
     m_init_chinese = TRUE;
     m_init_full_width = FALSE;
@@ -213,6 +214,8 @@ ZhuyinConfig::readDefaultValues (void)
         }
     }
 
+    m_need_tone = read (CONFIG_NEED_TONE, true);
+
     m_candidate_keys = read (CONFIG_CANDIDATE_KEYS, "1234567890");
 
     m_easy_symbol = read (CONFIG_EASY_SYMBOL, true);
@@ -281,6 +284,8 @@ ZhuyinConfig::valueChanged (const std::string &schema_id,
                 m_zhuyin_scheme = zhuyin_schemes[i].scheme;
             }
         }
+    } else if (CONFIG_NEED_TONE == name) {
+        m_need_tone = normalizeGVariant (value, true);
     } else if (CONFIG_CANDIDATE_KEYS == name) {
         m_candidate_keys = normalizeGVariant (value, std::string ("1234567890"));
     } /* lookup table page size */

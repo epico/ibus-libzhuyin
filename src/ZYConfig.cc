@@ -45,6 +45,7 @@ Config::initDefaultValues (void)
     m_is_zhuyin = TRUE;
     m_zhuyin_scheme = ZHUYIN_DEFAULT;
     m_pinyin_scheme = FULL_PINYIN_DEFAULT;
+    m_need_tone = TRUE;
 
     m_init_chinese = TRUE;
     m_init_full_width = FALSE;

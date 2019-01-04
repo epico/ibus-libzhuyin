@@ -77,6 +77,10 @@
       <default>0</default>
       <summary>Keyboard Layout</summary>
     </key>
+    <key name="need-tone" type="b">
+      <default>true</default>
+      <summary>Need tone information</summary>
+    </key>
     <key name="space-show-candidates" type="b">
       <default>false</default>
       <summary>Use Space Key to Show Candidates</summary>

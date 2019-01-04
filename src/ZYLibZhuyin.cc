@@ -86,6 +86,10 @@ LibZhuyinBackEnd::setZhuyinOptions (Config *config)
                                        config->pinyinScheme ());
 
     zhuyin_option_t options = config->option ();
+
+    if (config->needTone ())
+        options |= FORCE_TONE;
+
     zhuyin_set_options (m_zhuyin_context, options);
     return TRUE;
 }
