@@ -13,43 +13,71 @@
     <columns>
       <!-- column-name mapping -->
       <column type="gchararray"/>
+      <!-- column-name active -->
+      <column type="gboolean"/>
+      <!-- column-name sensitive -->
+      <column type="gboolean"/>
     </columns>
     <data>
       <row>
         <col id="0" translatable="yes">Standard</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">HSU</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">IBM</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">GinYieh</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">Eten</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">Eten26</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">Standard Dvorak</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">HSU Dvorak</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">DaChen CP26</col>
+        <col id="1">True</col>
+        <col id="2">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">Hanyu Pinyin</col>
+        <col id="1">False</col>
+        <col id="2">True</col>
       </row>
       <row>
         <col id="0" translatable="yes">Luoma Pinyin</col>
+        <col id="1">False</col>
+        <col id="2">True</col>
       </row>
       <row>
         <col id="0" translatable="yes">Secondary Bopomofo</col>
+        <col id="1">False</col>
+        <col id="2">True</col>
       </row>
     </data>
   </object>
