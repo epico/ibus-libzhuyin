@@ -1,3 +1,7 @@
+version 1.9.0
+* fixes special symbol
+* add "need-tone" option
+
 version 1.8.93
 * fixes Space handling
 
