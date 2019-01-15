@@ -144,7 +144,13 @@ class PreferencesWindow:
         self.__candidate_num = self.__builder.get_object("candidate_num")
 
         # read value
+        self.__keyboard_layout.set_active(self.__get_value("keyboard-layout"))
         self.__need_tone.set_active(self.__get_value("need-tone"))
+        tree_iter = self.__keyboard_layout.get_active_iter()
+        if tree_iter is not None:
+            model = self.__keyboard_layout.get_model()
+            self.__need_tone.set_sensitive(model[tree_iter][2])
+
         self.__candidate_keys_entry.set_text(self.__get_value("candidate-keys"))
         self.__candidate_num.set_value(self.__get_value("candidate-num"))
 
@@ -153,9 +159,6 @@ class PreferencesWindow:
         self.__need_tone.connect("toggled", self.__toggled_cb, "need-tone")
         self.__candidate_keys_entry.connect("changed", self.__candidate_keys_entry_cb, "candidate-keys")
         self.__candidate_num.connect("value-changed", self.__candidate_num_cb, "candidate-num")
-
-        # update need_tone state
-        self.__keyboard_layout.set_active(self.__get_value("keyboard-layout"))
 
 
     def __keyboard_layout_cb(self, widget, name):
