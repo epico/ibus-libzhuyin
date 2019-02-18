@@ -942,14 +942,15 @@ PhoneticEditor::getZhuyinCursor (void)
 }
 
 gboolean
-PhoneticEditor::insertSymbol (guint keyval)
+PhoneticEditor::insertSymbol (guint keyval, guint keycode, guint modifiers)
 {
     /* for symbols. */
     if (is_full_width_symbol (keyval)) {
 
         if (is_special_symbol (keyval)) {
             String choice = keyval;
-            if (m_props.modeFullWidth ())
+            if (m_props.modeFullWidth () ||
+                (modifiers & IBUS_SHIFT_MASK))
                 assert (convert_special_symbol (keyval, choice));
 
             String lookup;
@@ -962,7 +963,8 @@ PhoneticEditor::insertSymbol (guint keyval)
             return TRUE;
         }
 
-        if (m_props.modeFullWidth ()) {
+        if (m_props.modeFullWidth () ||
+            (modifiers & IBUS_SHIFT_MASK)) {
             String choice;
             assert (convert_full_width_symbol (keyval, choice));
 

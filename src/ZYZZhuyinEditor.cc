@@ -195,9 +195,9 @@ gboolean
 ZhuyinEditor::insert (guint keyval, guint keycode, guint modifiers)
 {
     /* let client applications to handle shortcut key event */
-    modifiers = cmshm_filter (modifiers);
+    modifiers = scmshm_filter (modifiers);
 
-    if (modifiers != 0 && m_text.empty ())
+    if (cmshm_filter(modifiers) != 0 && m_text.empty ())
         return FALSE;
 
     gchar ** symbols = NULL;
@@ -211,7 +211,7 @@ ZhuyinEditor::insert (guint keyval, guint keycode, guint modifiers)
         return TRUE;
     }
 
-    if (insertSymbol (keyval)) {
+    if (insertSymbol (keyval, keycode, modifiers)) {
         updateZhuyin ();
         update ();
         return TRUE;
@@ -264,7 +264,7 @@ ZhuyinEditor::processSpace (guint keyval, guint keycode, guint modifiers)
             if (cursor < parsed_len) {
                 return insert (keyval, keycode, modifiers);
             } else if (!m_config.spaceShowCandidates ()) {
-                insertSymbol (keyval);
+                insertSymbol (keyval, keycode, modifiers);
 
                 updateZhuyin ();
                 update ();

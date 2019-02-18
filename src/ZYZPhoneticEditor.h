@@ -74,7 +74,7 @@ public:
     virtual void updateLookupTableLabel ();
     virtual gboolean fillLookupTableByPage ();
 
-    virtual gboolean insertSymbol (guint keyval);
+    virtual gboolean insertSymbol (guint keyval, guint keycode, guint modifiers);
     virtual gboolean insertNumbers (guint keyval);
 
 protected:
