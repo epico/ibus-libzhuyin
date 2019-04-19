@@ -954,7 +954,10 @@ PhoneticEditor::insertSymbol (guint keyval, guint keycode, guint modifiers)
         if (is_special_symbol (keyval)) {
             String choice = keyval;
             if (m_props.modeFullWidth () ||
-                (modifiers & IBUS_SHIFT_MASK))
+                (modifiers & IBUS_SHIFT_MASK) ||
+                (keyval == IBUS_bracketleft ||
+                 keyval == IBUS_bracketright ||
+                 keyval == IBUS_apostrophe))
                 assert (convert_special_symbol (keyval, choice));
 
             String lookup;
