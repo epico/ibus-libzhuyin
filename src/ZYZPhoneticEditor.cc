@@ -365,11 +365,15 @@ PhoneticEditor::processCandidateKey (guint keyval, guint keycode,
 
         case IBUS_Page_Up:
         case IBUS_KP_Page_Up:
+        case IBUS_Left:
+        case IBUS_KP_Left:
             pageUp ();
             return TRUE;
 
         case IBUS_Page_Down:
         case IBUS_KP_Page_Down:
+        case IBUS_Right:
+        case IBUS_KP_Right:
             pageDown ();
             return TRUE;
 
