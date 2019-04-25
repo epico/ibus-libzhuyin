@@ -98,6 +98,9 @@ Editor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
         }
         return TRUE;
     case IBUS_Escape:
+        if (m_text.empty ())
+            return FALSE;
+
         reset ();
         return TRUE;
     default:

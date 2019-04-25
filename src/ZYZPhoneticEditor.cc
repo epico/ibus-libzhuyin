@@ -108,6 +108,9 @@ PhoneticEditor::processEscape (guint keyval, guint keycode,
     if (IBUS_Escape != keyval)
         return FALSE;
 
+    if (m_text.empty ())
+        return FALSE;
+
     if (cmshm_filter (modifiers) != 0)
         return TRUE;
 
