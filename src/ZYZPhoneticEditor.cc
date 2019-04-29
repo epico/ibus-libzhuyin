@@ -1006,7 +1006,9 @@ PhoneticEditor::insertNumbers (guint keyval)
                                         IBUS_KP_3, IBUS_KP_4,
                                         IBUS_KP_5, IBUS_KP_6,
                                         IBUS_KP_7, IBUS_KP_8,
-                                        IBUS_KP_9};
+                                        IBUS_KP_9,
+                                        IBUS_KP_Add, IBUS_KP_Subtract,
+                                        IBUS_KP_Multiply, IBUS_KP_Divide};
 
     /* for input pad numbers with num lock off. */
     static const guint num_lock_off[] = {IBUS_KP_Delete, IBUS_KP_Insert,
@@ -1014,14 +1016,18 @@ PhoneticEditor::insertNumbers (guint keyval)
                                          IBUS_KP_Next, IBUS_KP_Left,
                                          IBUS_KP_Begin, IBUS_KP_Right,
                                          IBUS_KP_Home, IBUS_KP_Up,
-                                         IBUS_KP_Prior};
+                                         IBUS_KP_Prior,
+                                         IBUS_KP_Add, IBUS_KP_Subtract,
+                                         IBUS_KP_Multiply, IBUS_KP_Divide};
 
     static const char numbers[] = {'.', '0',
                                    '1', '2',
                                    '3', '4',
                                    '5', '6',
                                    '7', '8',
-                                   '9'};
+                                   '9',
+                                   '+', '-',
+                                   '*', '/'};
 
     assert (G_N_ELEMENTS (num_lock_on) == G_N_ELEMENTS (numbers));
     assert (G_N_ELEMENTS (num_lock_off) == G_N_ELEMENTS (numbers));
