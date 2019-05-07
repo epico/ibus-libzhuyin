@@ -1,3 +1,9 @@
+version 1.9.1
+* fixes page up and page down shortcut key
+* fixes special symbols
+* fixes escape handling
+* fixes numpad
+
 version 1.9.0
 * fixes special symbol
 * add need-tone option
