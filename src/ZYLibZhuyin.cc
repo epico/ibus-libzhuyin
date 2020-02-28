@@ -197,6 +197,9 @@ LibZhuyinBackEnd::importZhuyinDictionary (const char * filename)
 gboolean
 LibZhuyinBackEnd::clearZhuyinUserData (const char * target)
 {
+    if (NULL == m_zhuyin_context)
+        return FALSE;
+
     if (0 == strcmp ("all", target))
         zhuyin_mask_out (m_zhuyin_context, 0x0, 0x0);
     else if (0 == strcmp ("user", target))
