@@ -1,0 +1,11 @@
+binary format version:5
+model data version:10
+lambda parameter:0.446223
+
+source table format:zhuyin
+database format:@DATABASE_FORMAT@
+
+default RESERVED NULL NULL NULL NOT_USED
+default TSI_DICTIONARY tsi.table tsi.bin tsi.dbin SYSTEM_FILE
+default NETWORK_DICTIONARY NULL NULL network.bin USER_FILE
+default USER_DICTIONARY NULL NULL user.bin USER_FILE
