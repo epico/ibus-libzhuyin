@@ -57,6 +57,16 @@ PKG_CHECK_MODULES(IBUS, [
     ibus-1.0 >= 1.4.0
 ])
 
+# check libpinyin database format
+PKG_CHECK_MODULES(LIBPINYIN, [
+    libpinyin >= 2.4.92
+], [enable_libpinyin=yes])
+
+LIBPINYIN_DATADIR=`$PKG_CONFIG --variable=pkgdatadir libpinyin`
+TABLE_FILE="$LIBPINYIN_DATADIR/data/table.conf"
+DATABASE_FORMAT=`grep "database format:" $TABLE_FILE|cut -d":" -f2`
+AC_SUBST(DATABASE_FORMAT)
+
 # check libzhuyin
 PKG_CHECK_MODULES(LIBZHUYIN, [
     libzhuyin >= 2.2.0
@@ -136,6 +146,7 @@ ibus-libzhuyin.spec
 data/Makefile
 data/icons/Makefile
 data/model/Makefile
+data/model/table.conf
 ])
 
 AC_OUTPUT
@@ -144,6 +155,7 @@ AC_MSG_RESULT([
 Build options:
     Version                     $VERSION
     Install prefix              $prefix
+    DBM                         $DATABASE_FORMAT
     Use boost                   $enable_boost
     Use opencc                  $enable_opencc
     Use libzhuyin               $enable_libzhuyin
