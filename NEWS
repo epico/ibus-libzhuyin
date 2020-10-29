@@ -1,3 +1,6 @@
+version 1.9.91
+* support libpinyin 2.4.92
+
 version 1.9.1
 * fixes page up and page down shortcut key
 * fixes special symbols
