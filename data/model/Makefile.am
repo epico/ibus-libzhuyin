@@ -44,8 +44,8 @@ model_dbdir		= $(libdir)/ibus-libzhuyin/data
 CLEANFILES		= $(binary_model_data)
 
 interpolation2.text:
-	wget http://downloads.sourceforge.net/libzhuyin/models/model12.text.tar.gz
-	tar xvf model12.text.tar.gz -C $(top_srcdir)/data/model
+	wget http://downloads.sourceforge.net/libzhuyin/models/model13.text.tar.gz
+	tar xvf model13.text.tar.gz -C $(top_srcdir)/data/model
 
 
 $(tablefiles) table.conf: interpolation2.text
