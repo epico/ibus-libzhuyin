@@ -57,20 +57,12 @@ PKG_CHECK_MODULES(IBUS, [
     ibus-1.0 >= 1.4.0
 ])
 
-# check libpinyin database format
-PKG_CHECK_MODULES(LIBPINYIN, [
-    libpinyin >= 2.4.92
-], [enable_libpinyin=yes])
-
-LIBPINYIN_DATADIR=`$PKG_CONFIG --variable=pkgdatadir libpinyin`
-TABLE_FILE="$LIBPINYIN_DATADIR/data/table.conf"
-DATABASE_FORMAT=`grep "database format:" $TABLE_FILE|cut -d":" -f2`
-AC_SUBST(DATABASE_FORMAT)
-
-# check libzhuyin
+# check libzhuyin and database format
 PKG_CHECK_MODULES(LIBZHUYIN, [
-    libzhuyin >= 2.2.0
+    libzhuyin >= 2.4.92
 ], [enable_libzhuyin=yes])
+DATABASE_FORMAT=`$PKG_CONFIG --variable=database_format libzhuyin`
+AC_SUBST(DATABASE_FORMAT)
 
 # check if ibus_config_get_values, which is available in ibus-1.3.99+ (git master)
 save_CFLAGS="$CFLAGS"
