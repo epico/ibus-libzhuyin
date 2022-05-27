@@ -155,7 +155,7 @@ PhoneticEditor::processSpace (guint keyval, guint keycode,
             assert (is_special_symbol (' '));
             if (m_props.modeFullWidth ()) {
                 String symbol;
-                convert_special_symbol (keyval, symbol);
+                check_result (convert_special_symbol (keyval, symbol));
                 commit (symbol);
             } else {
                 String symbol = ' ';
@@ -961,7 +961,7 @@ PhoneticEditor::insertSymbol (guint keyval, guint keycode, guint modifiers)
                 (keyval == IBUS_bracketleft ||
                  keyval == IBUS_bracketright ||
                  keyval == IBUS_apostrophe))
-                assert (convert_special_symbol (keyval, choice));
+                check_result (convert_special_symbol (keyval, choice));
 
             String lookup;
             int ch = find_lookup_key (choice);
@@ -976,7 +976,7 @@ PhoneticEditor::insertSymbol (guint keyval, guint keycode, guint modifiers)
         if (m_props.modeFullWidth () ||
             (modifiers & IBUS_SHIFT_MASK)) {
             String choice;
-            assert (convert_full_width_symbol (keyval, choice));
+            check_result (convert_full_width_symbol (keyval, choice));
 
             String lookup;
             int ch = find_lookup_key (choice);

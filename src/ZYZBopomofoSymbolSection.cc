@@ -49,7 +49,7 @@ BopomofoSymbolSection::initCandidates (zhuyin_instance_t * instance,
 
     /* cache the choices. */
     gchar ** symbols = NULL;
-    assert (zhuyin_in_chewing_keyboard (instance, key, &symbols));
+    check_result (zhuyin_in_chewing_keyboard (instance, key, &symbols));
     size_t num = g_strv_length (symbols);
     assert (num > 0);
     for (size_t i = 0; i < num; ++i) {

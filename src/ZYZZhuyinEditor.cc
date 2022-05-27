@@ -154,7 +154,7 @@ ZhuyinEditor::updatePreeditText (void)
                 char sym = section[i];
                 gchar ** symbols = NULL;
                 /* append bopomofo symbol except for DaChen26. */
-                assert (zhuyin_in_chewing_keyboard (m_instance, sym, &symbols));
+                check_result (zhuyin_in_chewing_keyboard (m_instance, sym, &symbols));
                 assert (NULL != symbols[0]);
                 m_preedit_text += symbols[0];
                 g_strfreev (symbols);

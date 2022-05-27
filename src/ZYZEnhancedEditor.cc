@@ -50,7 +50,7 @@ EnhancedEditor::processKeyEvent (guint keyval, guint keycode, guint modifiers)
 #if 0
     if (isPhonetic (keyval)) {
         /* zhuyin or pinyin key */
-        assert (insert_phonetic (m_text, m_cursor++, keyval));
+        check_result (insert_phonetic (m_text, m_cursor++, keyval));
         update ();
         return TRUE;
     } else {

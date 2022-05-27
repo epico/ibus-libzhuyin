@@ -337,8 +337,8 @@ erase_input_sequence(String & enhanced_text, size_t offset, size_t length)
         case SYMBOL_SECTION:
             {
                 String type, lookup, choice;
-                assert (get_symbol_section (enhanced_text, pos, end_pos,
-                                            type, lookup, choice));
+                get_symbol_section (enhanced_text, pos, end_pos,
+                                    type, lookup, choice);
             }
             break;
         }
