@@ -28,6 +28,7 @@
 
 #include <cstdlib>
 #include <string>
+#include <assert.h>
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
 #  include <memory>
