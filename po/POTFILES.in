@@ -2,5 +2,5 @@ src/ZYZhuyinProperties.cc
 src/ZYMain.cc
 setup/main.py
 setup/config.py
-[type: gettext/glade]setup/ibus-libzhuyin-preferences.ui
+setup/ibus-libzhuyin-preferences.ui
 data/ibus-setup-libzhuyin.desktop.in.in
