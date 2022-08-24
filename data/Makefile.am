@@ -34,20 +34,20 @@ appdatadir = @datadir@/appdata
 
 appdata_DATA = $(APPDATA_XML)
 
-desktop_in_in_files = \
-        ibus-setup-libzhuyin.desktop.in.in \
+desktop_in_files = \
+        ibus-setup-libzhuyin.desktop.in \
         $(NULL)
 
-desktop_in_files = $(desktop_in_in_files:.in.in=.in)
+desktop_files = $(desktop_in_files:.desktop.in=.desktop)
 
-$(desktop_in_files): %.desktop.in: %.desktop.in.in Makefile
-	$(AM_V_GEN) sed \
-		-e "s|\@libexecdir\@|$(libexecdir)|" \
-		-e "s|\@pkgdatadir\@|$(pkgdatadir)|" \
-		$< > $@.tmp && mv $@.tmp $@
+%.desktop: %.desktop.in
+	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@.tmp
+	sed -e 's|@libexecdir[@]|$(libexecdir)|g' \
+	-e 's|@pkgdatadir[@]|$(pkgdatadir)|g' $@.tmp > $@
+	rm $@.tmp
 
 desktopdir=$(datadir)/applications
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+desktop_DATA = $(desktop_files)
 
 symbols_DATA = \
         easysymbol.txt \
@@ -57,13 +57,13 @@ symbols_DATA = \
 symbolsdir = $(pkgdatadir)
 
 EXTRA_DIST = \
-        $(desktop_in_in_files) \
+        $(desktop_in_files) \
         $(symbols_DATA) \
         $(APPDATA_XML) \
         $(gsettings_SCHEMAS) \
         $(NULL)
 
 DISTCLEANFILES = \
-        $(desktop_in_files) \
+        $(desktop_files) \
         $(desktop_DATA) \
         $(NULL)

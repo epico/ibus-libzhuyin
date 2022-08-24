@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=IBus LibZhuyin Setup
+Comment=Set ibus-libzhuyin Preferences
+Exec=@libexecdir@/ibus-setup-libzhuyin
+Icon=@pkgdatadir@/icons/ibus-zhuyin.svg
+NoDisplay=true
+Type=Application
+StartupNotify=true
