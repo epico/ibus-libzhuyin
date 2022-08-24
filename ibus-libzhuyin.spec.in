@@ -8,7 +8,6 @@ URL:        https://github.com/libzhuyin/ibus-libzhuyin
 Source0:    http://downloads.sourceforge.net/libzhuyin/ibus-libzhuyin/%{name}-%{version}.tar.gz
 
 BuildRequires:  gettext-devel
-BuildRequires:  intltool
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  sqlite-devel

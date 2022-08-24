@@ -49,8 +49,6 @@ $(desktop_in_files): %.desktop.in: %.desktop.in.in Makefile
 desktopdir=$(datadir)/applications
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-@INTLTOOL_DESKTOP_RULE@
-
 symbols_DATA = \
         easysymbol.txt \
         usersymbol.txt \
