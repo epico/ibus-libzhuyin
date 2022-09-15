@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ibus-libzhuyin 1.10.1\n"
 "Report-Msgid-Bugs-To: https://github.com/libzhuyin/ibus-libzhuyin/issues/"
 "new\n"
-"POT-Creation-Date: 2022-08-24 16:39+0800\n"
+"POT-Creation-Date: 2022-09-15 15:55+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,11 +90,11 @@ msgstr ""
 msgid "New Zhuyin input method (debug)"
 msgstr ""
 
-#: setup/main.py:276
+#: setup/main.py:281
 msgid "Please choose a file"
 msgstr ""
 
-#: setup/main.py:302
+#: setup/main.py:307
 #, python-format
 msgid "<big><b>New Zhuyin %s</b></big>"
 msgstr ""
