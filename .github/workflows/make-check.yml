@@ -11,10 +11,13 @@ jobs:
 
     runs-on: ubuntu-22.04
 
+    container:
+      image: fedora:rawhide
+
     steps:
     - uses: actions/checkout@v2
     - name: install build dependency
-      run: sudo apt-get install -y gnome-common libglib2.0-dev libibus-1.0-dev libopencc-dev libpinyin-utils libzhuyin-dev python3
+      run: sudo dnf install -y gcc-c++ gettext-devel libtool pkgconfig sqlite-devel ibus-devel libpinyin-devel python3-devel libpinyin-tools make gnome-common which wget
     - name: autoconf
       run: ./autogen.sh
     - name: configure
