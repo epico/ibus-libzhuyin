@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ibus-libzhuyin 1.10.1\n"
+"Project-Id-Version: ibus-libzhuyin 1.10.2\n"
 "Report-Msgid-Bugs-To: https://github.com/libzhuyin/ibus-libzhuyin/issues/"
 "new\n"
-"POT-Creation-Date: 2022-09-15 15:55+0800\n"
+"POT-Creation-Date: 2023-01-16 14:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -290,7 +290,6 @@ msgid "Help"
 msgstr ""
 
 #: setup/ibus-libzhuyin-preferences.ui:883
-#, python-format
 msgid "<big><b>IBus Zhuyin %s</b></big>"
 msgstr ""
 

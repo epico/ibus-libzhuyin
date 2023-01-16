@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: https://github.com/libzhuyin/ibus-libzhuyin/issues/"
 "new\n"
-"POT-Creation-Date: 2022-09-15 15:55+0800\n"
+"POT-Creation-Date: 2023-01-16 14:39+0800\n"
 "PO-Revision-Date: 2022-10-09 01:24+0000\n"
 "Last-Translator: Peng Wu <pwu@redhat.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
@@ -296,7 +296,6 @@ msgid "Help"
 msgstr "帮助"
 
 #: setup/ibus-libzhuyin-preferences.ui:883
-#, python-format
 msgid "<big><b>IBus Zhuyin %s</b></big>"
 msgstr "<big><b>IBus 注音 %s</b></big>"
 
