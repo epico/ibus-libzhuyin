@@ -30,7 +30,7 @@ SUBDIRS = \
         model \
         $(NULL)
 
-appdatadir = @datadir@/appdata
+appdatadir = @datadir@/metainfo
 
 appdata_DATA = $(APPDATA_XML)
 
