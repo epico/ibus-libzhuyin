@@ -124,7 +124,7 @@ ZhuyinEngine::processKeyEvent (guint keyval, guint keycode, guint modifiers)
              * we will let client applications to handle release key event */
             return FALSE;
         } else {
-            return TRUE;
+            return FALSE;
         }
     }
 
