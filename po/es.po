@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: ibus-libzhuyin 1.10.2\n"
 "Report-Msgid-Bugs-To: https://github.com/libzhuyin/ibus-libzhuyin/issues/"
 "new\n"
-"POT-Creation-Date: 2023-01-16 14:39+0800\n"
+"POT-Creation-Date: 2025-11-06 12:25+0800\n"
 "PO-Revision-Date: 2025-08-19 04:50+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
-"Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
-"ibus-libzhuyin/main/es/>\n"
+"Language-Team: Spanish <https://translate.fedoraproject.org/projects/ibus-"
+"libzhuyin/main/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -334,10 +334,10 @@ msgstr ""
 msgid "About"
 msgstr "Acerca de"
 
-#: data/ibus-setup-libzhuyin.desktop.in:3
+#: data/ibus-setup-libzhuyin.desktop.in:2
 msgid "IBus LibZhuyin Setup"
 msgstr "Configuración de IBus LibZhuyin"
 
-#: data/ibus-setup-libzhuyin.desktop.in:4
+#: data/ibus-setup-libzhuyin.desktop.in:3
 msgid "Set ibus-libzhuyin Preferences"
 msgstr "Establecer Preferencias ibus-libzhuyin"

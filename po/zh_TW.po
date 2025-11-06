@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ibus-libpinyin 1.2.99\n"
 "Report-Msgid-Bugs-To: https://github.com/libzhuyin/ibus-libzhuyin/issues/"
 "new\n"
-"POT-Creation-Date: 2023-01-16 14:39+0800\n"
+"POT-Creation-Date: 2025-11-06 12:25+0800\n"
 "PO-Revision-Date: 2018-01-04 15:28+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Peng Huang <shawn.p.huang@gmail.com>\n"
@@ -331,11 +331,11 @@ msgstr ""
 msgid "About"
 msgstr "關於"
 
-#: data/ibus-setup-libzhuyin.desktop.in:3
+#: data/ibus-setup-libzhuyin.desktop.in:2
 msgid "IBus LibZhuyin Setup"
 msgstr ""
 
-#: data/ibus-setup-libzhuyin.desktop.in:4
+#: data/ibus-setup-libzhuyin.desktop.in:3
 msgid "Set ibus-libzhuyin Preferences"
 msgstr ""
 
